@@ -1,0 +1,220 @@
+{
+  "Fudge.ResourceFolder": {
+    "name": "Resources",
+    "entries": [
+      {
+        "idResource": "GraphGLTF|2026-04-22T15:32:58.002Z|37168"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|90907"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|60595"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|31348"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|58756"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|94394"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|06282"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|64373"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|57805"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|06107"
+      },
+      {
+        "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|86872"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.002Z|35969"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.003Z|16246"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.003Z|70699"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.004Z|94600"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.004Z|36909"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|31310"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|29568"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|74399"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|72850"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|54262"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|98300"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|16427"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|64661"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.007Z|05491"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.008Z|79820"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.008Z|78075"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.009Z|22457"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.010Z|62915"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.011Z|78112"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.011Z|03882"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.016Z|96674"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.029Z|36978"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.030Z|00266"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.030Z|29057"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.031Z|88115"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.031Z|46376"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.032Z|74660"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.032Z|02239"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|41570"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|67898"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|09973"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.034Z|76284"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.034Z|36021"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|35860"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|99517"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|04407"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.036Z|90721"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.036Z|10658"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|70906"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|43759"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|18379"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.042Z|78910"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.042Z|68105"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.043Z|79699"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.043Z|15622"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.049Z|61527"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.051Z|99941"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.051Z|62371"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.054Z|98462"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.060Z|07152"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.061Z|58963"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.062Z|81742"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.062Z|86368"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.063Z|59284"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.063Z|18615"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|58480"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|54010"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|12349"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.065Z|96495"
+      },
+      {
+        "idResource": "MeshGLTF|2026-04-22T15:32:58.066Z|34729"
+      }
+    ]
+  }
+}
