@@ -17,7 +17,7 @@
               "maximised": false,
               "isClosable": true,
               "reorderEnabled": true,
-              "title": "Project | SkelettTest",
+              "title": "Project | Skelett",
               "componentType": "PanelProject",
               "componentState": {
                 "layout": {
@@ -69,7 +69,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Preview | Skelett.glb",
+                                "title": "Preview | Skelet.glb",
                                 "componentType": "ViewPreview",
                                 "componentState": {}
                               }
@@ -356,7 +356,9 @@
                                 "componentType": "ViewHierarchy",
                                 "componentState": {
                                   "expanded": [
-                                    ""
+                                    "",
+                                    "children/10",
+                                    "children/22"
                                   ]
                                 }
                               }
@@ -384,7 +386,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Scene",
+                                "title": "Components | Humerus.l_Primitive1",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -447,7 +449,8 @@
                   },
                   "resolved": true
                 },
-                "graph": "GraphGLTF|2026-04-22T15:32:58.002Z|37168"
+                "graph": "GraphGLTF|2026-04-29T17:59:05.749Z|84791",
+                "node": "children/10/children/1"
               }
             }
           ],

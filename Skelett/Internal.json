@@ -1,631 +1,631 @@
 {
-  "GraphGLTF|2026-04-22T15:32:58.002Z|37168": {
+  "GraphGLTF|2026-04-29T17:59:05.749Z|84791": {
     "ƒ.GraphGLTF": {
       "name": "Scene",
       "active": true,
       "components": {},
-      "idResource": "GraphGLTF|2026-04-22T15:32:58.002Z|37168",
+      "idResource": "GraphGLTF|2026-04-29T17:59:05.749Z|84791",
       "type": "GraphGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|90907": {
+  "MaterialGLTF|2026-04-29T17:59:05.749Z|55768": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|90907",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.749Z|55768",
       "name": "Bone-5",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|60595": {
+  "MaterialGLTF|2026-04-29T17:59:05.749Z|89472": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|60595",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.749Z|89472",
       "name": "Cartilage",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|31348": {
+  "MaterialGLTF|2026-04-29T17:59:05.749Z|41390": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|31348",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.749Z|41390",
       "name": "Bone-8",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|58756": {
+  "MaterialGLTF|2026-04-29T17:59:05.749Z|98711": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|58756",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.749Z|98711",
       "name": "Bone",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|94394": {
+  "MaterialGLTF|2026-04-29T17:59:05.749Z|48467": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|94394",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.749Z|48467",
       "name": "Bone-4",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|06282": {
+  "MaterialGLTF|2026-04-29T17:59:05.750Z|13592": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|06282",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.750Z|13592",
       "name": "Bone-2",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|64373": {
+  "MaterialGLTF|2026-04-29T17:59:05.750Z|06148": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|64373",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.750Z|06148",
       "name": "Bone-7",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|57805": {
+  "MaterialGLTF|2026-04-29T17:59:05.750Z|91769": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|57805",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.750Z|91769",
       "name": "Bone-6",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|06107": {
+  "MaterialGLTF|2026-04-29T17:59:05.750Z|68574": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|06107",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.750Z|68574",
       "name": "Bone-3",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MaterialGLTF|2026-04-22T15:32:58.002Z|86872": {
+  "MaterialGLTF|2026-04-29T17:59:05.750Z|26326": {
     "ƒ.MaterialGLTF": {
-      "idResource": "MaterialGLTF|2026-04-22T15:32:58.002Z|86872",
+      "idResource": "MaterialGLTF|2026-04-29T17:59:05.750Z|26326",
       "name": "Bone-1",
       "type": "MaterialGLTF",
-      "url": "Skelett.glb"
+      "url": "Skelet.glb"
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.002Z|35969": {
+  "MeshGLTF|2026-04-29T17:59:05.750Z|92391": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.002Z|35969",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.750Z|92391",
       "name": "Capitate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.003Z|16246": {
+  "MeshGLTF|2026-04-29T17:59:05.750Z|08101": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.003Z|16246",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.750Z|08101",
       "name": "Capitate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.003Z|70699": {
+  "MeshGLTF|2026-04-29T17:59:05.751Z|45425": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.003Z|70699",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.751Z|45425",
       "name": "Distal phalanx of fifth finger of hand.r",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.004Z|94600": {
+  "MeshGLTF|2026-04-29T17:59:05.751Z|20723": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.004Z|94600",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.751Z|20723",
       "name": "Distal phalanx of fifth finger of hand.r",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.004Z|36909": {
+  "MeshGLTF|2026-04-29T17:59:05.751Z|56455": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.004Z|36909",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.751Z|56455",
       "name": "Distal phalanx of first finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.005Z|31310": {
+  "MeshGLTF|2026-04-29T17:59:05.752Z|42800": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|31310",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.752Z|42800",
       "name": "Distal phalanx of first finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.005Z|29568": {
+  "MeshGLTF|2026-04-29T17:59:05.752Z|22407": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|29568",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.752Z|22407",
       "name": "Distal phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.005Z|74399": {
+  "MeshGLTF|2026-04-29T17:59:05.752Z|46460": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|74399",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.752Z|46460",
       "name": "Distal phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.005Z|72850": {
+  "MeshGLTF|2026-04-29T17:59:05.752Z|25017": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.005Z|72850",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.752Z|25017",
       "name": "Distal phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.006Z|54262": {
+  "MeshGLTF|2026-04-29T17:59:05.753Z|24555": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|54262",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.753Z|24555",
       "name": "Distal phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.006Z|98300": {
+  "MeshGLTF|2026-04-29T17:59:05.753Z|39479": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|98300",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.753Z|39479",
       "name": "Distal phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.006Z|16427": {
+  "MeshGLTF|2026-04-29T17:59:05.753Z|42668": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|16427",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.753Z|42668",
       "name": "Distal phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.006Z|64661": {
+  "MeshGLTF|2026-04-29T17:59:05.754Z|37291": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.006Z|64661",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.754Z|37291",
       "name": "Fifth metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.007Z|05491": {
+  "MeshGLTF|2026-04-29T17:59:05.754Z|30129": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.007Z|05491",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.754Z|30129",
       "name": "Fifth metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.008Z|79820": {
+  "MeshGLTF|2026-04-29T17:59:05.755Z|97884": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.008Z|79820",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.755Z|97884",
       "name": "First metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.008Z|78075": {
+  "MeshGLTF|2026-04-29T17:59:05.756Z|15572": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.008Z|78075",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.756Z|15572",
       "name": "First metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.009Z|22457": {
+  "MeshGLTF|2026-04-29T17:59:05.761Z|14232": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.009Z|22457",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.761Z|14232",
       "name": "Fourth metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.010Z|62915": {
+  "MeshGLTF|2026-04-29T17:59:05.762Z|55593": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.010Z|62915",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.762Z|55593",
       "name": "Fourth metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.011Z|78112": {
+  "MeshGLTF|2026-04-29T17:59:05.763Z|96376": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.011Z|78112",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.763Z|96376",
       "name": "Hamate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.011Z|03882": {
+  "MeshGLTF|2026-04-29T17:59:05.763Z|08975": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.011Z|03882",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.763Z|08975",
       "name": "Hamate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.016Z|96674": {
+  "MeshGLTF|2026-04-29T17:59:05.769Z|89177": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.016Z|96674",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.769Z|89177",
       "name": "Humerus",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.029Z|36978": {
+  "MeshGLTF|2026-04-29T17:59:05.776Z|60576": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.029Z|36978",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.776Z|60576",
       "name": "Humerus",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.030Z|00266": {
+  "MeshGLTF|2026-04-29T17:59:05.778Z|90464": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.030Z|00266",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.778Z|90464",
       "name": "Lunate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.030Z|29057": {
+  "MeshGLTF|2026-04-29T17:59:05.778Z|33865": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.030Z|29057",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.778Z|33865",
       "name": "Lunate bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.031Z|88115": {
+  "MeshGLTF|2026-04-29T17:59:05.778Z|38338": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.031Z|88115",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.778Z|38338",
       "name": "Middle phalanx of fifth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.031Z|46376": {
+  "MeshGLTF|2026-04-29T17:59:05.779Z|93297": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.031Z|46376",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.779Z|93297",
       "name": "Middle phalanx of fifth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.032Z|74660": {
+  "MeshGLTF|2026-04-29T17:59:05.779Z|84159": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.032Z|74660",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.779Z|84159",
       "name": "Middle phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.032Z|02239": {
+  "MeshGLTF|2026-04-29T17:59:05.780Z|90672": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.032Z|02239",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.780Z|90672",
       "name": "Middle phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.033Z|41570": {
+  "MeshGLTF|2026-04-29T17:59:05.780Z|30605": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|41570",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.780Z|30605",
       "name": "Middle phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.033Z|67898": {
+  "MeshGLTF|2026-04-29T17:59:05.780Z|72711": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|67898",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.780Z|72711",
       "name": "Middle phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.033Z|09973": {
+  "MeshGLTF|2026-04-29T17:59:05.781Z|09612": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.033Z|09973",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.781Z|09612",
       "name": "Middle phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.034Z|76284": {
+  "MeshGLTF|2026-04-29T17:59:05.785Z|95225": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.034Z|76284",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.785Z|95225",
       "name": "Middle phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.034Z|36021": {
+  "MeshGLTF|2026-04-29T17:59:05.785Z|48846": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.034Z|36021",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.785Z|48846",
       "name": "Pisiform bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.035Z|35860": {
+  "MeshGLTF|2026-04-29T17:59:05.786Z|85775": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|35860",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.786Z|85775",
       "name": "Pisiform bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.035Z|99517": {
+  "MeshGLTF|2026-04-29T17:59:05.786Z|77627": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|99517",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.786Z|77627",
       "name": "Proximal phalanx of fifth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.035Z|04407": {
+  "MeshGLTF|2026-04-29T17:59:05.787Z|67698": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.035Z|04407",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.787Z|67698",
       "name": "Proximal phalanx of fifth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.036Z|90721": {
+  "MeshGLTF|2026-04-29T17:59:05.787Z|39882": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.036Z|90721",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.787Z|39882",
       "name": "Proximal phalanx of first finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.036Z|10658": {
+  "MeshGLTF|2026-04-29T17:59:05.787Z|00952": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.036Z|10658",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.787Z|00952",
       "name": "Proximal phalanx of first finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.041Z|70906": {
+  "MeshGLTF|2026-04-29T17:59:05.788Z|54086": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|70906",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.788Z|54086",
       "name": "Proximal phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.041Z|43759": {
+  "MeshGLTF|2026-04-29T17:59:05.788Z|27009": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|43759",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.788Z|27009",
       "name": "Proximal phalanx of fourth finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.041Z|18379": {
+  "MeshGLTF|2026-04-29T17:59:05.788Z|28908": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.041Z|18379",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.788Z|28908",
       "name": "Proximal phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.042Z|78910": {
+  "MeshGLTF|2026-04-29T17:59:05.794Z|14495": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.042Z|78910",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.794Z|14495",
       "name": "Proximal phalanx of second finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.042Z|68105": {
+  "MeshGLTF|2026-04-29T17:59:05.796Z|00896": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.042Z|68105",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.796Z|00896",
       "name": "Proximal phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.043Z|79699": {
+  "MeshGLTF|2026-04-29T17:59:05.799Z|24710": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.043Z|79699",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.799Z|24710",
       "name": "Proximal phalanx of third finger of hand",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.043Z|15622": {
+  "MeshGLTF|2026-04-29T17:59:05.799Z|01374": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.043Z|15622",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.799Z|01374",
       "name": "Radius",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.049Z|61527": {
+  "MeshGLTF|2026-04-29T17:59:05.805Z|75066": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.049Z|61527",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.805Z|75066",
       "name": "Radius",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.051Z|99941": {
+  "MeshGLTF|2026-04-29T17:59:05.805Z|93052": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.051Z|99941",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.805Z|93052",
       "name": "Scaphoid bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.051Z|62371": {
+  "MeshGLTF|2026-04-29T17:59:05.806Z|62689": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.051Z|62371",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.806Z|62689",
       "name": "Scaphoid bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.054Z|98462": {
+  "MeshGLTF|2026-04-29T17:59:05.806Z|17399": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.054Z|98462",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.806Z|17399",
       "name": "Second metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.060Z|07152": {
+  "MeshGLTF|2026-04-29T17:59:05.807Z|55430": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.060Z|07152",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.807Z|55430",
       "name": "Second metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.061Z|58963": {
+  "MeshGLTF|2026-04-29T17:59:05.808Z|66773": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.061Z|58963",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.808Z|66773",
       "name": "Third metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.062Z|81742": {
+  "MeshGLTF|2026-04-29T17:59:05.809Z|84949": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.062Z|81742",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.809Z|84949",
       "name": "Third metacarpal bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.062Z|86368": {
+  "MeshGLTF|2026-04-29T17:59:05.809Z|70409": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.062Z|86368",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.809Z|70409",
       "name": "Trapezium bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.063Z|59284": {
+  "MeshGLTF|2026-04-29T17:59:05.810Z|12951": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.063Z|59284",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.810Z|12951",
       "name": "Trapezium bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.063Z|18615": {
+  "MeshGLTF|2026-04-29T17:59:05.810Z|21537": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.063Z|18615",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.810Z|21537",
       "name": "Trapezoid bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.064Z|58480": {
+  "MeshGLTF|2026-04-29T17:59:05.810Z|76492": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|58480",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.810Z|76492",
       "name": "Trapezoid bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.064Z|54010": {
+  "MeshGLTF|2026-04-29T17:59:05.811Z|97082": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|54010",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.811Z|97082",
       "name": "Triquetrum bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.064Z|12349": {
+  "MeshGLTF|2026-04-29T17:59:05.811Z|64051": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.064Z|12349",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.811Z|64051",
       "name": "Triquetrum bone",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.065Z|96495": {
+  "MeshGLTF|2026-04-29T17:59:05.811Z|11164": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.065Z|96495",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.811Z|11164",
       "name": "Ulna",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 0
     }
   },
-  "MeshGLTF|2026-04-22T15:32:58.066Z|34729": {
+  "MeshGLTF|2026-04-29T17:59:05.813Z|85646": {
     "ƒ.MeshGLTF": {
-      "idResource": "MeshGLTF|2026-04-22T15:32:58.066Z|34729",
+      "idResource": "MeshGLTF|2026-04-29T17:59:05.813Z|85646",
       "name": "Ulna",
       "type": "MeshGLTF",
-      "url": "Skelett.glb",
+      "url": "Skelet.glb",
       "iPrimitive": 1
     }
   }
