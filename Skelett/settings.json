@@ -41,7 +41,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Properties | Skelett.glb",
+                                "title": "Properties | Cartilage",
                                 "componentType": "ViewProperties",
                                 "componentState": {}
                               }
@@ -69,7 +69,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Preview | Skelet.glb",
+                                "title": "Preview | Cartilage",
                                 "componentType": "ViewPreview",
                                 "componentState": {}
                               }
@@ -85,9 +85,9 @@
                           }
                         ],
                         "width": 50,
-                        "minWidth": 0,
+                        "minWidth": 50,
                         "height": 50,
-                        "minHeight": 0,
+                        "minHeight": 50,
                         "id": "",
                         "isClosable": true
                       },
@@ -159,9 +159,9 @@
                               }
                             ],
                             "width": 50,
-                            "minWidth": 0,
+                            "minWidth": 50,
                             "height": 50,
-                            "minHeight": 0,
+                            "minHeight": 50,
                             "id": "",
                             "isClosable": true
                           },
@@ -210,21 +210,21 @@
                             "id": "",
                             "isClosable": true,
                             "maximised": false,
-                            "activeItemIndex": 0
+                            "activeItemIndex": 1
                           }
                         ],
                         "width": 50,
-                        "minWidth": 0,
+                        "minWidth": 50,
                         "height": 50,
-                        "minHeight": 0,
+                        "minHeight": 50,
                         "id": "",
                         "isClosable": true
                       }
                     ],
                     "width": 50,
-                    "minWidth": 0,
+                    "minWidth": 50,
                     "height": 50,
-                    "minHeight": 0,
+                    "minHeight": 50,
                     "id": "",
                     "isClosable": true
                   },
@@ -357,6 +357,7 @@
                                 "componentState": {
                                   "expanded": [
                                     "",
+                                    "children/0",
                                     "children/10",
                                     "children/22"
                                   ]
@@ -386,7 +387,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Humerus.l_Primitive1",
+                                "title": "Components | Capitate bone.l_Primitive1",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -402,17 +403,17 @@
                           }
                         ],
                         "width": 50,
-                        "minWidth": 0,
+                        "minWidth": 50,
                         "height": 50,
-                        "minHeight": 0,
+                        "minHeight": 50,
                         "id": "",
                         "isClosable": true
                       }
                     ],
                     "width": 50,
-                    "minWidth": 0,
+                    "minWidth": 50,
                     "height": 50,
-                    "minHeight": 0,
+                    "minHeight": 50,
                     "id": "",
                     "isClosable": true
                   },
@@ -449,8 +450,8 @@
                   },
                   "resolved": true
                 },
-                "graph": "GraphGLTF|2026-04-29T17:59:05.749Z|84791",
-                "node": "children/10/children/1"
+                "graph": "GraphGLTF|2026-04-30T14:28:58.655Z|58287",
+                "node": "children/0/children/1"
               }
             }
           ],
