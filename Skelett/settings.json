@@ -41,7 +41,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Properties | Cartilage",
+                                "title": "Properties | MaterialShaderGouraud",
                                 "componentType": "ViewProperties",
                                 "componentState": {}
                               }
@@ -69,7 +69,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Preview | Cartilage",
+                                "title": "Preview | ShaderGouraud",
                                 "componentType": "ViewPreview",
                                 "componentState": {}
                               }
@@ -264,7 +264,7 @@
               }
             }
           ],
-          "width": 50,
+          "width": 50.545702592087316,
           "minWidth": 0,
           "height": 50,
           "minHeight": 0,
@@ -308,7 +308,7 @@
                             "maximised": false,
                             "isClosable": true,
                             "reorderEnabled": true,
-                            "title": "Render | Scene",
+                            "title": "RENDER | Scene",
                             "componentType": "ViewRender",
                             "componentState": {
                               "gizmosFilter": {
@@ -358,13 +358,25 @@
                                   "expanded": [
                                     "",
                                     "children/0",
+                                    "children/1",
+                                    "children/5",
+                                    "children/8",
+                                    "children/9",
                                     "children/10",
-                                    "children/22"
+                                    "children/15",
+                                    "children/21",
+                                    "children/22",
+                                    "children/24",
+                                    "children/25",
+                                    "children/26",
+                                    "children/27",
+                                    "children/28",
+                                    "children/29"
                                   ]
                                 }
                               }
                             ],
-                            "width": 50,
+                            "width": 32.77777777777778,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -387,12 +399,12 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Capitate bone.l_Primitive1",
+                                "title": "Components | Scene",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
                             ],
-                            "width": 50,
+                            "width": 67.22222222222223,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -451,11 +463,11 @@
                   "resolved": true
                 },
                 "graph": "GraphGLTF|2026-04-30T14:28:58.655Z|58287",
-                "node": "children/0/children/1"
+                "node": ""
               }
             }
           ],
-          "width": 50,
+          "width": 49.454297407912684,
           "minWidth": 0,
           "height": 50,
           "minHeight": 0,

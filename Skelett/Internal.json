@@ -3,10 +3,60 @@
     "ƒ.GraphGLTF": {
       "name": "Scene",
       "active": true,
-      "components": {},
+      "components": {
+        "ComponentLight": [
+          {
+            "ƒ.ComponentLight": {
+              "lightType": "LightAmbient",
+              "pivot": {
+                "translation": "[0.2, 1.5999999999999996, 0]",
+                "rotation": "[0, 0, 0]",
+                "scaling": "[1, 1, 1]"
+              },
+              "color": "[1, 1, 1, 1]",
+              "intensity": 0.30000000000000004,
+              "Component": {
+                "active": true
+              }
+            }
+          },
+          {
+            "ƒ.ComponentLight": {
+              "lightType": "LightDirectional",
+              "pivot": {
+                "translation": "[0.25000000000000006, 1, -0.5]",
+                "rotation": "[0, 0, 0]",
+                "scaling": "[1, 1, 1]"
+              },
+              "color": "[1, 1, 1, 1]",
+              "intensity": 0.6000000000000001,
+              "Component": {
+                "active": true
+              }
+            }
+          }
+        ]
+      },
       "idResource": "GraphGLTF|2026-04-30T14:28:58.655Z|58287",
       "type": "GraphGLTF",
       "url": "Skelett.glb"
+    }
+  },
+  "Material|2026-05-04T10:45:40.838Z|25400": {
+    "ƒ.Material": {
+      "name": "MaterialShaderGouraud",
+      "idResource": "Material|2026-05-04T10:45:40.838Z|25400",
+      "shader": "ShaderGouraud",
+      "coat": {
+        "ƒ.CoatRemissive": {
+          "alphaClip": 0.009999999999999997,
+          "color": "[1, 1, 1, 1]",
+          "diffuse": 0.9999999999999999,
+          "specular": 0.9999999999999999,
+          "intensity": 1,
+          "metallic": 0
+        }
+      }
     }
   },
   "MaterialGLTF|2026-04-30T14:28:58.655Z|88217": {
