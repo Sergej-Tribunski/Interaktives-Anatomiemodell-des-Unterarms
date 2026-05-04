@@ -41,7 +41,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Properties | Main",
+                                "title": "Properties",
                                 "componentType": "ViewProperties",
                                 "componentState": {}
                               }
@@ -69,7 +69,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Preview | Main",
+                                "title": "Preview",
                                 "componentType": "ViewPreview",
                                 "componentState": {}
                               }
@@ -355,7 +355,12 @@
                                 "title": "Hierarchy",
                                 "componentType": "ViewHierarchy",
                                 "componentState": {
-                                  "expanded": []
+                                  "expanded": [
+                                    "",
+                                    "children/0",
+                                    "children/0/children/10",
+                                    "children/0/children/29"
+                                  ]
                                 }
                               }
                             ],

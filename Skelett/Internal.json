@@ -661,7 +661,7 @@
                 "scaling": "[1, 1, 1]"
               },
               "color": "[1, 1, 1, 1]",
-              "intensity": 1,
+              "intensity": 0.4,
               "Component": {
                 "active": true
               }
@@ -676,7 +676,7 @@
                 "scaling": "[1, 1, 1]"
               },
               "color": "[1, 1, 1, 1]",
-              "intensity": 1,
+              "intensity": 0.6,
               "Component": {
                 "active": true
               }
