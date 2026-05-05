@@ -41,7 +41,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Properties",
+                                "title": "Properties | Skeleton",
                                 "componentType": "ViewProperties",
                                 "componentState": {}
                               }
@@ -69,7 +69,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Preview",
+                                "title": "Preview | Skeleton",
                                 "componentType": "ViewPreview",
                                 "componentState": {}
                               }
@@ -210,7 +210,7 @@
                             "id": "",
                             "isClosable": true,
                             "maximised": false,
-                            "activeItemIndex": 1
+                            "activeItemIndex": 0
                           }
                         ],
                         "width": 50,
@@ -358,8 +358,7 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/0/children/10",
-                                    "children/0/children/29"
+                                    "children/0/children/10"
                                   ]
                                 }
                               }
@@ -387,7 +386,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Main",
+                                "title": "Components | Humerus.l_Primitive0",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -450,7 +449,8 @@
                   },
                   "resolved": true
                 },
-                "graph": "Graph|2026-05-04T14:48:34.420Z|71030"
+                "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
+                "node": "children/0/children/10/children/0"
               }
             }
           ],
