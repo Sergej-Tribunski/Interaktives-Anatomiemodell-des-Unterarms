@@ -134,17 +134,17 @@ namespace Script {
           console.log("Humerus children: " + node.getChildren());
           console.log(node.getAllComponents());
         }
-        let pos: ƒ.Vector3 = node.mtxLocal.translation.clone;
+        /* let pos: ƒ.Vector3 = node.mtxLocal.translation.clone;
         let rot: ƒ.Vector3 = node.mtxLocal.rotation.clone;
-        let scl: ƒ.Vector3 = node.mtxLocal.scaling.clone;
+        let scl: ƒ.Vector3 = node.mtxLocal.scaling.clone; */
         node.addComponent(new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
-        node.getComponent(ƒ.ComponentRigidbody).initialization = ƒ.BODY_INIT.TO_NODE;
-        node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
-        node.getComponent(ƒ.ComponentRigidbody).initialize();
+        //node.getComponent(ƒ.ComponentRigidbody).initialization = ƒ.BODY_INIT.TO_NODE;
+        /* node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
+        node.getComponent(ƒ.ComponentRigidbody).initialize(); */
 
-        node.getComponent(ƒ.ComponentRigidbody).setScaling(scl);
+        /* node.getComponent(ƒ.ComponentRigidbody).setScaling(scl);
         node.getComponent(ƒ.ComponentRigidbody).setPosition(pos);
-        node.getComponent(ƒ.ComponentRigidbody).setRotation(rot);
+        node.getComponent(ƒ.ComponentRigidbody).setRotation(rot); */
 
         if (node.name.endsWith("Humerus.l")){
           console.log("After: " + node.getAllComponents());
