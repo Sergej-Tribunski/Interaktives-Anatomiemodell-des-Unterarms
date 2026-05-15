@@ -5,17 +5,17 @@ namespace Script {
   let viewport: ƒ.Viewport;
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
-  //let middleFinger: ƒ.Node | null = null;
+  // let middleFinger: ƒ.Node | null = null;
 
-  /* let secondDistal: ƒ.Node | null = null;
+  let secondDistal: ƒ.Node | null = null;
   let secondMiddle: ƒ.Node | null = null;
   let secondProximal: ƒ.Node | null = null;
-  let secondMetacarpal: ƒ.Node | null = null; */
+  let secondMetacarpal: ƒ.Node | null = null;
 
-  /*let rbSecondDistal: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
-   let rbSecondMiddle: ƒ.ComponentRigidbody | null = null;
-  let rbSecondProximal: ƒ.ComponentRigidbody | null = null;
-  let rbSecondMetacarpal: ƒ.ComponentRigidbody | null = null; */
+  // let rbSecondDistal: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
+  // let rbSecondMiddle: ƒ.ComponentRigidbody | null = null;
+  // let rbSecondProximal: ƒ.ComponentRigidbody | null = null;
+  // let rbSecondMetacarpal: ƒ.ComponentRigidbody | null = null;
 
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
@@ -29,7 +29,7 @@ namespace Script {
     viewport.getBranch();
     let branch: ƒ.Node = viewport.getBranch();
 
-    //viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
+    viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
 
     for (let node of branch.getIterator(true)) {
       if (node.name.startsWith("Arrow"))
@@ -37,35 +37,36 @@ namespace Script {
     }
 
 
+    // for (let node of branch.getIterator(true))
+    //   if (node.name.startsWith("Proximal phalanx of third finger")) {
+    //     middleFinger = node;
+    //     break;
+    //   }
+    // console.log(middleFinger);
+    // middleFinger?.addComponent(new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
 
 
-    /* for (let node of branch.getIterator(true))
-      if (node.name.startsWith("Proximal phalanx of third finger")) {
-        middleFinger = node;
-        break;
-      }
-    console.log(middleFinger);
-    middleFinger?.addComponent(new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE)); */
+    for (let node of branch.getIterator(true)) {
+      if (node.name.endsWith("Primitive0") || node.name.endsWith("Primitive1"))
+        continue;
 
-
-    /* for (let node of branch.getIterator(true)) {
-      if (node.name.startsWith("Distal phalanx of second finger") && !node.name.endsWith("Primitive0") && !node.name.endsWith("Primitive1"))
+      if (node.name.startsWith("Distal phalanx of second finger"))
         secondDistal = node;
-      if (node.name.startsWith("Middle phalanx of second finger") && !node.name.endsWith("Primitive0") && !node.name.endsWith("Primitive1"))
+      if (node.name.startsWith("Middle phalanx of second finger"))
         secondMiddle = node;
-      if (node.name.startsWith("Proximal phalanx of second finger") && !node.name.endsWith("Primitive0") && !node.name.endsWith("Primitive1"))
+      if (node.name.startsWith("Proximal phalanx of second finger"))
         secondProximal = node;
-      if (node.name.startsWith("Second metacarpal") && !node.name.endsWith("Primitive0") && !node.name.endsWith("Primitive1"))
+      if (node.name.startsWith("Second metacarpal"))
         secondMetacarpal = node;
     }
-    secondDistal?.addComponent(rbSecondDistal); */
+    // secondDistal?.addComponent(rbSecondDistal);
 
 
     /*     secondMetacarpal!.addChild(secondProximal!);
         secondProximal!.addChild(secondMiddle!);
         secondMiddle!.addChild(secondDistal!); */
 
-    /* secondDistal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
+    secondDistal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondMiddle?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondProximal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondMetacarpal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
@@ -78,7 +79,7 @@ namespace Script {
     rbMiddle?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
     let rbDistal = secondDistal?.getComponent(ƒ.ComponentRigidbody);
     rbDistal?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
- */
+
     /* if (rbMetacarpal && rbProximal) {
       let joint = new ƒ.JointRevolute(
         rbMetacarpal,
@@ -127,32 +128,32 @@ namespace Script {
       }
     } */
 
-    for (let node of branch.getIterator(false)) {
-      if (!(node.name.includes("Main") || node.name.includes("Scene") || node.name.includes("Focus") || node.name.includes("Arrow") || node.name.includes("Primitive"))) {
-        if (node.name.endsWith("Humerus.l")){
-          console.log("Before: ");
-          console.log("Humerus children: " + node.getChildren());
-          console.log(node.getAllComponents());
-        }
-        /* let pos: ƒ.Vector3 = node.mtxLocal.translation.clone;
-        let rot: ƒ.Vector3 = node.mtxLocal.rotation.clone;
-        let scl: ƒ.Vector3 = node.mtxLocal.scaling.clone; */
-        node.addComponent(new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
-        //node.getComponent(ƒ.ComponentRigidbody).initialization = ƒ.BODY_INIT.TO_NODE;
-        /* node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
-        node.getComponent(ƒ.ComponentRigidbody).initialize(); */
+    // for (let node of branch.getIterator(false)) {
+    //   if (!(node.name.includes("Main") || node.name.includes("Scene") || node.name.includes("Focus") || node.name.includes("Arrow") || node.name.includes("Primitive"))) {
+    //     if (node.name.endsWith("Humerus.l")) {
+    //       console.log("Before: ");
+    //       console.log("Humerus children: " + node.getChildren());
+    //       console.log(node.getAllComponents());
+    //     }
+    //     /* let pos: ƒ.Vector3 = node.mtxLocal.translation.clone;
+    //     let rot: ƒ.Vector3 = node.mtxLocal.rotation.clone;
+    //     let scl: ƒ.Vector3 = node.mtxLocal.scaling.clone; */
+    //     node.addComponent(new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
+    //     //node.getComponent(ƒ.ComponentRigidbody).initialization = ƒ.BODY_INIT.TO_NODE;
+    //     /* node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
+    //     node.getComponent(ƒ.ComponentRigidbody).initialize(); */
 
-        /* node.getComponent(ƒ.ComponentRigidbody).setScaling(scl);
-        node.getComponent(ƒ.ComponentRigidbody).setPosition(pos);
-        node.getComponent(ƒ.ComponentRigidbody).setRotation(rot); */
+    //     /* node.getComponent(ƒ.ComponentRigidbody).setScaling(scl);
+    //     node.getComponent(ƒ.ComponentRigidbody).setPosition(pos);
+    //     node.getComponent(ƒ.ComponentRigidbody).setRotation(rot); */
 
-        if (node.name.endsWith("Humerus.l")){
-          console.log("After: " + node.getAllComponents());
-          console.log("Humerus children: " + node.getChildren());
-          console.log(node.getAllComponents());
-        }
-      }
-    }
+    //     if (node.name.endsWith("Humerus.l")) {
+    //       console.log("After: " + node.getAllComponents());
+    //       console.log("Humerus children: " + node.getChildren());
+    //       console.log(node.getAllComponents());
+    //     }
+    //   }
+    // }
 
     let material: ƒ.Material = <ƒ.Material>ƒ.Project.getResourcesByName("MaterialShaderGouraud")[0];
     for (let node of branch.getIterator(false))
@@ -170,7 +171,7 @@ namespace Script {
   }
 
   function update(_event: Event): void {
-    ƒ.Physics.simulate();  // if physics is included and used
+    // ƒ.Physics.simulate();  // if physics is included and used
     //middleFinger?.mtxLocal.rotateX(1);
     //secondProximal?.mtxLocal.rotateX(1);
     //secondDistal?.mtxLocal.rotateX(1);
