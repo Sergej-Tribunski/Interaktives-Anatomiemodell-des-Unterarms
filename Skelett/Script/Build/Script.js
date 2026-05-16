@@ -43,10 +43,10 @@ var Script;
     let viewport;
     document.addEventListener("interactiveViewportStarted", start);
     // let middleFinger: ƒ.Node | null = null;
-    let secondDistal = null;
-    let secondMiddle = null;
-    let secondProximal = null;
-    let secondMetacarpal = null;
+    let secondDistal;
+    let secondMiddle;
+    let secondProximal;
+    let secondMetacarpal;
     // let rbSecondDistal: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(0, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
     // let rbSecondMiddle: ƒ.ComponentRigidbody | null = null;
     // let rbSecondProximal: ƒ.ComponentRigidbody | null = null;
@@ -56,7 +56,7 @@ var Script;
         /* viewport.camera.mtxPivot.translateX(-0.26);
         viewport.camera.mtxPivot.translateY(0.7);
         viewport.camera.mtxPivot.translateZ(4.7); */
-        viewport.getBranch();
+        // viewport.getBranch();
         let branch = viewport.getBranch();
         viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
         for (let node of branch.getIterator(true)) {
@@ -86,18 +86,27 @@ var Script;
         /*     secondMetacarpal!.addChild(secondProximal!);
             secondProximal!.addChild(secondMiddle!);
             secondMiddle!.addChild(secondDistal!); */
-        secondDistal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
-        secondMiddle?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
-        secondProximal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
-        secondMetacarpal?.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
-        let rbMetacarpal = secondMetacarpal?.getComponent(ƒ.ComponentRigidbody);
-        rbMetacarpal?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
-        let rbProximal = secondProximal?.getComponent(ƒ.ComponentRigidbody);
-        rbProximal?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
-        let rbMiddle = secondMiddle?.getComponent(ƒ.ComponentRigidbody);
-        rbMiddle?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
-        let rbDistal = secondDistal?.getComponent(ƒ.ComponentRigidbody);
-        rbDistal?.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+        secondDistal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
+        secondMiddle.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
+        secondProximal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
+        secondMetacarpal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
+        let rbMetacarpal = secondMetacarpal.getComponent(ƒ.ComponentRigidbody);
+        rbMetacarpal.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+        let rbProximal = secondProximal.getComponent(ƒ.ComponentRigidbody);
+        rbProximal.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+        let rbMiddle = secondMiddle.getComponent(ƒ.ComponentRigidbody);
+        rbMiddle.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+        let rbDistal = secondDistal.getComponent(ƒ.ComponentRigidbody);
+        // rbDistal.initialization = ƒ.BODY_INIT.TO_NODE;
+        // /* node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
+        // rbDistal.initialize();
+        rbDistal.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+        ƒ.Render.prepare(branch);
+        let joint = new ƒ.JointRevolute(rbMiddle, rbDistal, ƒ.Vector3.X());
+        // joint.anchor = new ƒ.Vector3(1, -1, 0);
+        console.log(secondMiddle.mtxWorld.translation);
+        // joint.anchor.copy(secondMiddle.mtxWorld.translation);
+        secondMiddle.addComponent(joint);
         /* if (rbMetacarpal && rbProximal) {
           let joint = new ƒ.JointRevolute(
             rbMetacarpal,
@@ -179,7 +188,7 @@ var Script;
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
     function update(_event) {
-        // ƒ.Physics.simulate();  // if physics is included and used
+        ƒ.Physics.simulate(); // if physics is included and used
         //middleFinger?.mtxLocal.rotateX(1);
         //secondProximal?.mtxLocal.rotateX(1);
         //secondDistal?.mtxLocal.rotateX(1);
