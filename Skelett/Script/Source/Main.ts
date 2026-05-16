@@ -66,7 +66,7 @@ namespace Script {
         secondProximal!.addChild(secondMiddle!);
         secondMiddle!.addChild(secondDistal!); */
 
-    secondDistal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
+    secondDistal.addComponent(new ƒ.ComponentRigidbody(100, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondMiddle.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondProximal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE));
     secondMetacarpal.addComponent(new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE));
@@ -82,15 +82,15 @@ namespace Script {
     // /* node.getComponent(ƒ.ComponentRigidbody).isInitialized = false;
     // rbDistal.initialize();
     rbDistal.mtxPivot.scale(new ƒ.Vector3(0.01, 0.01, 0.01));
+    rbDistal.dampRotation = 0;
+    rbDistal.dampTranslation = 0;
 
     ƒ.Render.prepare(branch);
 
     let joint = new ƒ.JointRevolute(rbMiddle, rbDistal, ƒ.Vector3.X());
-    // joint.anchor = new ƒ.Vector3(1, -1, 0);
-    console.log(secondMiddle.mtxWorld.translation);
-    // joint.anchor.copy(secondMiddle.mtxWorld.translation);
-    secondMiddle.addComponent(joint);
+    joint.anchor = new ƒ.Vector3(0, -0.008, 0.008);
 
+    
     /* if (rbMetacarpal && rbProximal) {
       let joint = new ƒ.JointRevolute(
         rbMetacarpal,
