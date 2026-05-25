@@ -1,8 +1,10 @@
 declare namespace Script {
     import ƒ = FudgeCore;
-    class CustomComponentScript extends ƒ.ComponentScript {
+    class Joint extends ƒ.ComponentScript {
         static readonly iSubclass: number;
         message: string;
+        angle: number;
+        anchor: ƒ.Node | null;
         constructor();
         hndEvent: (_event: Event) => void;
     }

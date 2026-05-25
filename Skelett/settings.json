@@ -46,7 +46,7 @@
                                 "componentState": {}
                               }
                             ],
-                            "width": 50,
+                            "width": 33.03703703703704,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -74,7 +74,7 @@
                                 "componentState": {}
                               }
                             ],
-                            "width": 50,
+                            "width": 66.96296296296296,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -358,13 +358,14 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/0/children/10",
-                                    "children/0/children/24"
+                                    "children/0/children/4",
+                                    "children/1",
+                                    "children/1/children/0"
                                   ]
                                 }
                               }
                             ],
-                            "width": 32.77777777777778,
+                            "width": 40.971168437025796,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -387,12 +388,12 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Main",
+                                "title": "Components | Joint second distal middle",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
                             ],
-                            "width": 67.22222222222223,
+                            "width": 59.028831562974204,
                             "minWidth": 0,
                             "height": 50,
                             "minHeight": 0,
@@ -451,7 +452,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": ""
+                "node": "children/1/children/0"
               }
             }
           ],
