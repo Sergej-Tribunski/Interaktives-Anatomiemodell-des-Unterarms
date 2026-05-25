@@ -86,17 +86,9 @@ namespace Script {
     ƒ.Render.prepare(viewport.getBranch());
     for (let node of _joints.getIterator(false)) {
       if (node.name.startsWith("Joint ")) {
-        console.log(node.getAllComponents(),);
-        //the ideas:
-        //defineJoint(node, scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyAnchor), scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyTied));
-        node.getComponent(ƒ.ComponentScript)
+        defineJoint(node, scene?.getChildByName(node.getComponent(Joint).bodyAnchor).getComponent(ƒ.ComponentRigidbody)!, scene?.getChildByName(node.getComponent(Joint).bodyTied).getComponent(ƒ.ComponentRigidbody)!)
       }
     }
-    /* for (let node of _joints.getIterator(false)) {
-      if (node.name.includes("Joint second distal middle")) {
-        defineJoint(node, rbMiddle!, rbDistal!);
-      }
-    } */
   }
 
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {

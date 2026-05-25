@@ -187,17 +187,9 @@ var Script;
         ƒ.Render.prepare(viewport.getBranch());
         for (let node of _joints.getIterator(false)) {
             if (node.name.startsWith("Joint ")) {
-                console.log(node.getAllComponents());
-                //the ideas:
-                //defineJoint(node, scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyAnchor), scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyTied));
-                node.getComponent(ƒ.ComponentScript);
+                defineJoint(node, scene?.getChildByName(node.getComponent(Script.Joint).bodyAnchor).getComponent(ƒ.ComponentRigidbody), scene?.getChildByName(node.getComponent(Script.Joint).bodyTied).getComponent(ƒ.ComponentRigidbody));
             }
         }
-        /* for (let node of _joints.getIterator(false)) {
-          if (node.name.includes("Joint second distal middle")) {
-            defineJoint(node, rbMiddle!, rbDistal!);
-          }
-        } */
     }
     function defineJoint(_node, _anchor, _tied) {
         let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
