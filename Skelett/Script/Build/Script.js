@@ -39,26 +39,62 @@ var Script;
     ƒ.Project.registerScriptNamespace(Script); // Register the namespace to FUDGE for serialization
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
-        let _anchor_decorators;
-        let _anchor_initializers = [];
-        let _anchor_extraInitializers = [];
+        let _bodyAnchor_decorators;
+        let _bodyAnchor_initializers = [];
+        let _bodyAnchor_extraInitializers = [];
+        let _bodyTied_decorators;
+        let _bodyTied_initializers = [];
+        let _bodyTied_extraInitializers = [];
+        let _minRotation_decorators;
+        let _minRotation_initializers = [];
+        let _minRotation_extraInitializers = [];
+        let _maxRotation_decorators;
+        let _maxRotation_initializers = [];
+        let _maxRotation_extraInitializers = [];
         return class Joint extends _classSuper {
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
-                _anchor_decorators = [ƒ.type(ƒ.Node)];
-                __esDecorate(null, null, _anchor_decorators, { kind: "field", name: "anchor", static: false, private: false, access: { has: obj => "anchor" in obj, get: obj => obj.anchor, set: (obj, value) => { obj.anchor = value; } }, metadata: _metadata }, _anchor_initializers, _anchor_extraInitializers);
+                _bodyAnchor_decorators = [ƒ.type(String)];
+                _bodyTied_decorators = [ƒ.type(String)];
+                _minRotation_decorators = [ƒ.type(Number)];
+                _maxRotation_decorators = [ƒ.type(Number)];
+                __esDecorate(null, null, _bodyAnchor_decorators, { kind: "field", name: "bodyAnchor", static: false, private: false, access: { has: obj => "bodyAnchor" in obj, get: obj => obj.bodyAnchor, set: (obj, value) => { obj.bodyAnchor = value; } }, metadata: _metadata }, _bodyAnchor_initializers, _bodyAnchor_extraInitializers);
+                __esDecorate(null, null, _bodyTied_decorators, { kind: "field", name: "bodyTied", static: false, private: false, access: { has: obj => "bodyTied" in obj, get: obj => obj.bodyTied, set: (obj, value) => { obj.bodyTied = value; } }, metadata: _metadata }, _bodyTied_initializers, _bodyTied_extraInitializers);
+                __esDecorate(null, null, _minRotation_decorators, { kind: "field", name: "minRotation", static: false, private: false, access: { has: obj => "minRotation" in obj, get: obj => obj.minRotation, set: (obj, value) => { obj.minRotation = value; } }, metadata: _metadata }, _minRotation_initializers, _minRotation_extraInitializers);
+                __esDecorate(null, null, _maxRotation_decorators, { kind: "field", name: "maxRotation", static: false, private: false, access: { has: obj => "maxRotation" in obj, get: obj => obj.maxRotation, set: (obj, value) => { obj.maxRotation = value; } }, metadata: _metadata }, _maxRotation_initializers, _maxRotation_extraInitializers);
                 if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
             }
             // Register the script as component for use in the editor via drag&drop
             static { this.iSubclass = ƒ.Component.registerSubclass(Joint); }
+            /* private bodyAnchor: string = "Node name string";
+            private bodyTied: string = "Node name string";
+            private minRotation: number = 0;
+            private maxRotation: number = 0;
+        
+            get bodyAnchorName(): string {
+              return this.bodyAnchor;
+            }
+            get bodyTiedName(): string {
+              return this.bodyTied;
+            }
+            get minRotationVal(): number{
+              return this.minRotation;
+            }
+            get maxRotationVal(): number{
+              return this.maxRotation;
+            } */
+            /* @ƒ.type(ƒ.Node)
+            public anchor: ƒ.Node | null = null; */
             constructor() {
                 super();
                 // Properties may be mutated by users in the editor via the automatically created user interface
                 this.message = "CustomComponentScript added to ";
-                this.angle = 0;
-                this.anchor = __runInitializers(this, _anchor_initializers, null);
+                this.bodyAnchor = __runInitializers(this, _bodyAnchor_initializers, "");
+                this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, ""));
+                this.minRotation = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _minRotation_initializers, 0));
+                this.maxRotation = (__runInitializers(this, _minRotation_extraInitializers), __runInitializers(this, _maxRotation_initializers, 0));
                 // Activate the functions of this component as response to events
-                this.hndEvent = (__runInitializers(this, _anchor_extraInitializers), (_event) => {
+                this.hndEvent = (__runInitializers(this, _maxRotation_extraInitializers), (_event) => {
                     switch (_event.type) {
                         case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
                             ƒ.Debug.log(this.message, this.node);
@@ -90,18 +126,8 @@ var Script;
     ƒ.Debug.info("Main Program Template running!");
     let viewport;
     document.addEventListener("interactiveViewportStarted", start);
-    let distal = null;
-    let middle = null;
-    let rbDistal = null;
-    let rbMiddle = null;
-    let rotVector = new ƒ.Vector3(0.1, 0, 0);
-    let minRotation = 0;
-    let maxRotation = 90;
-    let joint = null;
-    let bodyAnchor = null;
-    let bodyTied = null;
-    let axis = null;
-    let localAnchor = null;
+    let scene = null;
+    let joints = null;
     function start(_event) {
         viewport = _event.detail;
         viewport.getBranch();
@@ -116,58 +142,10 @@ var Script;
             }
         }
         ƒ.Render.prepare(branch);
-        let scene = branch.getChildByName("Scene");
-        let joints = branch.getChildByName("Joints");
+        scene = branch.getChildByName("Scene");
+        joints = branch.getChildByName("Joints");
         defineRigidBodies(scene);
         defineJoints(joints);
-        /* for (let node of branch.getIterator(false)) {
-          if (node.name.includes("Middle phalanx of second") && !node.name.includes("Primitive")) {
-            middle = node;
-          }
-          if (node.name.includes("Distal phalanx of second") && !node.name.includes("Primitive")) {
-            distal = node;
-          }
-          if (middle && distal){
-            break;
-          }
-        }
-        rbMiddle = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-        rbMiddle.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-        rbDistal = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
-        rbDistal.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-      
-        if (rbMiddle && rbDistal){
-          let axis: ƒ.Vector3 = middle!.mtxLocal.getX();
-          let localAnchor: ƒ.Vector3 = new ƒ.Vector3(
-            (distal?.mtxWorld.translation.x! - middle?.mtxWorld.translation.x!)/1.9,
-            (distal?.mtxWorld.translation.y! - middle?.mtxWorld.translation.y!)/1.9,
-            (distal?.mtxWorld.translation.z! - middle?.mtxWorld.translation.z!)/1.9
-          );
-            axis.normalize();
-            console.log("Axis : ", axis);
-          joint = new ƒ.JointRevolute(
-            rbMiddle,
-            rbDistal,
-            axis,
-            localAnchor
-          );
-          joint.minMotor = maxRotation;
-          joint.maxMotor = minRotation;
-        }
-      
-      
-      
-        if (rbDistal && rbMiddle && middle && joint){
-          middle.addComponent(rbMiddle);
-          distal?.addComponent(rbDistal);
-          middle.addComponent(joint);
-        }
-        ƒ.Render.prepare(branch);
-      
-        console.log(distal?.name);
-        console.log(distal?.getAllComponents());
-        console.log(middle?.name);
-        console.log(middle?.getAllComponents()); */
         let material = ƒ.Project.getResourcesByName("MaterialShaderGouraud")[0];
         for (let node of branch.getIterator(false))
             if (node.name.endsWith("Primitive0") || node.name.endsWith("Primitive1")) {
@@ -183,30 +161,24 @@ var Script;
     }
     function update(_event) {
         ƒ.Physics.simulate(); // if physics is included and used
-        /* rbDistal?.setAngularVelocity(rotVector);
-        if (rbDistal?.getRotation().x! <= maxRotation) {
-          rotVector.set(0.1, 0, 0);
-        }
-        if (rbDistal?.getRotation().x! >= minRotation) {
-          rotVector.set(-0.1, 0, 0);
-        } */
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
-            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-                let distal = false;
-                if (node.name.includes("Distal phalanx of second finger"))
-                    distal = true;
-                let cmpRigidbody = new ƒ.ComponentRigidbody(100, distal ? ƒ.BODY_TYPE.DYNAMIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) { //WIP change bodytype to dynamic
+                let cmpRigidbody = new ƒ.ComponentRigidbody(100, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+                //WIP remove if statements when done testing
+                if (node.name.includes("Distal phalanx of second")) {
+                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                }
+                if (node.name.includes("Middle phalanx of second")) {
+                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                }
+                if (node.name.includes("Proximal phalanx of second")) {
+                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                }
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                if (node.name.includes("Middle phalanx of second finger")) {
-                    rbMiddle = cmpRigidbody;
-                }
-                if (distal) {
-                    rbDistal = cmpRigidbody;
-                }
                 node.addComponent(cmpRigidbody);
             }
         }
@@ -214,45 +186,23 @@ var Script;
     function defineJoints(_joints) {
         ƒ.Render.prepare(viewport.getBranch());
         for (let node of _joints.getIterator(false)) {
-            if (node.name.includes("Joint second distal middle")) {
-                defineJoint(node, rbMiddle, rbDistal);
+            if (node.name.startsWith("Joint ")) {
+                console.log(node.getAllComponents());
+                //the ideas:
+                //defineJoint(node, scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyAnchor), scene?.getChildByName(node.getComponent(ƒ.ComponentScript).bodyTied));
+                node.getComponent(ƒ.ComponentScript);
             }
         }
+        /* for (let node of _joints.getIterator(false)) {
+          if (node.name.includes("Joint second distal middle")) {
+            defineJoint(node, rbMiddle!, rbDistal!);
+          }
+        } */
     }
     function defineJoint(_node, _anchor, _tied) {
         let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
         joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
         _node.addComponent(joint);
-        //ƒ.Vector3.DIFFERENCE(_anchor.node!.mtxWorld.translation, _node.mtxWorld.translation)));
     }
-    /* if (node.name.includes("Joint second distal middle")) {
-      for (let node of branch.getIterator(false)) {
-        if (node.name.includes("Distal phalanx of second finger") && !node.name.includes("Primitive")) {
-  
-          distal = node;
-          rbDistal = node.getComponent(ƒ.ComponentRigidbody);
-  
-          bodyTied = node.getComponent(ƒ.ComponentRigidbody);
-          break;
-        }
-      }
-      for (let node of branch.getIterator(false)) {
-        if (node.name.includes("Middle phalanx of second finger") && !node.name.includes("Primitive")) {
-  
-          middle = node;
-          rbMiddle = node.getComponent(ƒ.ComponentRigidbody);
-  
-          bodyAnchor = node.getComponent(ƒ.ComponentRigidbody);
-          break;
-        }
-      }
-      localAnchor = ƒ.Vector3.DIFFERENCE(node.mtxWorld.translation.clone, bodyAnchor!.node!.mtxWorld.translation);
-      axis = node.mtxWorld.getX().normalize();
-      joint = new ƒ.JointRevolute(bodyAnchor!, bodyTied!, axis!, localAnchor);
-      //joint.minMotor = minRotation;
-      //joint.maxMotor = maxRotation;
-  
-      bodyAnchor!.node!.addComponent(joint);
-    } */
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map

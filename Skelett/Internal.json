@@ -73,8 +73,11 @@
                       {
                         "Script.Joint": {
                           "active": true,
-                          "message": "Hurra klappt!",
-                          "angle": 90
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Middle phalanx of second finger of hand.r",
+                          "bodyTied": "Distal phalanx of second finger of hand.r",
+                          "minRotation": -10,
+                          "maxRotation": 90
                         }
                       }
                     ]
@@ -107,6 +110,18 @@
                           }
                         }
                       }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Proximal phalanx of second finger of hand.r",
+                          "bodyTied": "Middle phalanx of second finger of hand.r",
+                          "minRotation": 0,
+                          "maxRotation": 100
+                        }
+                      }
                     ]
                   },
                   "children": [
@@ -135,6 +150,18 @@
                           "Component": {
                             "active": true
                           }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Second metacarpal bone.r",
+                          "bodyTied": "Proximal phalanx of second finger of hand.r",
+                          "minRotation": -45,
+                          "maxRotation": 90
                         }
                       }
                     ]

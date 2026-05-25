@@ -3,8 +3,10 @@ declare namespace Script {
     class Joint extends ƒ.ComponentScript {
         static readonly iSubclass: number;
         message: string;
-        angle: number;
-        anchor: ƒ.Node | null;
+        bodyAnchor: string;
+        bodyTied: string;
+        minRotation: number;
+        maxRotation: number;
         constructor();
         hndEvent: (_event: Event) => void;
     }
