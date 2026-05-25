@@ -8,9 +8,35 @@ namespace Script {
     // Properties may be mutated by users in the editor via the automatically created user interface
     public message: string = "CustomComponentScript added to ";
 
-    public angle: number = 0;
-    @ƒ.type(ƒ.Node)
-    public anchor: ƒ.Node | null = null;
+    @ƒ.type(String)
+    public bodyAnchor: string = "";
+    @ƒ.type(String)
+    public bodyTied: string = "";
+    @ƒ.type(Number)
+    public minRotation: number = 0;
+    @ƒ.type(Number)
+    public maxRotation: number = 0;
+
+    /* private bodyAnchor: string = "Node name string";
+    private bodyTied: string = "Node name string";
+    private minRotation: number = 0;
+    private maxRotation: number = 0;
+
+    get bodyAnchorName(): string {
+      return this.bodyAnchor;
+    }
+    get bodyTiedName(): string {
+      return this.bodyTied;
+    }
+    get minRotationVal(): number{
+      return this.minRotation;
+    } 
+    get maxRotationVal(): number{
+      return this.maxRotation;
+    } */
+
+    /* @ƒ.type(ƒ.Node)
+    public anchor: ƒ.Node | null = null; */
 
     constructor() {
       super();
