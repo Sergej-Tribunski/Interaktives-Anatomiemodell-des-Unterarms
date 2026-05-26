@@ -45,56 +45,37 @@ var Script;
         let _bodyTied_decorators;
         let _bodyTied_initializers = [];
         let _bodyTied_extraInitializers = [];
-        let _minRotation_decorators;
-        let _minRotation_initializers = [];
-        let _minRotation_extraInitializers = [];
-        let _maxRotation_decorators;
-        let _maxRotation_initializers = [];
-        let _maxRotation_extraInitializers = [];
+        let _rotIn_decorators;
+        let _rotIn_initializers = [];
+        let _rotIn_extraInitializers = [];
+        let _rotOut_decorators;
+        let _rotOut_initializers = [];
+        let _rotOut_extraInitializers = [];
         return class Joint extends _classSuper {
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
                 _bodyAnchor_decorators = [ƒ.type(String)];
                 _bodyTied_decorators = [ƒ.type(String)];
-                _minRotation_decorators = [ƒ.type(Number)];
-                _maxRotation_decorators = [ƒ.type(Number)];
+                _rotIn_decorators = [ƒ.type(Number)];
+                _rotOut_decorators = [ƒ.type(Number)];
                 __esDecorate(null, null, _bodyAnchor_decorators, { kind: "field", name: "bodyAnchor", static: false, private: false, access: { has: obj => "bodyAnchor" in obj, get: obj => obj.bodyAnchor, set: (obj, value) => { obj.bodyAnchor = value; } }, metadata: _metadata }, _bodyAnchor_initializers, _bodyAnchor_extraInitializers);
                 __esDecorate(null, null, _bodyTied_decorators, { kind: "field", name: "bodyTied", static: false, private: false, access: { has: obj => "bodyTied" in obj, get: obj => obj.bodyTied, set: (obj, value) => { obj.bodyTied = value; } }, metadata: _metadata }, _bodyTied_initializers, _bodyTied_extraInitializers);
-                __esDecorate(null, null, _minRotation_decorators, { kind: "field", name: "minRotation", static: false, private: false, access: { has: obj => "minRotation" in obj, get: obj => obj.minRotation, set: (obj, value) => { obj.minRotation = value; } }, metadata: _metadata }, _minRotation_initializers, _minRotation_extraInitializers);
-                __esDecorate(null, null, _maxRotation_decorators, { kind: "field", name: "maxRotation", static: false, private: false, access: { has: obj => "maxRotation" in obj, get: obj => obj.maxRotation, set: (obj, value) => { obj.maxRotation = value; } }, metadata: _metadata }, _maxRotation_initializers, _maxRotation_extraInitializers);
+                __esDecorate(null, null, _rotIn_decorators, { kind: "field", name: "rotIn", static: false, private: false, access: { has: obj => "rotIn" in obj, get: obj => obj.rotIn, set: (obj, value) => { obj.rotIn = value; } }, metadata: _metadata }, _rotIn_initializers, _rotIn_extraInitializers);
+                __esDecorate(null, null, _rotOut_decorators, { kind: "field", name: "rotOut", static: false, private: false, access: { has: obj => "rotOut" in obj, get: obj => obj.rotOut, set: (obj, value) => { obj.rotOut = value; } }, metadata: _metadata }, _rotOut_initializers, _rotOut_extraInitializers);
                 if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
             }
             // Register the script as component for use in the editor via drag&drop
             static { this.iSubclass = ƒ.Component.registerSubclass(Joint); }
-            /* private bodyAnchor: string = "Node name string";
-            private bodyTied: string = "Node name string";
-            private minRotation: number = 0;
-            private maxRotation: number = 0;
-        
-            get bodyAnchorName(): string {
-              return this.bodyAnchor;
-            }
-            get bodyTiedName(): string {
-              return this.bodyTied;
-            }
-            get minRotationVal(): number{
-              return this.minRotation;
-            }
-            get maxRotationVal(): number{
-              return this.maxRotation;
-            } */
-            /* @ƒ.type(ƒ.Node)
-            public anchor: ƒ.Node | null = null; */
             constructor() {
                 super();
                 // Properties may be mutated by users in the editor via the automatically created user interface
                 this.message = "CustomComponentScript added to ";
                 this.bodyAnchor = __runInitializers(this, _bodyAnchor_initializers, "");
                 this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, ""));
-                this.minRotation = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _minRotation_initializers, 0));
-                this.maxRotation = (__runInitializers(this, _minRotation_extraInitializers), __runInitializers(this, _maxRotation_initializers, 0));
+                this.rotIn = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _rotIn_initializers, 0));
+                this.rotOut = (__runInitializers(this, _rotIn_extraInitializers), __runInitializers(this, _rotOut_initializers, 0));
                 // Activate the functions of this component as response to events
-                this.hndEvent = (__runInitializers(this, _maxRotation_extraInitializers), (_event) => {
+                this.hndEvent = (__runInitializers(this, _rotOut_extraInitializers), (_event) => {
                     switch (_event.type) {
                         case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
                             ƒ.Debug.log(this.message, this.node);
@@ -172,12 +153,12 @@ var Script;
                 if (node.name.includes("Distal phalanx of second")) {
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
                 }
-                if (node.name.includes("Middle phalanx of second")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
-                if (node.name.includes("Proximal phalanx of second")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
+                /* if (node.name.includes("Middle phalanx of second")) {
+                   cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                 }
+                 if (node.name.includes("Proximal phalanx of second")){
+                   cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                 } */
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
                 node.addComponent(cmpRigidbody);
             }
@@ -194,6 +175,8 @@ var Script;
     function defineJoint(_node, _anchor, _tied) {
         let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
         joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
+        joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
+        joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
         _node.addComponent(joint);
     }
 })(Script || (Script = {}));

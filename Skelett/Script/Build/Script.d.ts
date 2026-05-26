@@ -5,8 +5,8 @@ declare namespace Script {
         message: string;
         bodyAnchor: string;
         bodyTied: string;
-        minRotation: number;
-        maxRotation: number;
+        rotIn: number;
+        rotOut: number;
         constructor();
         hndEvent: (_event: Event) => void;
     }

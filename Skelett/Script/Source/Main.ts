@@ -64,15 +64,15 @@ namespace Script {
         let cmpRigidbody: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(100, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
 
         //WIP remove if statements when done testing
-        if (node.name.includes("Distal phalanx of second")) {
+         if (node.name.includes("Distal phalanx of second")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
-        if (node.name.includes("Middle phalanx of second")) {
+       /* if (node.name.includes("Middle phalanx of second")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
         if (node.name.includes("Proximal phalanx of second")){
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-        }
+        } */
 
         cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
         node.addComponent(cmpRigidbody);
@@ -94,6 +94,8 @@ namespace Script {
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
     let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
     joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+    joint.minMotor = -_node.getComponent(Joint).rotIn;
+    joint.maxMotor = _node.getComponent(Joint).rotOut;
     _node.addComponent(joint);
   }
 }
