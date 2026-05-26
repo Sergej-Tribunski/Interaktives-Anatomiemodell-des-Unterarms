@@ -64,15 +64,15 @@ namespace Script {
         let cmpRigidbody: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(100, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
 
         //WIP remove if statements when done testing
-         if (node.name.includes("Distal phalanx of second")) {
+        if (node.name.includes("Distal ")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
-       /* if (node.name.includes("Middle phalanx of second")) {
+        if (node.name.includes("Middle ")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
-        if (node.name.includes("Proximal phalanx of second")){
+        if (node.name.includes("Proximal ")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-        } */
+        }
 
         cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
         node.addComponent(cmpRigidbody);

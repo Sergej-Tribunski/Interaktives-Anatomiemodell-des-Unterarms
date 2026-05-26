@@ -358,10 +358,11 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/0/children/10",
+                                    "children/0/children/2",
+                                    "children/0/children/7",
                                     "children/0/children/14",
+                                    "children/0/children/19",
                                     "children/0/children/21",
-                                    "children/0/children/22",
                                     "children/1"
                                   ]
                                 }
@@ -390,7 +391,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Joint second distal middle",
+                                "title": "Components | Joint first distal proximal",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }

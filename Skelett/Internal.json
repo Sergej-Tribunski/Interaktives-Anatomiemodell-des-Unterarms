@@ -52,6 +52,90 @@
             "children": [
               {
                 "ƒ.Node": {
+                  "name": "Joint first distal proximal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.32504037022590637, 0.7899982333183289, 0.05936277657747269]",
+                            "rotation": "[39.556857103901486, 47.77392194725231, -60.51455181981562]",
+                            "scaling": "[1.2258271877303177, 1.040184152870448, 3.2383435693566187]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Proximal phalanx of first finger of hand.r",
+                          "bodyTied": "Distal phalanx of first finger of hand.r",
+                          "rotIn": 60,
+                          "rotOut": 20
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint first proximal metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.3126622438430786, 0.8151195645332336, 0.04478507488965988]",
+                            "rotation": "[47.51837464033954, 49.538021253780514, -65.80003208490845]",
+                            "scaling": "[1.4776450900464217, 1.5169933725626719, 5.255138517375826]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "First metacarpal bone.r",
+                          "bodyTied": "Proximal phalanx of first finger of hand.r",
+                          "rotIn": 80,
+                          "rotOut": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
                   "name": "Joint second distal middle",
                   "active": true,
                   "components": {
@@ -160,6 +244,384 @@
                           "message": "CustomComponentScript added to ",
                           "bodyAnchor": "Second metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of second finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 45
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint third distal middle",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.28469401597976685, 0.711366593837738, 0.0793585479259491]",
+                            "rotation": "[36.752534826286805, -5.545794097851164, -3.595538573313151]",
+                            "scaling": "[1.047534842319093, 0.7097633926158841, 2.170105522156113]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Middle phalanx of third finger of hand.r",
+                          "bodyTied": "Distal phalanx of third finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 10
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint third middle proximal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.28067320585250854, 0.7348909378051758, 0.06104491651058197]",
+                            "rotation": "[56.206532972014394, -8.0935883883113, -4.698701283164042]",
+                            "scaling": "[1.1818361685931837, 0.9462226162549179, 4.569755015314492]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Proximal phalanx of third finger of hand.r",
+                          "bodyTied": "Middle phalanx of third finger of hand.r",
+                          "rotIn": 100,
+                          "rotOut": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint third proximal metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.27466562390327454, 0.7755863070487976, 0.036445580422878265]",
+                            "rotation": "[64.45067996067813, -5.657810235565377, -4.323679800442255]",
+                            "scaling": "[1.4939317814153306, 1.4856461258480738, 5.8422482664124455]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Third metacarpal bone.r",
+                          "bodyTied": "Proximal phalanx of third finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 45
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fourth distal middle",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2576017677783966, 0.7189026474952698, 0.07903286814689636]",
+                            "rotation": "[35.603601749152766, -6.578425685275626, 4.544896364833875]",
+                            "scaling": "[1.0475349081070942, 0.70976344736658, 2.1701055603036123]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Middle phalanx of fourth finger of hand.r",
+                          "bodyTied": "Distal phalanx of fourth finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 10
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fourth middle proximal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.25607290863990784, 0.7404586672782898, 0.058284539729356766]",
+                            "rotation": "[55.23712938951964, -9.960364645369248, 3.294702238116851]",
+                            "scaling": "[1.1818361543196767, 0.9462226112885008, 4.569755093070793]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Proximal phalanx of fourth finger of hand.r",
+                          "bodyTied": "Middle phalanx of fourth finger of hand.r",
+                          "rotIn": 100,
+                          "rotOut": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fourth proximal metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.25503405928611755, 0.7788520455360413, 0.03577324375510216]",
+                            "rotation": "[65.66343658691848, -8.58113559460725, 5.1432334493583864]",
+                            "scaling": "[1.4939318318892525, 1.485646244727887, 5.842248511590937]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Fourth metacarpal bone.r",
+                          "bodyTied": "Proximal phalanx of fourth finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 45
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fifth distal middle",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.23038722574710846, 0.736446738243103, 0.07015843689441681]",
+                            "rotation": "[49.79419267746625, -5.300912272266104, 11.132331511581151]",
+                            "scaling": "[1.0475348836152583, 0.7097634847831077, 2.1701054857662037]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Middle phalanx of fifth finger of hand.r",
+                          "bodyTied": "Distal phalanx of fifth finger of hand.r",
+                          "rotIn": 90,
+                          "rotOut": 10
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fifth middle proximal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.23342275619506836, 0.7537485957145691, 0.0561283640563488]",
+                            "rotation": "[54.15377032741662, -3.4333748163213684, 12.5496769178265]",
+                            "scaling": "[1.181836105359734, 1.1824118365506997, 4.569755202795192]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Proximal phalanx of fifth finger of hand.r",
+                          "bodyTied": "Middle phalanx of fifth finger of hand.r",
+                          "rotIn": 100,
+                          "rotOut": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint fifth proximal metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.23850686848163605, 0.7857850790023804, 0.038882121443748474]",
+                            "rotation": "[64.72869894275982, -7.673372733280671, 12.804761723328971]",
+                            "scaling": "[1.4939317818908546, 1.4856462710268765, 5.842248357693452]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "bodyAnchor": "Fifth metacarpal bone.r",
+                          "bodyTied": "Proximal phalanx of fifth finger of hand.r",
                           "rotIn": 90,
                           "rotOut": 45
                         }
