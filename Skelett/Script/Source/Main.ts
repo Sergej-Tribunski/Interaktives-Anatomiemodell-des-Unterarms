@@ -9,6 +9,10 @@ namespace Script {
   let joints: ƒ.Node | null = null;
 
 
+  let rbSecondDistal: ƒ.ComponentRigidbody | null = null;
+  let testVector: ƒ.Vector3 = new ƒ.Vector3(0, 1, 0);
+
+
 
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
@@ -22,8 +26,8 @@ namespace Script {
       if (node.name.includes("Arrow")) {
         node.activate(false);
       }
-      if (node.name.includes("Joint")) {
-        //node.activate(false);
+      if (node.name.includes("Joint ")) {
+        node.activate(false);
       }
     }
 
@@ -47,12 +51,29 @@ namespace Script {
       console.log(node.getAllComponents());
     } */
 
+    rbSecondDistal = scene.getChildByName("Distal phalanx of second finger of hand.r").getComponent(ƒ.ComponentRigidbody);
+    
+
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
     ƒ.Loop.start();  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
   }
 
   function update(_event: Event): void {
     ƒ.Physics.simulate();  // if physics is included and used
+
+    //rbSecondDistal!.applyTorque(testVector);  //seems to rotate Y relative to distal
+    //rbSecondDistal!.applyForce(testVector);     //up vertically
+    //rbSecondDistal!.setVelocity(testVector);    //up vertically
+    //rbSecondDistal!.setAngularVelocity(testVector); //Y relative to distal
+    //rbSecondDistal!.applyLinearImpulse(testVector); //up vertically
+    //rbSecondDistal!.applyAngularImpulse(testVector); //y rel dist
+    //rbSecondDistal!.addVelocity(testVector); //y up
+    //rbSecondDistal!.addAngularVelocity(testVector); //y rel dist
+
+    //changing vector to x or z behaves unexpectedly, test more
+
+    //try hinge joint on thumb, see what changing the vector does
+
     viewport.draw();
     ƒ.AudioManager.default.update();
   }
@@ -61,9 +82,8 @@ namespace Script {
   function defineRigidBodies(_scene: ƒ.Node) {
     for (let node of _scene.getIterator(false)) {
       if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {                                                                   //WIP change bodytype to dynamic
-        let cmpRigidbody: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(100, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-
-        //WIP remove if statements when done testing
+        let cmpRigidbody: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(1, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+        //WIP remove if-statements when done testing
         if (node.name.includes("Distal ")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
