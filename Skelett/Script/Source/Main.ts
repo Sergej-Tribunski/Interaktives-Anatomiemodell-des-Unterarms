@@ -52,7 +52,7 @@ namespace Script {
     } */
 
     rbSecondDistal = scene.getChildByName("Distal phalanx of second finger of hand.r").getComponent(ƒ.ComponentRigidbody);
-    
+
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
     ƒ.Loop.start();  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
@@ -93,6 +93,9 @@ namespace Script {
         if (node.name.includes("Proximal ")) {
           cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
         }
+        if (node.name.includes("First metacarpal")) {
+          cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+        }
 
         cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
         node.addComponent(cmpRigidbody);
@@ -112,10 +115,19 @@ namespace Script {
   }
 
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
-    let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
-    joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-    joint.minMotor = -_node.getComponent(Joint).rotIn;
-    joint.maxMotor = _node.getComponent(Joint).rotOut;
-    _node.addComponent(joint);
+    if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
+      let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+      joint.minMotor = -_node.getComponent(Joint).rotIn;
+      joint.maxMotor = _node.getComponent(Joint).rotOut;
+      _node.addComponent(joint);
+    }
+    //Figure out axis' for Universal Joint.
+    if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
+      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize());
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+      joint.axisFirst
+      _node.addComponent(joint);
+    }
   }
 }

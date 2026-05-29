@@ -74,6 +74,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of first finger of hand.r",
                           "bodyTied": "Distal phalanx of first finger of hand.r",
                           "rotIn": 60,
@@ -116,8 +117,52 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "First metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of first finger of hand.r",
+                          "rotIn": 80,
+                          "rotOut": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint first metacarpal trapezium ",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.28340429067611694, 0.8463267683982849, 0.02574700489640236]",
+                            "rotation": "[56.71242547180187, 45.61593869213537, -76.04733835646188]",
+                            "scaling": "[2.059084037852832, 1.845002419527525, 3.333181118903979]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 1,
+                          "bodyAnchor": "Trapezium bone.r",
+                          "bodyTied": "First metacarpal bone.r",
                           "rotIn": 80,
                           "rotOut": 0
                         }
@@ -158,6 +203,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Middle phalanx of second finger of hand.r",
                           "bodyTied": "Distal phalanx of second finger of hand.r",
                           "rotIn": 90,
@@ -200,6 +246,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of second finger of hand.r",
                           "bodyTied": "Middle phalanx of second finger of hand.r",
                           "rotIn": 100,
@@ -242,6 +289,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Second metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of second finger of hand.r",
                           "rotIn": 90,
@@ -284,6 +332,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Middle phalanx of third finger of hand.r",
                           "bodyTied": "Distal phalanx of third finger of hand.r",
                           "rotIn": 90,
@@ -326,6 +375,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of third finger of hand.r",
                           "bodyTied": "Middle phalanx of third finger of hand.r",
                           "rotIn": 100,
@@ -368,6 +418,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Third metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of third finger of hand.r",
                           "rotIn": 90,
@@ -410,6 +461,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Middle phalanx of fourth finger of hand.r",
                           "bodyTied": "Distal phalanx of fourth finger of hand.r",
                           "rotIn": 90,
@@ -452,6 +504,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of fourth finger of hand.r",
                           "bodyTied": "Middle phalanx of fourth finger of hand.r",
                           "rotIn": 100,
@@ -494,6 +547,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Fourth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fourth finger of hand.r",
                           "rotIn": 90,
@@ -536,6 +590,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Middle phalanx of fifth finger of hand.r",
                           "bodyTied": "Distal phalanx of fifth finger of hand.r",
                           "rotIn": 90,
@@ -578,6 +633,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of fifth finger of hand.r",
                           "bodyTied": "Middle phalanx of fifth finger of hand.r",
                           "rotIn": 100,
@@ -620,6 +676,7 @@
                         "Script.Joint": {
                           "active": true,
                           "message": "CustomComponentScript added to ",
+                          "jointType": 0,
                           "bodyAnchor": "Fifth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fifth finger of hand.r",
                           "rotIn": 90,

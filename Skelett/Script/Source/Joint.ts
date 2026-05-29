@@ -2,12 +2,20 @@ namespace Script {
   import ƒ = FudgeCore;
   ƒ.Project.registerScriptNamespace(Script);  // Register the namespace to FUDGE for serialization
 
+  export enum JOINT_TYPE {
+    REVOLUTE = "Revolute",
+    UNIVERSAL = "Universal"
+  }
+
   export class Joint extends ƒ.ComponentScript {
     // Register the script as component for use in the editor via drag&drop
     public static readonly iSubclass: number = ƒ.Component.registerSubclass(Joint);
     // Properties may be mutated by users in the editor via the automatically created user interface
+
     public message: string = "CustomComponentScript added to ";
 
+    @ƒ.type(JOINT_TYPE)
+    public jointType: JOINT_TYPE = JOINT_TYPE.REVOLUTE;
     @ƒ.type(String)
     public bodyAnchor: string = "";
     @ƒ.type(String)

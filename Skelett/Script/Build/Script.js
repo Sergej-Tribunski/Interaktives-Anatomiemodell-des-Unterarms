@@ -37,8 +37,16 @@ var Script;
 (function (Script) {
     var ƒ = FudgeCore;
     ƒ.Project.registerScriptNamespace(Script); // Register the namespace to FUDGE for serialization
+    let JOINT_TYPE;
+    (function (JOINT_TYPE) {
+        JOINT_TYPE["REVOLUTE"] = "Revolute";
+        JOINT_TYPE["UNIVERSAL"] = "Universal";
+    })(JOINT_TYPE = Script.JOINT_TYPE || (Script.JOINT_TYPE = {}));
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
+        let _jointType_decorators;
+        let _jointType_initializers = [];
+        let _jointType_extraInitializers = [];
         let _bodyAnchor_decorators;
         let _bodyAnchor_initializers = [];
         let _bodyAnchor_extraInitializers = [];
@@ -54,10 +62,12 @@ var Script;
         return class Joint extends _classSuper {
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+                _jointType_decorators = [ƒ.type(JOINT_TYPE)];
                 _bodyAnchor_decorators = [ƒ.type(String)];
                 _bodyTied_decorators = [ƒ.type(String)];
                 _rotIn_decorators = [ƒ.type(Number)];
                 _rotOut_decorators = [ƒ.type(Number)];
+                __esDecorate(null, null, _jointType_decorators, { kind: "field", name: "jointType", static: false, private: false, access: { has: obj => "jointType" in obj, get: obj => obj.jointType, set: (obj, value) => { obj.jointType = value; } }, metadata: _metadata }, _jointType_initializers, _jointType_extraInitializers);
                 __esDecorate(null, null, _bodyAnchor_decorators, { kind: "field", name: "bodyAnchor", static: false, private: false, access: { has: obj => "bodyAnchor" in obj, get: obj => obj.bodyAnchor, set: (obj, value) => { obj.bodyAnchor = value; } }, metadata: _metadata }, _bodyAnchor_initializers, _bodyAnchor_extraInitializers);
                 __esDecorate(null, null, _bodyTied_decorators, { kind: "field", name: "bodyTied", static: false, private: false, access: { has: obj => "bodyTied" in obj, get: obj => obj.bodyTied, set: (obj, value) => { obj.bodyTied = value; } }, metadata: _metadata }, _bodyTied_initializers, _bodyTied_extraInitializers);
                 __esDecorate(null, null, _rotIn_decorators, { kind: "field", name: "rotIn", static: false, private: false, access: { has: obj => "rotIn" in obj, get: obj => obj.rotIn, set: (obj, value) => { obj.rotIn = value; } }, metadata: _metadata }, _rotIn_initializers, _rotIn_extraInitializers);
@@ -70,7 +80,8 @@ var Script;
                 super();
                 // Properties may be mutated by users in the editor via the automatically created user interface
                 this.message = "CustomComponentScript added to ";
-                this.bodyAnchor = __runInitializers(this, _bodyAnchor_initializers, "");
+                this.jointType = __runInitializers(this, _jointType_initializers, JOINT_TYPE.REVOLUTE);
+                this.bodyAnchor = (__runInitializers(this, _jointType_extraInitializers), __runInitializers(this, _bodyAnchor_initializers, ""));
                 this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, ""));
                 this.rotIn = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _rotIn_initializers, 0));
                 this.rotOut = (__runInitializers(this, _rotIn_extraInitializers), __runInitializers(this, _rotOut_initializers, 0));
@@ -172,6 +183,9 @@ var Script;
                 if (node.name.includes("Proximal ")) {
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
                 }
+                if (node.name.includes("First metacarpal")) {
+                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                }
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
                 node.addComponent(cmpRigidbody);
             }
@@ -186,11 +200,20 @@ var Script;
         }
     }
     function defineJoint(_node, _anchor, _tied) {
-        let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
-        joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
-        joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
-        joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
-        _node.addComponent(joint);
+        if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.REVOLUTE) {
+            let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
+            joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
+            joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
+            joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
+            _node.addComponent(joint);
+        }
+        //Figure out axis' for Universal Joint.
+        if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
+            let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize());
+            joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
+            joint.axisFirst;
+            _node.addComponent(joint);
+        }
     }
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
