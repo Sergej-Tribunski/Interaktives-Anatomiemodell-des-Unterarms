@@ -358,13 +358,15 @@
                                   "expanded": [
                                     "",
                                     "children/0",
+                                    "children/0/children/1",
                                     "children/0/children/2",
                                     "children/0/children/7",
                                     "children/0/children/14",
                                     "children/0/children/19",
                                     "children/0/children/21",
                                     "children/0/children/26",
-                                    "children/1"
+                                    "children/1",
+                                    "children/1/children/2"
                                   ]
                                 }
                               }

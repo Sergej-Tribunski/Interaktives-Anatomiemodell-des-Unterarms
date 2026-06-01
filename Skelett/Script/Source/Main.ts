@@ -10,7 +10,10 @@ namespace Script {
 
 
   let rbSecondDistal: ƒ.ComponentRigidbody | null = null;
-  let testVector: ƒ.Vector3 = new ƒ.Vector3(0, 1, 0);
+  let testVectorX: ƒ.Vector3 = new ƒ.Vector3(1, 0, 0);
+  let testVectorY: ƒ.Vector3 = new ƒ.Vector3(0, 1, 0);
+  let testVectorZ: ƒ.Vector3 = new ƒ.Vector3(0, 0, -1);
+  let rbFirstMetacarpal: ƒ.ComponentRigidbody | null = null;
 
 
 
@@ -27,7 +30,7 @@ namespace Script {
         node.activate(false);
       }
       if (node.name.includes("Joint ")) {
-        node.activate(false);
+        //node.activate(false);
       }
     }
 
@@ -52,6 +55,7 @@ namespace Script {
     } */
 
     rbSecondDistal = scene.getChildByName("Distal phalanx of second finger of hand.r").getComponent(ƒ.ComponentRigidbody);
+    rbFirstMetacarpal = scene.getChildByName("First metacarpal bone.r").getComponent(ƒ.ComponentRigidbody);
 
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
@@ -73,6 +77,8 @@ namespace Script {
     //changing vector to x or z behaves unexpectedly, test more
 
     //try hinge joint on thumb, see what changing the vector does
+    rbFirstMetacarpal!.applyTorque(testVectorZ);
+
 
     viewport.draw();
     ƒ.AudioManager.default.update();
@@ -115,18 +121,21 @@ namespace Script {
   }
 
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
-    if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
+    /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
       let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
       joint.minMotor = -_node.getComponent(Joint).rotIn;
       joint.maxMotor = _node.getComponent(Joint).rotOut;
       _node.addComponent(joint);
-    }
+    } */
     //Figure out axis' for Universal Joint.
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
-      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize());
+      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize(), _node.mtxWorld.getY().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.axisFirst
+      joint.minRotorFirst = -_node.getComponent(Joint).rotIn;
+      joint.maxRotorFirst = _node.getComponent(Joint).rotOut;
+      joint.minRotorSecond = -_node.getComponent(Joint).rotLeft;
+      joint.maxRotorSecond = _node.getComponent(Joint).rotRight;
       _node.addComponent(joint);
     }
   }

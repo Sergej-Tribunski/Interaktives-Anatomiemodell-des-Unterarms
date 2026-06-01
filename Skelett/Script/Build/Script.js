@@ -39,8 +39,8 @@ var Script;
     ƒ.Project.registerScriptNamespace(Script); // Register the namespace to FUDGE for serialization
     let JOINT_TYPE;
     (function (JOINT_TYPE) {
-        JOINT_TYPE["REVOLUTE"] = "Revolute";
-        JOINT_TYPE["UNIVERSAL"] = "Universal";
+        JOINT_TYPE[JOINT_TYPE["REVOLUTE"] = 0] = "REVOLUTE";
+        JOINT_TYPE[JOINT_TYPE["UNIVERSAL"] = 1] = "UNIVERSAL";
     })(JOINT_TYPE = Script.JOINT_TYPE || (Script.JOINT_TYPE = {}));
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
@@ -59,6 +59,12 @@ var Script;
         let _rotOut_decorators;
         let _rotOut_initializers = [];
         let _rotOut_extraInitializers = [];
+        let _rotLeft_decorators;
+        let _rotLeft_initializers = [];
+        let _rotLeft_extraInitializers = [];
+        let _rotRight_decorators;
+        let _rotRight_initializers = [];
+        let _rotRight_extraInitializers = [];
         return class Joint extends _classSuper {
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
@@ -67,11 +73,15 @@ var Script;
                 _bodyTied_decorators = [ƒ.type(String)];
                 _rotIn_decorators = [ƒ.type(Number)];
                 _rotOut_decorators = [ƒ.type(Number)];
+                _rotLeft_decorators = [ƒ.type(Number)];
+                _rotRight_decorators = [ƒ.type(Number)];
                 __esDecorate(null, null, _jointType_decorators, { kind: "field", name: "jointType", static: false, private: false, access: { has: obj => "jointType" in obj, get: obj => obj.jointType, set: (obj, value) => { obj.jointType = value; } }, metadata: _metadata }, _jointType_initializers, _jointType_extraInitializers);
                 __esDecorate(null, null, _bodyAnchor_decorators, { kind: "field", name: "bodyAnchor", static: false, private: false, access: { has: obj => "bodyAnchor" in obj, get: obj => obj.bodyAnchor, set: (obj, value) => { obj.bodyAnchor = value; } }, metadata: _metadata }, _bodyAnchor_initializers, _bodyAnchor_extraInitializers);
                 __esDecorate(null, null, _bodyTied_decorators, { kind: "field", name: "bodyTied", static: false, private: false, access: { has: obj => "bodyTied" in obj, get: obj => obj.bodyTied, set: (obj, value) => { obj.bodyTied = value; } }, metadata: _metadata }, _bodyTied_initializers, _bodyTied_extraInitializers);
                 __esDecorate(null, null, _rotIn_decorators, { kind: "field", name: "rotIn", static: false, private: false, access: { has: obj => "rotIn" in obj, get: obj => obj.rotIn, set: (obj, value) => { obj.rotIn = value; } }, metadata: _metadata }, _rotIn_initializers, _rotIn_extraInitializers);
                 __esDecorate(null, null, _rotOut_decorators, { kind: "field", name: "rotOut", static: false, private: false, access: { has: obj => "rotOut" in obj, get: obj => obj.rotOut, set: (obj, value) => { obj.rotOut = value; } }, metadata: _metadata }, _rotOut_initializers, _rotOut_extraInitializers);
+                __esDecorate(null, null, _rotLeft_decorators, { kind: "field", name: "rotLeft", static: false, private: false, access: { has: obj => "rotLeft" in obj, get: obj => obj.rotLeft, set: (obj, value) => { obj.rotLeft = value; } }, metadata: _metadata }, _rotLeft_initializers, _rotLeft_extraInitializers);
+                __esDecorate(null, null, _rotRight_decorators, { kind: "field", name: "rotRight", static: false, private: false, access: { has: obj => "rotRight" in obj, get: obj => obj.rotRight, set: (obj, value) => { obj.rotRight = value; } }, metadata: _metadata }, _rotRight_initializers, _rotRight_extraInitializers);
                 if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
             }
             // Register the script as component for use in the editor via drag&drop
@@ -85,8 +95,10 @@ var Script;
                 this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, ""));
                 this.rotIn = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _rotIn_initializers, 0));
                 this.rotOut = (__runInitializers(this, _rotIn_extraInitializers), __runInitializers(this, _rotOut_initializers, 0));
+                this.rotLeft = (__runInitializers(this, _rotOut_extraInitializers), __runInitializers(this, _rotLeft_initializers, 0));
+                this.rotRight = (__runInitializers(this, _rotLeft_extraInitializers), __runInitializers(this, _rotRight_initializers, 0));
                 // Activate the functions of this component as response to events
-                this.hndEvent = (__runInitializers(this, _rotOut_extraInitializers), (_event) => {
+                this.hndEvent = (__runInitializers(this, _rotRight_extraInitializers), (_event) => {
                     switch (_event.type) {
                         case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
                             ƒ.Debug.log(this.message, this.node);
@@ -121,7 +133,10 @@ var Script;
     let scene = null;
     let joints = null;
     let rbSecondDistal = null;
-    let testVector = new ƒ.Vector3(0, 1, 0);
+    let testVectorX = new ƒ.Vector3(1, 0, 0);
+    let testVectorY = new ƒ.Vector3(0, 1, 0);
+    let testVectorZ = new ƒ.Vector3(0, 0, -1);
+    let rbFirstMetacarpal = null;
     function start(_event) {
         viewport = _event.detail;
         viewport.getBranch();
@@ -132,7 +147,7 @@ var Script;
                 node.activate(false);
             }
             if (node.name.includes("Joint ")) {
-                node.activate(false);
+                //node.activate(false);
             }
         }
         ƒ.Render.prepare(branch);
@@ -151,6 +166,7 @@ var Script;
           console.log(node.getAllComponents());
         } */
         rbSecondDistal = scene.getChildByName("Distal phalanx of second finger of hand.r").getComponent(ƒ.ComponentRigidbody);
+        rbFirstMetacarpal = scene.getChildByName("First metacarpal bone.r").getComponent(ƒ.ComponentRigidbody);
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
@@ -166,6 +182,7 @@ var Script;
         //rbSecondDistal!.addAngularVelocity(testVector); //y rel dist
         //changing vector to x or z behaves unexpectedly, test more
         //try hinge joint on thumb, see what changing the vector does
+        rbFirstMetacarpal.applyTorque(testVectorZ);
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -200,18 +217,21 @@ var Script;
         }
     }
     function defineJoint(_node, _anchor, _tied) {
-        if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.REVOLUTE) {
-            let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
-            joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
-            joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
-            joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
-            _node.addComponent(joint);
-        }
+        /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
+          let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
+          joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+          joint.minMotor = -_node.getComponent(Joint).rotIn;
+          joint.maxMotor = _node.getComponent(Joint).rotOut;
+          _node.addComponent(joint);
+        } */
         //Figure out axis' for Universal Joint.
         if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
-            let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize());
+            let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize(), _node.mtxWorld.getY().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
-            joint.axisFirst;
+            joint.minRotorFirst = -_node.getComponent(Script.Joint).rotIn;
+            joint.maxRotorFirst = _node.getComponent(Script.Joint).rotOut;
+            joint.minRotorSecond = -_node.getComponent(Script.Joint).rotLeft;
+            joint.maxRotorSecond = _node.getComponent(Script.Joint).rotRight;
             _node.addComponent(joint);
         }
     }

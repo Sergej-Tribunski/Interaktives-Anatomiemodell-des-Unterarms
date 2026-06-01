@@ -3,8 +3,8 @@ namespace Script {
   ƒ.Project.registerScriptNamespace(Script);  // Register the namespace to FUDGE for serialization
 
   export enum JOINT_TYPE {
-    REVOLUTE = "Revolute",
-    UNIVERSAL = "Universal"
+    REVOLUTE,
+    UNIVERSAL
   }
 
   export class Joint extends ƒ.ComponentScript {
@@ -24,6 +24,10 @@ namespace Script {
     public rotIn: number = 0;
     @ƒ.type(Number)
     public rotOut: number = 0;
+    @ƒ.type(Number)
+    public rotLeft: number = 0;
+    @ƒ.type(Number)
+    public rotRight: number = 0
 
 
     constructor() {
