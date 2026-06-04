@@ -1,39 +1,102 @@
 "use strict";
+var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+        var context = {};
+        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+        context.addInitializer = function (f) { if (done) throw new TypeError("Cannot add initializers after decoration has completed"); extraInitializers.push(accept(f || null)); };
+        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+        if (kind === "accessor") {
+            if (result === void 0) continue;
+            if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+            if (_ = accept(result.get)) descriptor.get = _;
+            if (_ = accept(result.set)) descriptor.set = _;
+            if (_ = accept(result.init)) initializers.unshift(_);
+        }
+        else if (_ = accept(result)) {
+            if (kind === "field") initializers.unshift(_);
+            else descriptor[key] = _;
+        }
+    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
+};
+var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+};
 var Script;
 (function (Script) {
     var ƒ = FudgeCore;
     ƒ.Project.registerScriptNamespace(Script); // Register the namespace to FUDGE for serialization
-    class CustomComponentScript extends ƒ.ComponentScript {
-        // Register the script as component for use in the editor via drag&drop
-        static { this.iSubclass = ƒ.Component.registerSubclass(CustomComponentScript); }
-        constructor() {
-            super();
-            // Properties may be mutated by users in the editor via the automatically created user interface
-            this.message = "CustomComponentScript added to ";
-            // Activate the functions of this component as response to events
-            this.hndEvent = (_event) => {
-                switch (_event.type) {
-                    case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
-                        ƒ.Debug.log(this.message, this.node);
-                        break;
-                    case "componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */:
-                        this.removeEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
-                        this.removeEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
-                        break;
-                    case "nodeDeserialized" /* ƒ.EVENT.NODE_DESERIALIZED */:
-                        // if deserialized the node is now fully reconstructed and access to all its components and children is possible
-                        break;
-                }
-            };
-            // Don't start when running in editor
-            if (ƒ.Project.mode == ƒ.MODE.EDITOR)
-                return;
-            // Listen to this component being added to or removed from a node
-            this.addEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
-            this.addEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
-            this.addEventListener("nodeDeserialized" /* ƒ.EVENT.NODE_DESERIALIZED */, this.hndEvent);
-        }
-    }
+    let CustomComponentScript = (() => {
+        var _a;
+        let _classDecorators = [(_a = ƒ).serialize.bind(_a)];
+        let _classDescriptor;
+        let _classExtraInitializers = [];
+        let _classThis;
+        let _classSuper = ƒ.ComponentScript;
+        let _node0_decorators;
+        let _node0_initializers = [];
+        let _node0_extraInitializers = [];
+        let _node1_decorators;
+        let _node1_initializers = [];
+        let _node1_extraInitializers = [];
+        var CustomComponentScript = class extends _classSuper {
+            static { _classThis = this; }
+            static {
+                const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+                _node0_decorators = [ƒ.serialize(ƒ.Node)];
+                _node1_decorators = [ƒ.serialize(ƒ.Node)];
+                __esDecorate(null, null, _node0_decorators, { kind: "field", name: "node0", static: false, private: false, access: { has: obj => "node0" in obj, get: obj => obj.node0, set: (obj, value) => { obj.node0 = value; } }, metadata: _metadata }, _node0_initializers, _node0_extraInitializers);
+                __esDecorate(null, null, _node1_decorators, { kind: "field", name: "node1", static: false, private: false, access: { has: obj => "node1" in obj, get: obj => obj.node1, set: (obj, value) => { obj.node1 = value; } }, metadata: _metadata }, _node1_initializers, _node1_extraInitializers);
+                __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+                CustomComponentScript = _classThis = _classDescriptor.value;
+                if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+            }
+            // Register the script as component for use in the editor via drag&drop
+            static { this.iSubclass = ƒ.Component.registerSubclass(CustomComponentScript); }
+            constructor() {
+                super();
+                this.node0 = __runInitializers(this, _node0_initializers, undefined);
+                this.node1 = (__runInitializers(this, _node0_extraInitializers), __runInitializers(this, _node1_initializers, undefined));
+                // Activate the functions of this component as response to events
+                this.hndEvent = (__runInitializers(this, _node1_extraInitializers), (_event) => {
+                    switch (_event.type) {
+                        case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
+                            ƒ.Debug.log(this.message, this.node);
+                            break;
+                        case "componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */:
+                            this.removeEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
+                            this.removeEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
+                            break;
+                        case "nodeDeserialized" /* ƒ.EVENT.NODE_DESERIALIZED */:
+                            // if deserialized the node is now fully reconstructed and access to all its components and children is possible
+                            break;
+                    }
+                });
+                // Don't start when running in editor
+                if (ƒ.Project.mode == ƒ.MODE.EDITOR)
+                    return;
+                // Listen to this component being added to or removed from a node
+                this.addEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
+                this.addEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
+                this.addEventListener("nodeDeserialized" /* ƒ.EVENT.NODE_DESERIALIZED */, this.hndEvent);
+            }
+            static {
+                __runInitializers(_classThis, _classExtraInitializers);
+            }
+        };
+        return CustomComponentScript = _classThis;
+    })();
     Script.CustomComponentScript = CustomComponentScript;
 })(Script || (Script = {}));
 var Script;

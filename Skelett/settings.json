@@ -357,9 +357,7 @@
                                 "componentState": {
                                   "expanded": [
                                     "",
-                                    "children/0",
-                                    "children/0/children/10",
-                                    "children/0/children/24"
+                                    "children/0"
                                   ]
                                 }
                               }
@@ -387,7 +385,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Main",
+                                "title": "Components | New Node",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -451,7 +449,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": ""
+                "node": "children/1"
               }
             }
           ],

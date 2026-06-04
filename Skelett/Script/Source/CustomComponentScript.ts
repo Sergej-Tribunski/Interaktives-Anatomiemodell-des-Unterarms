@@ -2,11 +2,14 @@ namespace Script {
   import ƒ = FudgeCore;
   ƒ.Project.registerScriptNamespace(Script);  // Register the namespace to FUDGE for serialization
 
+  @ƒ.serialize
   export class CustomComponentScript extends ƒ.ComponentScript {
     // Register the script as component for use in the editor via drag&drop
     public static readonly iSubclass: number = ƒ.Component.registerSubclass(CustomComponentScript);
-    // Properties may be mutated by users in the editor via the automatically created user interface
-    public message: string = "CustomComponentScript added to ";
+    @ƒ.serialize(ƒ.Node)
+    public node0: ƒ.Node | undefined = undefined;
+    @ƒ.serialize(ƒ.Node)
+    public node1: ƒ.Node | undefined = undefined;
 
 
     constructor() {
@@ -26,7 +29,6 @@ namespace Script {
     public hndEvent = (_event: Event): void => {
       switch (_event.type) {
         case ƒ.EVENT.COMPONENT_ADD:
-          ƒ.Debug.log(this.message, this.node);
           break;
         case ƒ.EVENT.COMPONENT_REMOVE:
           this.removeEventListener(ƒ.EVENT.COMPONENT_ADD, this.hndEvent);

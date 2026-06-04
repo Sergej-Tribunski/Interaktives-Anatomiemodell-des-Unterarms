@@ -60,6 +60,24 @@
             "deserializeFromSource": true,
             "idSource": "GraphGLTF|2026-05-05T13:47:32.463Z|71169"
           }
+        },
+        {
+          "ƒ.Node": {
+            "name": "New Node",
+            "active": true,
+            "components": {
+              "CustomComponentScript": [
+                {
+                  "Script.CustomComponentScript": {
+                    "active": true,
+                    "node0": "node/parent/children/0/children/0",
+                    "node1": "node/parent/children/0/children/1"
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
         }
       ],
       "idResource": "Graph|2026-05-04T14:48:34.420Z|71030",
