@@ -169,8 +169,8 @@
                           "bodyTied": "First metacarpal bone.r",
                           "rotIn": 40,
                           "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "rotLeft": 10,
+                          "rotRight": 10
                         }
                       }
                     ]

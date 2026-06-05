@@ -69,8 +69,8 @@ var Script;
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
                 _jointType_decorators = [ƒ.type(JOINT_TYPE)];
-                _bodyAnchor_decorators = [ƒ.type(String)];
-                _bodyTied_decorators = [ƒ.type(String)];
+                _bodyAnchor_decorators = [ƒ.serialize(ƒ.Node)];
+                _bodyTied_decorators = [ƒ.serialize(ƒ.Node)];
                 _rotIn_decorators = [ƒ.type(Number)];
                 _rotOut_decorators = [ƒ.type(Number)];
                 _rotLeft_decorators = [ƒ.type(Number)];
@@ -91,8 +91,9 @@ var Script;
                 // Properties may be mutated by users in the editor via the automatically created user interface
                 this.message = "CustomComponentScript added to ";
                 this.jointType = __runInitializers(this, _jointType_initializers, JOINT_TYPE.REVOLUTE);
-                this.bodyAnchor = (__runInitializers(this, _jointType_extraInitializers), __runInitializers(this, _bodyAnchor_initializers, ""));
-                this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, ""));
+                //Serializer yields strings of nodes, rather their reference during runtime. Typescript expects their reference --> just do both
+                this.bodyAnchor = (__runInitializers(this, _jointType_extraInitializers), __runInitializers(this, _bodyAnchor_initializers, undefined));
+                this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, undefined));
                 this.rotIn = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _rotIn_initializers, 0));
                 this.rotOut = (__runInitializers(this, _rotIn_extraInitializers), __runInitializers(this, _rotOut_initializers, 0));
                 this.rotLeft = (__runInitializers(this, _rotOut_extraInitializers), __runInitializers(this, _rotLeft_initializers, 0));
@@ -135,10 +136,12 @@ var Script;
     let rbSecondDistal = null;
     let testVectorX = new ƒ.Vector3(1, 0, 0);
     let testVectorY = new ƒ.Vector3(0, 1, 0);
-    let testVectorZ = new ƒ.Vector3(0, 0, -1);
+    let testVectorZ = new ƒ.Vector3(0, 0, 1);
     let rbFirstMetacarpal = null;
+    let testVectorJ = null;
     function start(_event) {
         viewport = _event.detail;
+        //viewport.camera.mtxPivot.translateX(50);
         viewport.getBranch();
         let branch = viewport.getBranch();
         viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
@@ -147,7 +150,7 @@ var Script;
                 node.activate(false);
             }
             if (node.name.includes("Joint ")) {
-                //node.activate(false);
+                node.activate(false);
             }
         }
         ƒ.Render.prepare(branch);
@@ -182,7 +185,7 @@ var Script;
         //rbSecondDistal!.addAngularVelocity(testVector); //y rel dist
         //changing vector to x or z behaves unexpectedly, test more
         //try hinge joint on thumb, see what changing the vector does
-        rbFirstMetacarpal.applyTorque(testVectorZ);
+        rbFirstMetacarpal.applyTorque(testVectorX);
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -208,25 +211,33 @@ var Script;
             }
         }
     }
+    function resolveJoint(_body) {
+        if (!_body) {
+            return null;
+        }
+        if (typeof _body === "string") {
+            return scene?.getChildByName(_body);
+        }
+        return _body;
+    }
     function defineJoints(_joints) {
         ƒ.Render.prepare(viewport.getBranch());
         for (let node of _joints.getIterator(false)) {
             if (node.name.startsWith("Joint ")) {
-                defineJoint(node, scene?.getChildByName(node.getComponent(Script.Joint).bodyAnchor).getComponent(ƒ.ComponentRigidbody), scene?.getChildByName(node.getComponent(Script.Joint).bodyTied).getComponent(ƒ.ComponentRigidbody));
+                defineJoint(node, resolveJoint(node.getComponent(Script.Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody), resolveJoint(node.getComponent(Script.Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody));
             }
         }
     }
     function defineJoint(_node, _anchor, _tied) {
-        /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
-          let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
-          joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-          joint.minMotor = -_node.getComponent(Joint).rotIn;
-          joint.maxMotor = _node.getComponent(Joint).rotOut;
-          _node.addComponent(joint);
-        } */
-        //Figure out axis' for Universal Joint.
+        if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.REVOLUTE) {
+            let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
+            joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
+            joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
+            joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
+            _node.addComponent(joint);
+        }
         if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
-            let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize(), _node.mtxWorld.getY().normalize());
+            let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
             joint.minRotorFirst = -_node.getComponent(Script.Joint).rotIn;
             joint.maxRotorFirst = _node.getComponent(Script.Joint).rotOut;

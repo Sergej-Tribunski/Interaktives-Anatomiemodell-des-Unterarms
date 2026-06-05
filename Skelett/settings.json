@@ -358,15 +358,7 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/0/children/1",
-                                    "children/0/children/2",
-                                    "children/0/children/7",
-                                    "children/0/children/14",
-                                    "children/0/children/19",
-                                    "children/0/children/21",
-                                    "children/0/children/26",
-                                    "children/1",
-                                    "children/1/children/2"
+                                    "children/1"
                                   ]
                                 }
                               }
@@ -394,7 +386,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Joint first metacarpal trapezium ",
+                                "title": "Components | Joint first distal proximal",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -458,7 +450,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": "children/1/children/2"
+                "node": "children/1/children/0"
               }
             }
           ],

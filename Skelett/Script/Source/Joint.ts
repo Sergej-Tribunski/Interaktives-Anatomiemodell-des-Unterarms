@@ -16,10 +16,11 @@ namespace Script {
 
     @ƒ.type(JOINT_TYPE)
     public jointType: JOINT_TYPE = JOINT_TYPE.REVOLUTE;
-    @ƒ.type(String)
-    public bodyAnchor: string = "";
-    @ƒ.type(String)
-    public bodyTied: string = "";
+    //Serializer yields strings of nodes, rather their reference during runtime. Typescript expects their reference --> just do both
+    @ƒ.serialize(ƒ.Node)
+    public bodyAnchor: ƒ.Node | string | undefined = undefined;
+    @ƒ.serialize(ƒ.Node)
+    public bodyTied: ƒ.Node | string | undefined = undefined;
     @ƒ.type(Number)
     public rotIn: number = 0;
     @ƒ.type(Number)
@@ -27,8 +28,7 @@ namespace Script {
     @ƒ.type(Number)
     public rotLeft: number = 0;
     @ƒ.type(Number)
-    public rotRight: number = 0
-
+    public rotRight: number = 0;
 
     constructor() {
       super();

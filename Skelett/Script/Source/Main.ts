@@ -12,13 +12,15 @@ namespace Script {
   let rbSecondDistal: ƒ.ComponentRigidbody | null = null;
   let testVectorX: ƒ.Vector3 = new ƒ.Vector3(1, 0, 0);
   let testVectorY: ƒ.Vector3 = new ƒ.Vector3(0, 1, 0);
-  let testVectorZ: ƒ.Vector3 = new ƒ.Vector3(0, 0, -1);
+  let testVectorZ: ƒ.Vector3 = new ƒ.Vector3(0, 0, 1);
   let rbFirstMetacarpal: ƒ.ComponentRigidbody | null = null;
+  let testVectorJ: ƒ.Vector3 | null = null;
 
 
 
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
+    //viewport.camera.mtxPivot.translateX(50);
 
     viewport.getBranch();
     let branch: ƒ.Node = viewport.getBranch();
@@ -30,7 +32,7 @@ namespace Script {
         node.activate(false);
       }
       if (node.name.includes("Joint ")) {
-        //node.activate(false);
+        node.activate(false);
       }
     }
 
@@ -77,7 +79,7 @@ namespace Script {
     //changing vector to x or z behaves unexpectedly, test more
 
     //try hinge joint on thumb, see what changing the vector does
-    rbFirstMetacarpal!.applyTorque(testVectorZ);
+    rbFirstMetacarpal!.applyTorque(testVectorX);
 
 
     viewport.draw();
@@ -109,28 +111,37 @@ namespace Script {
     }
   }
 
-
+  function resolveJoint(_body: ƒ.Node | string | undefined): ƒ.Node | null {
+    if (!_body) {
+      return null;
+    }
+    if (typeof _body === "string") {
+      return scene?.getChildByName(_body)!;
+    }
+    return _body;
+  }
 
   function defineJoints(_joints: ƒ.Node) {
     ƒ.Render.prepare(viewport.getBranch());
     for (let node of _joints.getIterator(false)) {
       if (node.name.startsWith("Joint ")) {
-        defineJoint(node, scene?.getChildByName(node.getComponent(Joint).bodyAnchor).getComponent(ƒ.ComponentRigidbody)!, scene?.getChildByName(node.getComponent(Joint).bodyTied).getComponent(ƒ.ComponentRigidbody)!)
+        defineJoint(node, resolveJoint(node.getComponent(Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody)!, resolveJoint(node.getComponent(Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody)!);
       }
     }
   }
 
+
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
-    /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
+    if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
       let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
       joint.minMotor = -_node.getComponent(Joint).rotIn;
       joint.maxMotor = _node.getComponent(Joint).rotOut;
       _node.addComponent(joint);
-    } */
-    //Figure out axis' for Universal Joint.
+    }
+
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
-      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxWorld.getX().normalize(), _node.mtxWorld.getY().normalize());
+      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
       joint.minRotorFirst = -_node.getComponent(Joint).rotIn;
       joint.maxRotorFirst = _node.getComponent(Joint).rotOut;

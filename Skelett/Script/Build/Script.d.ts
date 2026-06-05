@@ -8,8 +8,8 @@ declare namespace Script {
         static readonly iSubclass: number;
         message: string;
         jointType: JOINT_TYPE;
-        bodyAnchor: string;
-        bodyTied: string;
+        bodyAnchor: ƒ.Node | string | undefined;
+        bodyTied: ƒ.Node | string | undefined;
         rotIn: number;
         rotOut: number;
         rotLeft: number;
