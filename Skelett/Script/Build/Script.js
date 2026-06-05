@@ -72,7 +72,6 @@ var Script;
                 this.hndEvent = (__runInitializers(this, _node1_extraInitializers), (_event) => {
                     switch (_event.type) {
                         case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
-                            ƒ.Debug.log(this.message, this.node);
                             break;
                         case "componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */:
                             this.removeEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
@@ -102,8 +101,28 @@ var Script;
 var Script;
 (function (Script) {
     var ƒ = FudgeCore;
+    function positionForce(_posClient) {
+        Script.force.activate(false);
+        let picks = ƒ.Picker.pickViewport(Script.viewport, _posClient);
+        if (!picks.length)
+            return;
+        let pick = picks[0];
+        Script.force.mtxLocal.translation = pick.posWorld;
+        Script.force.mtxLocal.lookAt(ƒ.Vector3.SUM(pick.posWorld, pick.normal));
+        Script.force.activate(true);
+        // let gizmo: ƒ.Gizmo = {
+        //   drawGizmos = (viewport.camera, false): void => { };
+        // }
+        // // ƒ.Gizmos.draw(_gizmos: ƒ.Gizmo[], viewport.camera);
+        // ƒ.Gizmos.drawArrow(pick.posWorld, ƒ.Color.CSS("blue"), pick.normal, ƒ.Vector3.Y(), 1, 1, 1, ƒ.MeshPyramid, 0);
+    }
+    Script.positionForce = positionForce;
+})(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
     ƒ.Debug.info("Main Program Template running!");
-    let viewport;
+    Script.vecMouse = new ƒ.Vector2();
     document.addEventListener("interactiveViewportStarted", start);
     // let middleFinger: ƒ.Node | null = null;
     let secondDistal;
@@ -115,17 +134,17 @@ var Script;
     // let rbSecondProximal: ƒ.ComponentRigidbody | null = null;
     // let rbSecondMetacarpal: ƒ.ComponentRigidbody | null = null;
     function start(_event) {
-        viewport = _event.detail;
+        Script.viewport = _event.detail;
+        Script.viewport.canvas.addEventListener("mousemove", (_event) => Script.vecMouse.set(_event.clientX, _event.clientY));
         /* viewport.camera.mtxPivot.translateX(-0.26);
         viewport.camera.mtxPivot.translateY(0.7);
         viewport.camera.mtxPivot.translateZ(4.7); */
         // viewport.getBranch();
-        let branch = viewport.getBranch();
-        viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
-        for (let node of branch.getIterator(true)) {
-            if (node.name.startsWith("Arrow"))
-                node.activate(false);
-        }
+        let branch = Script.viewport.getBranch();
+        Script.viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
+        let focus = branch.getChildByName("Focus");
+        focus.activate(false);
+        Script.force = branch.getChildByName("Force");
         // for (let node of branch.getIterator(true))
         //   if (node.name.startsWith("Proximal phalanx of third finger")) {
         //     middleFinger = node;
@@ -255,7 +274,8 @@ var Script;
         //middleFinger?.mtxLocal.rotateX(1);
         //secondProximal?.mtxLocal.rotateX(1);
         //secondDistal?.mtxLocal.rotateX(1);
-        viewport.draw();
+        Script.viewport.draw();
+        Script.positionForce(Script.vecMouse);
         ƒ.AudioManager.default.update();
     }
 })(Script || (Script = {}));

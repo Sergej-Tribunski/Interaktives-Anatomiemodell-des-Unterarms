@@ -2,7 +2,9 @@ namespace Script {
   import ƒ = FudgeCore;
   ƒ.Debug.info("Main Program Template running!");
 
-  let viewport: ƒ.Viewport;
+  export let viewport: ƒ.Viewport;
+  export let vecMouse: ƒ.Vector2 = new ƒ.Vector2();
+  export let force: ƒ.Node;
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
   // let middleFinger: ƒ.Node | null = null;
@@ -19,6 +21,9 @@ namespace Script {
 
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
+    viewport.canvas.addEventListener("mousemove",
+      (_event: MouseEvent) => vecMouse.set(_event.clientX, _event.clientY)
+    );
 
     /* viewport.camera.mtxPivot.translateX(-0.26);
     viewport.camera.mtxPivot.translateY(0.7);
@@ -31,10 +36,10 @@ namespace Script {
 
     viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
 
-    for (let node of branch.getIterator(true)) {
-      if (node.name.startsWith("Arrow"))
-        node.activate(false);
-    }
+    let focus: ƒ.Node = branch.getChildByName("Focus");
+    focus.activate(false);
+
+    force = branch.getChildByName("Force");
 
 
     // for (let node of branch.getIterator(true))
@@ -188,7 +193,9 @@ namespace Script {
     //secondProximal?.mtxLocal.rotateX(1);
     //secondDistal?.mtxLocal.rotateX(1);
 
+
     viewport.draw();
+    positionForce(vecMouse);
     ƒ.AudioManager.default.update();
   }
 }

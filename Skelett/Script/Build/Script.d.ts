@@ -9,4 +9,12 @@ declare namespace Script {
     }
 }
 declare namespace Script {
+    import ƒ = FudgeCore;
+    function positionForce(_posClient: ƒ.Vector2): void;
+}
+declare namespace Script {
+    import ƒ = FudgeCore;
+    let viewport: ƒ.Viewport;
+    let vecMouse: ƒ.Vector2;
+    let force: ƒ.Node;
 }
