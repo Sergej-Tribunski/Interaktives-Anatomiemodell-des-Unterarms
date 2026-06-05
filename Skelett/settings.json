@@ -356,8 +356,7 @@
                                 "componentType": "ViewHierarchy",
                                 "componentState": {
                                   "expanded": [
-                                    "",
-                                    "children/0"
+                                    ""
                                   ]
                                 }
                               }
@@ -385,7 +384,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | New Node",
+                                "title": "Components | TestRef2",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -449,7 +448,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": "children/1"
+                "node": "children/2"
               }
             }
           ],
