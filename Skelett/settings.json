@@ -358,7 +358,9 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/1"
+                                    "children/0/children/4",
+                                    "children/1",
+                                    "children/1/children/0"
                                   ]
                                 }
                               }
@@ -386,7 +388,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Joint first distal proximal",
+                                "title": "Components | Distal phalanx of second finger of hand.r",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -450,7 +452,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": "children/1/children/0"
+                "node": "children/0/children/4"
               }
             }
           ],

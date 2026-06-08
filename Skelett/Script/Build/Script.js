@@ -133,15 +133,14 @@ var Script;
     document.addEventListener("interactiveViewportStarted", start);
     let scene = null;
     let joints = null;
-    let rbSecondDistal = null;
-    let testVectorX = new ƒ.Vector3(1, 0, 0);
-    let testVectorY = new ƒ.Vector3(0, 1, 0);
-    let testVectorZ = new ƒ.Vector3(0, 0, 1);
-    let rbFirstMetacarpal = null;
-    let testVectorJ = null;
+    //let rbFirstMetacarpal: ƒ.ComponentRigidbody | null = null;
+    let rotAxis = undefined;
+    let selectedBones = [];
+    let timer = 0;
+    let direction = 0.5;
+    let deltaTime = 0;
     function start(_event) {
         viewport = _event.detail;
-        //viewport.camera.mtxPivot.translateX(50);
         viewport.getBranch();
         let branch = viewport.getBranch();
         viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
@@ -164,12 +163,14 @@ var Script;
                 let cmpMaterial = node.getComponent(ƒ.ComponentMaterial);
                 cmpMaterial.material = material;
             }
-        /* for (let node of branch.getIterator(false)) {
-          console.log(node.name + " has the Components:");
-          console.log(node.getAllComponents());
-        } */
-        rbSecondDistal = scene.getChildByName("Distal phalanx of second finger of hand.r").getComponent(ƒ.ComponentRigidbody);
-        rbFirstMetacarpal = scene.getChildByName("First metacarpal bone.r").getComponent(ƒ.ComponentRigidbody);
+        //bFirstMetacarpal = scene.getChildByName("First metacarpal bone.r").getComponent(ƒ.ComponentRigidbody);
+        //TODO
+        //Test for selectedBones - this needs to be Handeled with eventlisteners later
+        for (let node of scene.getChildren()) {
+            if (node.name.includes("second") || node.name.includes("third") || node.name.includes("fourth") || node.name.includes("fifth")) {
+                selectBone(node.getComponent(ƒ.ComponentRigidbody));
+            }
+        }
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
@@ -185,15 +186,40 @@ var Script;
         //rbSecondDistal!.addAngularVelocity(testVector); //y rel dist
         //changing vector to x or z behaves unexpectedly, test more
         //try hinge joint on thumb, see what changing the vector does
-        rbFirstMetacarpal.applyTorque(testVectorX);
+        //rbFirstMetacarpal!.applyTorque(testVectorX);
+        /* testVectorJ = rbSecondDistal?.node?.mtxLocal.getX();
+        rbSecondDistal?.applyTorque(testVectorJ!.scale(-1));
+        readVectors(); */
+        deltaTime = ƒ.Loop.timeFrameGame / 1000;
+        timer += deltaTime;
+        if (timer >= 10) {
+            timer = 0;
+            direction *= -1;
+        }
+        rotateBones(1, direction);
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
+    /* function readVectors() {
+      console.log("Node mtxLocal X: ", rbSecondDistal!.node?.mtxLocal.getX());
+      console.log("Node mtxLocal Y: ", rbSecondDistal!.node?.mtxLocal.getY());
+      console.log("Node mtxLocal Z: ", rbSecondDistal!.node?.mtxLocal.getZ());
+  
+      console.log("Node mtsWorld X: ", rbSecondDistal!.node?.mtxWorld.getX());
+      console.log("Node mtxWorld Y: ", rbSecondDistal!.node?.mtxWorld.getY());
+      console.log("Node mtxWorld Z: ", rbSecondDistal!.node?.mtxWorld.getZ());
+  
+      console.log("Rb mtxLocal X: ", rbSecondDistal!.mtxPivot.getX());
+      console.log("Rb mtxLocal Y: ", rbSecondDistal!.mtxPivot.getY());
+      console.log("Rb mtxLocal Z: ", rbSecondDistal!.mtxPivot.getZ());
+  
+      console.log("testVectorJ: ", testVectorJ);
+    } */
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
-            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) { //WIP change bodytype to dynamic
+            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) { //WIP change bodytype to dynamic (only the humerus stays static)
                 let cmpRigidbody = new ƒ.ComponentRigidbody(1, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-                //WIP remove if-statements when done testing
+                //WIP remove if-statements when done placing all joints in the editor
                 if (node.name.includes("Distal ")) {
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
                 }
@@ -207,6 +233,7 @@ var Script;
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
                 }
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
+                cmpRigidbody.effectGravity = 0;
                 node.addComponent(cmpRigidbody);
             }
         }
@@ -244,6 +271,27 @@ var Script;
             joint.minRotorSecond = -_node.getComponent(Script.Joint).rotLeft;
             joint.maxRotorSecond = _node.getComponent(Script.Joint).rotRight;
             _node.addComponent(joint);
+        }
+    }
+    function selectBone(_rb) {
+        if (!selectedBones.includes(_rb)) {
+            selectedBones.push(_rb);
+        }
+    }
+    function deselectBone(_rb) {
+        let index = selectedBones.indexOf(_rb, 0);
+        selectedBones.splice(index, 1);
+    }
+    function deselectAllBones() {
+        selectedBones.length = 0;
+    }
+    function rotateBones(_direction, _strength) {
+        _strength = _strength * -1;
+        for (let rb of selectedBones) {
+            rotAxis = rb.node.mtxLocal.getX();
+            rotAxis.normalize();
+            rotAxis.scale(_direction * _strength);
+            rb.applyTorque(rotAxis);
         }
     }
 })(Script || (Script = {}));
