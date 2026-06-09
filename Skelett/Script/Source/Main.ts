@@ -14,6 +14,7 @@ namespace Script {
   let timer: number = 0;
   let direction: number = 0.5;
   let deltaTime: number = 0;
+  let anchoringJoint: Map<ƒ.ComponentRigidbody, Joint> = new Map();
 
 
   function start(_event: CustomEvent): void {
@@ -52,10 +53,8 @@ namespace Script {
 
     //TODO
     //Test for selectedBones - this needs to be Handeled with eventlisteners later
-    for(let node of scene.getChildren()){
-      if(node.name.includes("second") || node.name.includes("third") || node.name.includes("fourth") || node.name.includes("fifth")){
-        selectBone(node.getComponent(ƒ.ComponentRigidbody));
-      }
+    for (let node of scene.getChildren()) {
+      selectBone(node.getComponent(ƒ.ComponentRigidbody));
     }
 
 
@@ -87,11 +86,11 @@ namespace Script {
 
     deltaTime = ƒ.Loop.timeFrameGame / 1000;
     timer += deltaTime;
-    if (timer >= 10){
+    if (timer >= 10) {
       timer = 0;
       direction *= -1;
     }
-    rotateBones(1, direction);
+    rotateBones(1, direction, 1, direction);
 
     viewport.draw();
     ƒ.AudioManager.default.update();
@@ -138,7 +137,7 @@ namespace Script {
     }
   }
 
-  
+
   function resolveJoint(_body: ƒ.Node | string | undefined): ƒ.Node | null {
     if (!_body) {
       return null;
@@ -148,26 +147,27 @@ namespace Script {
     }
     return _body;
   }
-  
+
   function defineJoints(_joints: ƒ.Node) {
     ƒ.Render.prepare(viewport.getBranch());
     for (let node of _joints.getIterator(false)) {
       if (node.name.startsWith("Joint ")) {
         defineJoint(node, resolveJoint(node.getComponent(Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody)!, resolveJoint(node.getComponent(Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody)!);
+        anchoringJoint.set(resolveJoint(node.getComponent(Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody)!, node.getComponent(Joint));
       }
     }
   }
-  
+
   function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
       let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
       joint.minMotor = -_node.getComponent(Joint).rotIn;
       joint.maxMotor = _node.getComponent(Joint).rotOut;
-      
+
       _node.addComponent(joint);
     }
-    
+
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
       let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
@@ -175,7 +175,7 @@ namespace Script {
       joint.maxRotorFirst = _node.getComponent(Joint).rotOut;
       joint.minRotorSecond = -_node.getComponent(Joint).rotLeft;
       joint.maxRotorSecond = _node.getComponent(Joint).rotRight;
-      
+
       _node.addComponent(joint);
     }
   }
@@ -185,7 +185,7 @@ namespace Script {
       selectedBones.push(_rb);
     }
   }
-  
+
   function deselectBone(_rb: ƒ.ComponentRigidbody): void {
     let index = selectedBones.indexOf(_rb, 0);
     selectedBones.splice(index, 1);
@@ -193,15 +193,37 @@ namespace Script {
   function deselectAllBones(): void {
     selectedBones.length = 0;
   }
-  
-  function rotateBones(_direction: number, _strength: number): void {
-    _strength = _strength * -1;
-    for(let rb of selectedBones){
-      rotAxis = rb.node!.mtxLocal.getX();
-      rotAxis.normalize();
-      rotAxis.scale(_direction * _strength);
 
-      rb.applyTorque(rotAxis);
+  function rotateBones(_strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
+    for (let rb of selectedBones) {
+      if (anchoringJoint.get(rb)?.jointType == JOINT_TYPE.REVOLUTE) {
+        rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
+      }
+      if (anchoringJoint.get(rb)?.jointType == JOINT_TYPE.UNIVERSAL) {
+        rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
+      }
     }
+  }
+
+  function rotate(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number): void {
+    _strength *= -1;
+    rotAxis?.normalize();
+    rotAxis?.scale(_direction * _strength);
+
+    _rb.applyTorque(rotAxis!);
+  }
+
+  function rotateBoneRevolute(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number): void {
+    _strength = _strength * -1;
+    rotAxis = _rb.node!.mtxLocal.getX();
+    rotate(_rb, _strength, _direction);
+  }
+
+  function rotateBoneUniversal(_rb: ƒ.ComponentRigidbody, _strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
+    rotAxis = _rb.node!.mtxLocal.getX();
+    rotate(_rb, _strengthFirst, _directionFirst);
+
+    rotAxis = _rb.node!.mtxLocal.getY();
+    rotate(_rb, _strengthSecond, _directionSecond);
   }
 }

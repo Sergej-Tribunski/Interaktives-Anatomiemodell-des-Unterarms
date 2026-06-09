@@ -139,6 +139,7 @@ var Script;
     let timer = 0;
     let direction = 0.5;
     let deltaTime = 0;
+    let anchoringJoint = new Map();
     function start(_event) {
         viewport = _event.detail;
         viewport.getBranch();
@@ -167,9 +168,7 @@ var Script;
         //TODO
         //Test for selectedBones - this needs to be Handeled with eventlisteners later
         for (let node of scene.getChildren()) {
-            if (node.name.includes("second") || node.name.includes("third") || node.name.includes("fourth") || node.name.includes("fifth")) {
-                selectBone(node.getComponent(ƒ.ComponentRigidbody));
-            }
+            selectBone(node.getComponent(ƒ.ComponentRigidbody));
         }
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
@@ -196,7 +195,7 @@ var Script;
             timer = 0;
             direction *= -1;
         }
-        rotateBones(1, direction);
+        rotateBones(1, direction, 1, direction);
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -252,6 +251,7 @@ var Script;
         for (let node of _joints.getIterator(false)) {
             if (node.name.startsWith("Joint ")) {
                 defineJoint(node, resolveJoint(node.getComponent(Script.Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody), resolveJoint(node.getComponent(Script.Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody));
+                anchoringJoint.set(resolveJoint(node.getComponent(Script.Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody), node.getComponent(Script.Joint));
             }
         }
     }
@@ -285,14 +285,32 @@ var Script;
     function deselectAllBones() {
         selectedBones.length = 0;
     }
-    function rotateBones(_direction, _strength) {
-        _strength = _strength * -1;
+    function rotateBones(_strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
         for (let rb of selectedBones) {
-            rotAxis = rb.node.mtxLocal.getX();
-            rotAxis.normalize();
-            rotAxis.scale(_direction * _strength);
-            rb.applyTorque(rotAxis);
+            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.REVOLUTE) {
+                rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
+            }
+            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.UNIVERSAL) {
+                rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
+            }
         }
+    }
+    function rotate(_rb, _strength, _direction) {
+        _strength *= -1;
+        rotAxis?.normalize();
+        rotAxis?.scale(_direction * _strength);
+        _rb.applyTorque(rotAxis);
+    }
+    function rotateBoneRevolute(_rb, _strength, _direction) {
+        _strength = _strength * -1;
+        rotAxis = _rb.node.mtxLocal.getX();
+        rotate(_rb, _strength, _direction);
+    }
+    function rotateBoneUniversal(_rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
+        rotAxis = _rb.node.mtxLocal.getX();
+        rotate(_rb, _strengthFirst, _directionFirst);
+        rotAxis = _rb.node.mtxLocal.getY();
+        rotate(_rb, _strengthSecond, _directionSecond);
     }
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
