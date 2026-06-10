@@ -4,7 +4,8 @@ namespace Script {
 
   export enum JOINT_TYPE {
     REVOLUTE,
-    UNIVERSAL
+    UNIVERSAL,
+    SPHERICAL
   }
 
   export class Joint extends ƒ.ComponentScript {
@@ -22,13 +23,17 @@ namespace Script {
     @ƒ.serialize(ƒ.Node)
     public bodyTied: ƒ.Node | string | undefined = undefined;
     @ƒ.type(Number)
-    public rotIn: number = 0;
+    public flexInLimit: number = 0;
     @ƒ.type(Number)
-    public rotOut: number = 0;
+    public flexOutLimit: number = 0;
     @ƒ.type(Number)
-    public rotLeft: number = 0;
+    public abductLeftLimit: number = 0;
     @ƒ.type(Number)
-    public rotRight: number = 0;
+    public abductRightLimit: number = 0;
+    @ƒ.type(Number)
+    public twistClockwiseLimit: number = 0;
+    @ƒ.type(Number)
+    public twistCounterClockwiseLimit: number = 0;
 
     constructor() {
       super();

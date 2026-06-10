@@ -41,6 +41,7 @@ var Script;
     (function (JOINT_TYPE) {
         JOINT_TYPE[JOINT_TYPE["REVOLUTE"] = 0] = "REVOLUTE";
         JOINT_TYPE[JOINT_TYPE["UNIVERSAL"] = 1] = "UNIVERSAL";
+        JOINT_TYPE[JOINT_TYPE["SPHERICAL"] = 2] = "SPHERICAL";
     })(JOINT_TYPE = Script.JOINT_TYPE || (Script.JOINT_TYPE = {}));
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
@@ -53,35 +54,45 @@ var Script;
         let _bodyTied_decorators;
         let _bodyTied_initializers = [];
         let _bodyTied_extraInitializers = [];
-        let _rotIn_decorators;
-        let _rotIn_initializers = [];
-        let _rotIn_extraInitializers = [];
-        let _rotOut_decorators;
-        let _rotOut_initializers = [];
-        let _rotOut_extraInitializers = [];
-        let _rotLeft_decorators;
-        let _rotLeft_initializers = [];
-        let _rotLeft_extraInitializers = [];
-        let _rotRight_decorators;
-        let _rotRight_initializers = [];
-        let _rotRight_extraInitializers = [];
+        let _flexInLimit_decorators;
+        let _flexInLimit_initializers = [];
+        let _flexInLimit_extraInitializers = [];
+        let _flexOutLimit_decorators;
+        let _flexOutLimit_initializers = [];
+        let _flexOutLimit_extraInitializers = [];
+        let _abductLeftLimit_decorators;
+        let _abductLeftLimit_initializers = [];
+        let _abductLeftLimit_extraInitializers = [];
+        let _abductRightLimit_decorators;
+        let _abductRightLimit_initializers = [];
+        let _abductRightLimit_extraInitializers = [];
+        let _twistClockwiseLimit_decorators;
+        let _twistClockwiseLimit_initializers = [];
+        let _twistClockwiseLimit_extraInitializers = [];
+        let _twistCounterClockwiseLimit_decorators;
+        let _twistCounterClockwiseLimit_initializers = [];
+        let _twistCounterClockwiseLimit_extraInitializers = [];
         return class Joint extends _classSuper {
             static {
                 const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
                 _jointType_decorators = [ƒ.type(JOINT_TYPE)];
                 _bodyAnchor_decorators = [ƒ.serialize(ƒ.Node)];
                 _bodyTied_decorators = [ƒ.serialize(ƒ.Node)];
-                _rotIn_decorators = [ƒ.type(Number)];
-                _rotOut_decorators = [ƒ.type(Number)];
-                _rotLeft_decorators = [ƒ.type(Number)];
-                _rotRight_decorators = [ƒ.type(Number)];
+                _flexInLimit_decorators = [ƒ.type(Number)];
+                _flexOutLimit_decorators = [ƒ.type(Number)];
+                _abductLeftLimit_decorators = [ƒ.type(Number)];
+                _abductRightLimit_decorators = [ƒ.type(Number)];
+                _twistClockwiseLimit_decorators = [ƒ.type(Number)];
+                _twistCounterClockwiseLimit_decorators = [ƒ.type(Number)];
                 __esDecorate(null, null, _jointType_decorators, { kind: "field", name: "jointType", static: false, private: false, access: { has: obj => "jointType" in obj, get: obj => obj.jointType, set: (obj, value) => { obj.jointType = value; } }, metadata: _metadata }, _jointType_initializers, _jointType_extraInitializers);
                 __esDecorate(null, null, _bodyAnchor_decorators, { kind: "field", name: "bodyAnchor", static: false, private: false, access: { has: obj => "bodyAnchor" in obj, get: obj => obj.bodyAnchor, set: (obj, value) => { obj.bodyAnchor = value; } }, metadata: _metadata }, _bodyAnchor_initializers, _bodyAnchor_extraInitializers);
                 __esDecorate(null, null, _bodyTied_decorators, { kind: "field", name: "bodyTied", static: false, private: false, access: { has: obj => "bodyTied" in obj, get: obj => obj.bodyTied, set: (obj, value) => { obj.bodyTied = value; } }, metadata: _metadata }, _bodyTied_initializers, _bodyTied_extraInitializers);
-                __esDecorate(null, null, _rotIn_decorators, { kind: "field", name: "rotIn", static: false, private: false, access: { has: obj => "rotIn" in obj, get: obj => obj.rotIn, set: (obj, value) => { obj.rotIn = value; } }, metadata: _metadata }, _rotIn_initializers, _rotIn_extraInitializers);
-                __esDecorate(null, null, _rotOut_decorators, { kind: "field", name: "rotOut", static: false, private: false, access: { has: obj => "rotOut" in obj, get: obj => obj.rotOut, set: (obj, value) => { obj.rotOut = value; } }, metadata: _metadata }, _rotOut_initializers, _rotOut_extraInitializers);
-                __esDecorate(null, null, _rotLeft_decorators, { kind: "field", name: "rotLeft", static: false, private: false, access: { has: obj => "rotLeft" in obj, get: obj => obj.rotLeft, set: (obj, value) => { obj.rotLeft = value; } }, metadata: _metadata }, _rotLeft_initializers, _rotLeft_extraInitializers);
-                __esDecorate(null, null, _rotRight_decorators, { kind: "field", name: "rotRight", static: false, private: false, access: { has: obj => "rotRight" in obj, get: obj => obj.rotRight, set: (obj, value) => { obj.rotRight = value; } }, metadata: _metadata }, _rotRight_initializers, _rotRight_extraInitializers);
+                __esDecorate(null, null, _flexInLimit_decorators, { kind: "field", name: "flexInLimit", static: false, private: false, access: { has: obj => "flexInLimit" in obj, get: obj => obj.flexInLimit, set: (obj, value) => { obj.flexInLimit = value; } }, metadata: _metadata }, _flexInLimit_initializers, _flexInLimit_extraInitializers);
+                __esDecorate(null, null, _flexOutLimit_decorators, { kind: "field", name: "flexOutLimit", static: false, private: false, access: { has: obj => "flexOutLimit" in obj, get: obj => obj.flexOutLimit, set: (obj, value) => { obj.flexOutLimit = value; } }, metadata: _metadata }, _flexOutLimit_initializers, _flexOutLimit_extraInitializers);
+                __esDecorate(null, null, _abductLeftLimit_decorators, { kind: "field", name: "abductLeftLimit", static: false, private: false, access: { has: obj => "abductLeftLimit" in obj, get: obj => obj.abductLeftLimit, set: (obj, value) => { obj.abductLeftLimit = value; } }, metadata: _metadata }, _abductLeftLimit_initializers, _abductLeftLimit_extraInitializers);
+                __esDecorate(null, null, _abductRightLimit_decorators, { kind: "field", name: "abductRightLimit", static: false, private: false, access: { has: obj => "abductRightLimit" in obj, get: obj => obj.abductRightLimit, set: (obj, value) => { obj.abductRightLimit = value; } }, metadata: _metadata }, _abductRightLimit_initializers, _abductRightLimit_extraInitializers);
+                __esDecorate(null, null, _twistClockwiseLimit_decorators, { kind: "field", name: "twistClockwiseLimit", static: false, private: false, access: { has: obj => "twistClockwiseLimit" in obj, get: obj => obj.twistClockwiseLimit, set: (obj, value) => { obj.twistClockwiseLimit = value; } }, metadata: _metadata }, _twistClockwiseLimit_initializers, _twistClockwiseLimit_extraInitializers);
+                __esDecorate(null, null, _twistCounterClockwiseLimit_decorators, { kind: "field", name: "twistCounterClockwiseLimit", static: false, private: false, access: { has: obj => "twistCounterClockwiseLimit" in obj, get: obj => obj.twistCounterClockwiseLimit, set: (obj, value) => { obj.twistCounterClockwiseLimit = value; } }, metadata: _metadata }, _twistCounterClockwiseLimit_initializers, _twistCounterClockwiseLimit_extraInitializers);
                 if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
             }
             // Register the script as component for use in the editor via drag&drop
@@ -94,12 +105,14 @@ var Script;
                 //Serializer yields strings of nodes, rather their reference during runtime. Typescript expects their reference --> just do both
                 this.bodyAnchor = (__runInitializers(this, _jointType_extraInitializers), __runInitializers(this, _bodyAnchor_initializers, undefined));
                 this.bodyTied = (__runInitializers(this, _bodyAnchor_extraInitializers), __runInitializers(this, _bodyTied_initializers, undefined));
-                this.rotIn = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _rotIn_initializers, 0));
-                this.rotOut = (__runInitializers(this, _rotIn_extraInitializers), __runInitializers(this, _rotOut_initializers, 0));
-                this.rotLeft = (__runInitializers(this, _rotOut_extraInitializers), __runInitializers(this, _rotLeft_initializers, 0));
-                this.rotRight = (__runInitializers(this, _rotLeft_extraInitializers), __runInitializers(this, _rotRight_initializers, 0));
+                this.flexInLimit = (__runInitializers(this, _bodyTied_extraInitializers), __runInitializers(this, _flexInLimit_initializers, 0));
+                this.flexOutLimit = (__runInitializers(this, _flexInLimit_extraInitializers), __runInitializers(this, _flexOutLimit_initializers, 0));
+                this.abductLeftLimit = (__runInitializers(this, _flexOutLimit_extraInitializers), __runInitializers(this, _abductLeftLimit_initializers, 0));
+                this.abductRightLimit = (__runInitializers(this, _abductLeftLimit_extraInitializers), __runInitializers(this, _abductRightLimit_initializers, 0));
+                this.twistClockwiseLimit = (__runInitializers(this, _abductRightLimit_extraInitializers), __runInitializers(this, _twistClockwiseLimit_initializers, 0));
+                this.twistCounterClockwiseLimit = (__runInitializers(this, _twistClockwiseLimit_extraInitializers), __runInitializers(this, _twistCounterClockwiseLimit_initializers, 0));
                 // Activate the functions of this component as response to events
-                this.hndEvent = (__runInitializers(this, _rotRight_extraInitializers), (_event) => {
+                this.hndEvent = (__runInitializers(this, _twistCounterClockwiseLimit_extraInitializers), (_event) => {
                     switch (_event.type) {
                         case "componentAdd" /* ƒ.EVENT.COMPONENT_ADD */:
                             ƒ.Debug.log(this.message, this.node);
@@ -140,6 +153,13 @@ var Script;
     let direction = 0.5;
     let deltaTime = 0;
     let anchoringJoint = new Map();
+    let AXIS;
+    (function (AXIS) {
+        AXIS[AXIS["FLEXTION"] = 0] = "FLEXTION";
+        AXIS[AXIS["ABDUCTION"] = 1] = "ABDUCTION";
+        AXIS[AXIS["TWIST"] = 2] = "TWIST";
+    })(AXIS || (AXIS = {}));
+    ;
     function start(_event) {
         viewport = _event.detail;
         viewport.getBranch();
@@ -259,19 +279,24 @@ var Script;
         if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.REVOLUTE) {
             let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
-            joint.minMotor = -_node.getComponent(Script.Joint).rotIn;
-            joint.maxMotor = _node.getComponent(Script.Joint).rotOut;
+            joint.minMotor = -_node.getComponent(Script.Joint).flexInLimit;
+            joint.maxMotor = _node.getComponent(Script.Joint).flexOutLimit;
             _node.addComponent(joint);
         }
         if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
             let joint = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
-            joint.minRotorFirst = -_node.getComponent(Script.Joint).rotIn;
-            joint.maxRotorFirst = _node.getComponent(Script.Joint).rotOut;
-            joint.minRotorSecond = -_node.getComponent(Script.Joint).rotLeft;
-            joint.maxRotorSecond = _node.getComponent(Script.Joint).rotRight;
+            joint.minRotorFirst = -_node.getComponent(Script.Joint).flexInLimit;
+            joint.maxRotorFirst = _node.getComponent(Script.Joint).flexOutLimit;
+            joint.minRotorSecond = -_node.getComponent(Script.Joint).abductLeftLimit;
+            joint.maxRotorSecond = _node.getComponent(Script.Joint).abductRightLimit;
             _node.addComponent(joint);
         }
+        //TODO Spherical Joint
+        /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.SPHERICAL) {
+          let joint: ƒ.JointSpherical = new ƒ.JointSpherical(_anchor, _tied, _node.mtxLocal.getX().normalize());
+    
+        } */
     }
     function selectBone(_rb) {
         if (!selectedBones.includes(_rb)) {
@@ -295,22 +320,29 @@ var Script;
             }
         }
     }
-    function rotate(_rb, _strength, _direction) {
+    function rotate(_rb, _strength, _direction, _axis) {
         _strength *= -1;
+        if (_axis === AXIS.FLEXTION)
+            rotAxis = _rb.node.mtxLocal.getX();
+        if (_axis === AXIS.ABDUCTION)
+            rotAxis = _rb.node.mtxLocal.getY();
+        if (_axis === AXIS.TWIST)
+            rotAxis = _rb.node.mtxLocal.getZ();
         rotAxis?.normalize();
         rotAxis?.scale(_direction * _strength);
         _rb.applyTorque(rotAxis);
     }
-    function rotateBoneRevolute(_rb, _strength, _direction) {
-        _strength = _strength * -1;
-        rotAxis = _rb.node.mtxLocal.getX();
-        rotate(_rb, _strength, _direction);
+    function rotateBoneRevolute(_rb, _strengthFlexion, _directionFlexion) {
+        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
     }
-    function rotateBoneUniversal(_rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
-        rotAxis = _rb.node.mtxLocal.getX();
-        rotate(_rb, _strengthFirst, _directionFirst);
-        rotAxis = _rb.node.mtxLocal.getY();
-        rotate(_rb, _strengthSecond, _directionSecond);
+    function rotateBoneUniversal(_rb, _strengthFlexion, _directionFlexion, _strengthAbduction, _directionAbduction) {
+        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+        rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
+    }
+    function rotateSpherical(_rb, _strengthFlexion, _directionFlexion, _strengthAbduction, _directionAbduction, _strengthTwist, _directionTwist) {
+        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+        rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
+        rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
     }
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map

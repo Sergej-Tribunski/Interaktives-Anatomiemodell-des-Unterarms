@@ -77,10 +77,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of first finger of hand.r",
                           "bodyTied": "Distal phalanx of first finger of hand.r",
-                          "rotIn": 60,
-                          "rotOut": 20,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 50,
+                          "flexOutLimit": 20,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -122,10 +124,12 @@
                           "jointType": 0,
                           "bodyAnchor": "First metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of first finger of hand.r",
-                          "rotIn": 80,
-                          "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 80,
+                          "flexOutLimit": 0,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -167,10 +171,12 @@
                           "jointType": 1,
                           "bodyAnchor": "Trapezium bone.r",
                           "bodyTied": "First metacarpal bone.r",
-                          "rotIn": 40,
-                          "rotOut": 0,
-                          "rotLeft": 10,
-                          "rotRight": 10
+                          "flexInLimit": 20,
+                          "flexOutLimit": 20,
+                          "abductLeftLimit": 10,
+                          "abductRightLimit": 10,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -212,10 +218,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Middle phalanx of second finger of hand.r",
                           "bodyTied": "Distal phalanx of second finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 10,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 10,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -257,10 +265,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of second finger of hand.r",
                           "bodyTied": "Middle phalanx of second finger of hand.r",
-                          "rotIn": 100,
-                          "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 100,
+                          "flexOutLimit": 0,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -302,10 +312,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Second metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of second finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 45,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 45,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -347,10 +359,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Middle phalanx of third finger of hand.r",
                           "bodyTied": "Distal phalanx of third finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 10,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 10,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -392,10 +406,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of third finger of hand.r",
                           "bodyTied": "Middle phalanx of third finger of hand.r",
-                          "rotIn": 100,
-                          "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 100,
+                          "flexOutLimit": 0,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -437,10 +453,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Third metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of third finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 45,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 45,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -482,10 +500,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Middle phalanx of fourth finger of hand.r",
                           "bodyTied": "Distal phalanx of fourth finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 10,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 10,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -527,10 +547,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of fourth finger of hand.r",
                           "bodyTied": "Middle phalanx of fourth finger of hand.r",
-                          "rotIn": 100,
-                          "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 100,
+                          "flexOutLimit": 0,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -572,10 +594,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Fourth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fourth finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 45,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 45,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -617,10 +641,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Middle phalanx of fifth finger of hand.r",
                           "bodyTied": "Distal phalanx of fifth finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 10,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 10,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -662,10 +688,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Proximal phalanx of fifth finger of hand.r",
                           "bodyTied": "Middle phalanx of fifth finger of hand.r",
-                          "rotIn": 100,
-                          "rotOut": 0,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 100,
+                          "flexOutLimit": 0,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -707,10 +735,12 @@
                           "jointType": 0,
                           "bodyAnchor": "Fifth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fifth finger of hand.r",
-                          "rotIn": 90,
-                          "rotOut": 45,
-                          "rotLeft": 0,
-                          "rotRight": 0
+                          "flexInLimit": 90,
+                          "flexOutLimit": 45,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]

@@ -2,7 +2,8 @@ declare namespace Script {
     import ƒ = FudgeCore;
     enum JOINT_TYPE {
         REVOLUTE = 0,
-        UNIVERSAL = 1
+        UNIVERSAL = 1,
+        SPHERICAL = 2
     }
     class Joint extends ƒ.ComponentScript {
         static readonly iSubclass: number;
@@ -10,10 +11,12 @@ declare namespace Script {
         jointType: JOINT_TYPE;
         bodyAnchor: ƒ.Node | string | undefined;
         bodyTied: ƒ.Node | string | undefined;
-        rotIn: number;
-        rotOut: number;
-        rotLeft: number;
-        rotRight: number;
+        flexInLimit: number;
+        flexOutLimit: number;
+        abductLeftLimit: number;
+        abductRightLimit: number;
+        twistClockwiseLimit: number;
+        twistCounterClockwiseLimit: number;
         constructor();
         hndEvent: (_event: Event) => void;
     }

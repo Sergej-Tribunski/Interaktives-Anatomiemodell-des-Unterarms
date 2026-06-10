@@ -17,7 +17,7 @@ namespace Script {
 
 
   let anchoringJoint: Map<ƒ.ComponentRigidbody, Joint> = new Map();
-  enum AXIS {FLEXTION, ABDUCTION, TWIST};
+  enum AXIS { FLEXTION, ABDUCTION, TWIST };
 
 
   function start(_event: CustomEvent): void {
@@ -165,8 +165,8 @@ namespace Script {
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
       let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minMotor = -_node.getComponent(Joint).rotIn;
-      joint.maxMotor = _node.getComponent(Joint).rotOut;
+      joint.minMotor = -_node.getComponent(Joint).flexInLimit;
+      joint.maxMotor = _node.getComponent(Joint).flexOutLimit;
 
       _node.addComponent(joint);
     }
@@ -174,13 +174,19 @@ namespace Script {
     if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
       let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
       joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minRotorFirst = -_node.getComponent(Joint).rotIn;
-      joint.maxRotorFirst = _node.getComponent(Joint).rotOut;
-      joint.minRotorSecond = -_node.getComponent(Joint).rotLeft;
-      joint.maxRotorSecond = _node.getComponent(Joint).rotRight;
+      joint.minRotorFirst = -_node.getComponent(Joint).flexInLimit;
+      joint.maxRotorFirst = _node.getComponent(Joint).flexOutLimit;
+      joint.minRotorSecond = -_node.getComponent(Joint).abductLeftLimit;
+      joint.maxRotorSecond = _node.getComponent(Joint).abductRightLimit;
 
       _node.addComponent(joint);
     }
+
+    //TODO Spherical Joint
+    /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.SPHERICAL) {
+      let joint: ƒ.JointSpherical = new ƒ.JointSpherical(_anchor, _tied, _node.mtxLocal.getX().normalize());
+
+    } */
   }
 
   function selectBone(_rb: ƒ.ComponentRigidbody): void {
@@ -211,11 +217,11 @@ namespace Script {
   function rotate(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number, _axis: AXIS): void {
     _strength *= -1;
 
-    if(_axis === AXIS.FLEXTION)
+    if (_axis === AXIS.FLEXTION)
       rotAxis = _rb.node!.mtxLocal.getX();
-    if(_axis === AXIS.ABDUCTION)
+    if (_axis === AXIS.ABDUCTION)
       rotAxis = _rb.node!.mtxLocal.getY();
-    if(_axis === AXIS.TWIST)
+    if (_axis === AXIS.TWIST)
       rotAxis = _rb.node!.mtxLocal.getZ();
 
     rotAxis?.normalize();
@@ -233,7 +239,7 @@ namespace Script {
     rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
   }
 
-  function rotateSpherical(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number, _strengthAbduction: number, _directionAbduction: number, _strengthTwist: number, _directionTwist: number):void {
+  function rotateSpherical(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number, _strengthAbduction: number, _directionAbduction: number, _strengthTwist: number, _directionTwist: number): void {
     rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
     rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
     rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
