@@ -14,7 +14,10 @@ namespace Script {
   let timer: number = 0;
   let direction: number = 0.5;
   let deltaTime: number = 0;
+
+
   let anchoringJoint: Map<ƒ.ComponentRigidbody, Joint> = new Map();
+  enum AXIS {FLEXTION, ABDUCTION, TWIST};
 
 
   function start(_event: CustomEvent): void {
@@ -205,25 +208,34 @@ namespace Script {
     }
   }
 
-  function rotate(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number): void {
+  function rotate(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number, _axis: AXIS): void {
     _strength *= -1;
+
+    if(_axis === AXIS.FLEXTION)
+      rotAxis = _rb.node!.mtxLocal.getX();
+    if(_axis === AXIS.ABDUCTION)
+      rotAxis = _rb.node!.mtxLocal.getY();
+    if(_axis === AXIS.TWIST)
+      rotAxis = _rb.node!.mtxLocal.getZ();
+
     rotAxis?.normalize();
     rotAxis?.scale(_direction * _strength);
 
     _rb.applyTorque(rotAxis!);
   }
 
-  function rotateBoneRevolute(_rb: ƒ.ComponentRigidbody, _strength: number, _direction: number): void {
-    _strength = _strength * -1;
-    rotAxis = _rb.node!.mtxLocal.getX();
-    rotate(_rb, _strength, _direction);
+  function rotateBoneRevolute(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number): void {
+    rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
   }
 
-  function rotateBoneUniversal(_rb: ƒ.ComponentRigidbody, _strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
-    rotAxis = _rb.node!.mtxLocal.getX();
-    rotate(_rb, _strengthFirst, _directionFirst);
+  function rotateBoneUniversal(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number, _strengthAbduction: number, _directionAbduction: number): void {
+    rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+    rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
+  }
 
-    rotAxis = _rb.node!.mtxLocal.getY();
-    rotate(_rb, _strengthSecond, _directionSecond);
+  function rotateSpherical(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number, _strengthAbduction: number, _directionAbduction: number, _strengthTwist: number, _directionTwist: number):void {
+    rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+    rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
+    rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
   }
 }
