@@ -41,7 +41,7 @@ var Script;
     (function (JOINT_TYPE) {
         JOINT_TYPE[JOINT_TYPE["REVOLUTE"] = 0] = "REVOLUTE";
         JOINT_TYPE[JOINT_TYPE["UNIVERSAL"] = 1] = "UNIVERSAL";
-        JOINT_TYPE[JOINT_TYPE["SPHERICAL"] = 2] = "SPHERICAL";
+        JOINT_TYPE[JOINT_TYPE["RAGDOLL"] = 2] = "RAGDOLL";
     })(JOINT_TYPE = Script.JOINT_TYPE || (Script.JOINT_TYPE = {}));
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
@@ -150,7 +150,7 @@ var Script;
     let rotAxis = undefined;
     let selectedBones = [];
     let timer = 0;
-    let direction = 0.5;
+    let direction = 1;
     let deltaTime = 0;
     let anchoringJoint = new Map();
     let AXIS;
@@ -211,11 +211,11 @@ var Script;
         readVectors(); */
         deltaTime = ƒ.Loop.timeFrameGame / 1000;
         timer += deltaTime;
-        if (timer >= 10) {
+        if (timer >= 5) {
             timer = 0;
             direction *= -1;
         }
-        rotateBones(1, direction, 1, direction);
+        rotateBones(0, 0, 20, direction);
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -237,7 +237,7 @@ var Script;
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
             if (!node.name.includes("Primitive") && !node.name.includes("Scene")) { //WIP change bodytype to dynamic (only the humerus stays static)
-                let cmpRigidbody = new ƒ.ComponentRigidbody(1, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+                let cmpRigidbody = new ƒ.ComponentRigidbody(10, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
                 //WIP remove if-statements when done placing all joints in the editor
                 if (node.name.includes("Distal ")) {
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
@@ -277,7 +277,7 @@ var Script;
     }
     function defineJoint(_node, _anchor, _tied) {
         if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.REVOLUTE) {
-            let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxWorld.getX().normalize());
+            let joint = new ƒ.JointRevolute(_anchor, _tied, _node.mtxLocal.getX().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
             joint.minMotor = -_node.getComponent(Script.Joint).flexInLimit;
             joint.maxMotor = _node.getComponent(Script.Joint).flexOutLimit;
@@ -288,15 +288,23 @@ var Script;
             joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node.mtxWorld.translation);
             joint.minRotorFirst = -_node.getComponent(Script.Joint).flexInLimit;
             joint.maxRotorFirst = _node.getComponent(Script.Joint).flexOutLimit;
-            joint.minRotorSecond = -_node.getComponent(Script.Joint).abductLeftLimit;
-            joint.maxRotorSecond = _node.getComponent(Script.Joint).abductRightLimit;
+            if (_node.getComponent(Script.Joint).abductLeftLimit != 0 || _node.getComponent(Script.Joint).abductRightLimit != 0) {
+                joint.minRotorSecond = -_node.getComponent(Script.Joint).abductLeftLimit;
+                joint.maxRotorSecond = _node.getComponent(Script.Joint).abductRightLimit;
+            }
             _node.addComponent(joint);
         }
-        //TODO Spherical Joint
-        /* if (_node.getComponent(Joint).jointType == JOINT_TYPE.SPHERICAL) {
-          let joint: ƒ.JointSpherical = new ƒ.JointSpherical(_anchor, _tied, _node.mtxLocal.getX().normalize());
-    
-        } */
+        if (_node.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.RAGDOLL) {
+            let joint = new ƒ.JointRagdoll(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getZ().normalize());
+            joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxLocal.translation, _anchor.node.mtxLocal.translation);
+            joint.maxAngleFirstAxis = -_node.getComponent(Script.Joint).flexOutLimit;
+            joint.maxAngleSecondAxis = _node.getComponent(Script.Joint).flexInLimit;
+            if (_node.getComponent(Script.Joint).twistClockwiseLimit != 0 || _node.getComponent(Script.Joint).twistCounterClockwiseLimit != 0) {
+                joint.minMotorTwist = -_node.getComponent(Script.Joint).twistCounterClockwiseLimit;
+                joint.minMotorTwist = _node.getComponent(Script.Joint).twistClockwiseLimit;
+            }
+            _node.addComponent(joint);
+        }
     }
     function selectBone(_rb) {
         if (!selectedBones.includes(_rb)) {
@@ -317,6 +325,9 @@ var Script;
             }
             if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.UNIVERSAL) {
                 rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
+            }
+            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.RAGDOLL) {
+                rotateBoneRagdoll(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
             }
         }
     }
@@ -339,9 +350,8 @@ var Script;
         rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
         rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
     }
-    function rotateSpherical(_rb, _strengthFlexion, _directionFlexion, _strengthAbduction, _directionAbduction, _strengthTwist, _directionTwist) {
+    function rotateBoneRagdoll(_rb, _strengthFlexion, _directionFlexion, _strengthTwist, _directionTwist) {
         rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
-        rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
         rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
     }
 })(Script || (Script = {}));

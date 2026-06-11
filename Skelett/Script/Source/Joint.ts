@@ -5,7 +5,7 @@ namespace Script {
   export enum JOINT_TYPE {
     REVOLUTE,
     UNIVERSAL,
-    SPHERICAL
+    RAGDOLL
   }
 
   export class Joint extends ƒ.ComponentScript {

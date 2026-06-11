@@ -358,7 +358,6 @@
                                   "expanded": [
                                     "",
                                     "children/0",
-                                    "children/0/children/4",
                                     "children/1"
                                   ]
                                 }
@@ -387,7 +386,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components | Joint fifth proximal metacarpal",
+                                "title": "Components | Joint first metacarpal trapezium ",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -451,7 +450,7 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": "children/1/children/14"
+                "node": "children/1/children/2"
               }
             }
           ],
