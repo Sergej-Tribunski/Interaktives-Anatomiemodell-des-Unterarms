@@ -93,7 +93,8 @@ namespace Script {
       timer = 0;
       direction *= -1;
     }
-    rotateBones(0, 0, 20, direction);
+    //rotateBones(15, -1, 20, direction);
+    rotateBones(20, direction, 15, 1);
 
     viewport.draw();
     ƒ.AudioManager.default.update();
@@ -161,38 +162,33 @@ namespace Script {
     }
   }
 
-  function defineJoint(_node: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
-    if (_node.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
-      let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _node.mtxLocal.getX().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minMotor = -_node.getComponent(Joint).flexInLimit;
-      joint.maxMotor = _node.getComponent(Joint).flexOutLimit;
-
-      _node.addComponent(joint);
+  function defineJoint(_jointNode: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
+    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
+      let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _jointNode.mtxLocal.getX().normalize());
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+      joint.minMotor = -_jointNode.getComponent(Joint).flexInLimit;
+      joint.maxMotor = _jointNode.getComponent(Joint).flexOutLimit;
+      _jointNode.addComponent(joint);
     }
 
-    if (_node.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
-      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getY().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minRotorFirst = -_node.getComponent(Joint).flexInLimit;
-      joint.maxRotorFirst = _node.getComponent(Joint).flexOutLimit;
-      if (_node.getComponent(Joint).abductLeftLimit != 0 || _node.getComponent(Joint).abductRightLimit != 0) {
-        joint.minRotorSecond = -_node.getComponent(Joint).abductLeftLimit;
-        joint.maxRotorSecond = _node.getComponent(Joint).abductRightLimit;
-      }
-      _node.addComponent(joint);
+    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
+      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getY().normalize());
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
+      joint.minRotorFirst = -_jointNode.getComponent(Joint).flexInLimit;
+      joint.maxRotorFirst = _jointNode.getComponent(Joint).flexOutLimit;
+      joint.minRotorSecond = -_jointNode.getComponent(Joint).abductLeftLimit;
+      joint.maxRotorSecond = _jointNode.getComponent(Joint).abductRightLimit;
+      _jointNode.addComponent(joint);
     }
 
-    if (_node.getComponent(Joint).jointType == JOINT_TYPE.RAGDOLL) {
-      let joint: ƒ.JointRagdoll = new ƒ.JointRagdoll(_anchor, _tied, _node.mtxLocal.getX().normalize(), _node.mtxLocal.getZ().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_node.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
-      joint.maxAngleFirstAxis = -_node.getComponent(Joint).flexOutLimit;
-      joint.maxAngleSecondAxis = _node.getComponent(Joint).flexInLimit;
-      if (_node.getComponent(Joint).twistClockwiseLimit != 0 || _node.getComponent(Joint).twistCounterClockwiseLimit != 0) {
-        joint.minMotorTwist = -_node.getComponent(Joint).twistCounterClockwiseLimit;
-        joint.minMotorTwist = _node.getComponent(Joint).twistClockwiseLimit;
-      }
-      _node.addComponent(joint);
+    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.RAGDOLL) {
+      let joint: ƒ.JointRagdoll = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getZ().normalize());
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
+      joint.maxAngleFirstAxis = -_jointNode.getComponent(Joint).flexOutLimit;
+      joint.maxAngleSecondAxis = _jointNode.getComponent(Joint).flexInLimit;
+      joint.minMotorTwist = -_jointNode.getComponent(Joint).twistCounterClockwiseLimit;
+      joint.minMotorTwist = _jointNode.getComponent(Joint).twistClockwiseLimit;
+      _jointNode.addComponent(joint);
     }
   }
 
