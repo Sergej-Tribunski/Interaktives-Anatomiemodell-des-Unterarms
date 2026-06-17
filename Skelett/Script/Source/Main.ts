@@ -93,8 +93,9 @@ namespace Script {
       timer = 0;
       direction *= -1;
     }
-    //rotateBones(15, -1, 20, direction);
-    rotateBones(20, direction, 15, 1);
+    //rotateBones(1, direction, 1, 1);
+    rotateBones(0, 0, 1, direction);
+    console.log(direction);
 
     viewport.draw();
     ƒ.AudioManager.default.update();
@@ -223,11 +224,11 @@ namespace Script {
     _strength *= -1;
 
     if (_axis === AXIS.FLEXTION)
-      rotAxis = _rb.node!.mtxLocal.getX();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getX(), _rb.node!.mtxWorld,false).normalize();
     if (_axis === AXIS.ABDUCTION)
-      rotAxis = _rb.node!.mtxLocal.getY();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getY(), _rb.node!.mtxWorld,false).normalize();
     if (_axis === AXIS.TWIST)
-      rotAxis = _rb.node!.mtxLocal.getZ();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getZ(), _rb.node!.mtxWorld,false).normalize();
 
     rotAxis?.normalize();
     rotAxis?.scale(_direction * _strength);

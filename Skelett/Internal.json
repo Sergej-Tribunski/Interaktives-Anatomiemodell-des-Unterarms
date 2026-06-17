@@ -173,8 +173,8 @@
                           "bodyTied": "First metacarpal bone.r",
                           "flexInLimit": 20,
                           "flexOutLimit": 20,
-                          "abductLeftLimit": 10,
-                          "abductRightLimit": 10,
+                          "abductLeftLimit": 15,
+                          "abductRightLimit": 15,
                           "twistClockwiseLimit": 0,
                           "twistCounterClockwiseLimit": 0
                         }
