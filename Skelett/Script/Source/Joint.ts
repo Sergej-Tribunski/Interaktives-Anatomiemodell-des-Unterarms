@@ -5,7 +5,8 @@ namespace Script {
   export enum JOINT_TYPE {
     REVOLUTE,
     UNIVERSAL,
-    RAGDOLL
+    RAGDOLL,
+    WELDING
   }
 
   export class Joint extends ƒ.ComponentScript {
@@ -16,8 +17,7 @@ namespace Script {
     public message: string = "CustomComponentScript added to ";
 
     @ƒ.type(JOINT_TYPE)
-    public jointType: JOINT_TYPE = JOINT_TYPE.REVOLUTE;
-    //Serializer yields strings of nodes, rather their reference during runtime. Typescript expects their reference --> just do both
+    public jointType: JOINT_TYPE = JOINT_TYPE.WELDING;
     @ƒ.serialize(ƒ.Node)
     public bodyAnchor: ƒ.Node | string | undefined = undefined;
     @ƒ.serialize(ƒ.Node)

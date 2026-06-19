@@ -3,7 +3,8 @@ declare namespace Script {
     enum JOINT_TYPE {
         REVOLUTE = 0,
         UNIVERSAL = 1,
-        RAGDOLL = 2
+        RAGDOLL = 2,
+        WELDING = 3
     }
     class Joint extends ƒ.ComponentScript {
         static readonly iSubclass: number;

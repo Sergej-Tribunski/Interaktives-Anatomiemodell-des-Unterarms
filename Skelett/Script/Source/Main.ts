@@ -52,15 +52,12 @@ namespace Script {
         cmpMaterial.material = material;
       }
 
-    //bFirstMetacarpal = scene.getChildByName("First metacarpal bone.r").getComponent(ƒ.ComponentRigidbody);
-
-    //TODO
-    //Test for selectedBones - this needs to be Handeled with eventlisteners later
-    for (let node of scene.getChildren()) {
+    /* for (let node of scene.getChildren()) {
       selectBone(node.getComponent(ƒ.ComponentRigidbody));
-    }
+    } */
 
-
+    viewport.canvas.addEventListener("mousedown", hndSelection);
+    viewport.canvas.addEventListener("keydown", hndDeselectAll)
 
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
@@ -70,52 +67,19 @@ namespace Script {
   function update(_event: Event): void {
     ƒ.Physics.simulate();  // if physics is included and used
 
-    //rbSecondDistal!.applyTorque(testVector);  //seems to rotate Y relative to distal
-    //rbSecondDistal!.applyForce(testVector);     //up vertically
-    //rbSecondDistal!.setVelocity(testVector);    //up vertically
-    //rbSecondDistal!.setAngularVelocity(testVector); //Y relative to distal
-    //rbSecondDistal!.applyLinearImpulse(testVector); //up vertically
-    //rbSecondDistal!.applyAngularImpulse(testVector); //y rel dist
-    //rbSecondDistal!.addVelocity(testVector); //y up
-    //rbSecondDistal!.addAngularVelocity(testVector); //y rel dist
-
-    //changing vector to x or z behaves unexpectedly, test more
-
-    //try hinge joint on thumb, see what changing the vector does
-    //rbFirstMetacarpal!.applyTorque(testVectorX);
-    /* testVectorJ = rbSecondDistal?.node?.mtxLocal.getX();
-    rbSecondDistal?.applyTorque(testVectorJ!.scale(-1));
-    readVectors(); */
-
     deltaTime = ƒ.Loop.timeFrameGame / 1000;
     timer += deltaTime;
     if (timer >= 5) {
       timer = 0;
       direction *= -1;
     }
-    //rotateBones(1, direction, 1, 1);
-    rotateBones(0, 0, 1, direction);
-    console.log(direction);
+    rotateBones(1, direction, 1, 1);
+    //rotateBones(0, 0, 1, direction);
 
     viewport.draw();
     ƒ.AudioManager.default.update();
   }
 
-  /* function readVectors() {
-    console.log("Node mtxLocal X: ", rbSecondDistal!.node?.mtxLocal.getX());
-    console.log("Node mtxLocal Y: ", rbSecondDistal!.node?.mtxLocal.getY());
-    console.log("Node mtxLocal Z: ", rbSecondDistal!.node?.mtxLocal.getZ());
-
-    console.log("Node mtsWorld X: ", rbSecondDistal!.node?.mtxWorld.getX());
-    console.log("Node mtxWorld Y: ", rbSecondDistal!.node?.mtxWorld.getY());
-    console.log("Node mtxWorld Z: ", rbSecondDistal!.node?.mtxWorld.getZ());
-
-    console.log("Rb mtxLocal X: ", rbSecondDistal!.mtxPivot.getX());
-    console.log("Rb mtxLocal Y: ", rbSecondDistal!.mtxPivot.getY());
-    console.log("Rb mtxLocal Z: ", rbSecondDistal!.mtxPivot.getZ());
-
-    console.log("testVectorJ: ", testVectorJ);
-  } */
 
   function defineRigidBodies(_scene: ƒ.Node) {
     for (let node of _scene.getIterator(false)) {
@@ -191,19 +155,26 @@ namespace Script {
       joint.minMotorTwist = _jointNode.getComponent(Joint).twistClockwiseLimit;
       _jointNode.addComponent(joint);
     }
+    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.WELDING) {
+      let joint: ƒ.JointWelding = new ƒ.JointWelding(_anchor, _tied);
+      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
+    }
   }
 
   function selectBone(_rb: ƒ.ComponentRigidbody): void {
     if (!selectedBones.includes(_rb)) {
       selectedBones.push(_rb);
+      console.log("Select: ", _rb.node?.name);
     }
   }
   function deselectBone(_rb: ƒ.ComponentRigidbody): void {
     let index = selectedBones.indexOf(_rb, 0);
     selectedBones.splice(index, 1);
+    console.log("Deselect: ", _rb.node?.name);
   }
   function deselectAllBones(): void {
     selectedBones.length = 0;
+    console.log("Deselect all!");
   }
 
   function rotateBones(_strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
@@ -224,11 +195,11 @@ namespace Script {
     _strength *= -1;
 
     if (_axis === AXIS.FLEXTION)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getX(), _rb.node!.mtxWorld,false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getX(), _rb.node!.mtxWorld, false).normalize();
     if (_axis === AXIS.ABDUCTION)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getY(), _rb.node!.mtxWorld,false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getY(), _rb.node!.mtxWorld, false).normalize();
     if (_axis === AXIS.TWIST)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getZ(), _rb.node!.mtxWorld,false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getZ(), _rb.node!.mtxWorld, false).normalize();
 
     rotAxis?.normalize();
     rotAxis?.scale(_direction * _strength);
@@ -248,5 +219,39 @@ namespace Script {
   function rotateBoneRagdoll(_rb: ƒ.ComponentRigidbody, _strengthFlexion: number, _directionFlexion: number, _strengthTwist: number, _directionTwist: number): void {
     rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
     rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
+  }
+
+  function hndSelection(_event: MouseEvent): void {
+
+    if (_event.button != 0)
+      return;
+
+    let picks: ƒ.Pick[] = ƒ.Picker.pickViewport(viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
+
+    if (picks.length == 0)
+      return;
+
+    picks.sort((a, b) => a.zBuffer - b.zBuffer);
+
+    let node: ƒ.Node = picks[0].node;
+
+    while (node && !node.getComponent(ƒ.ComponentRigidbody))
+      node = node.getParent()!;
+
+    if (!node)
+      return;
+
+    let rb: ƒ.ComponentRigidbody = node.getComponent(ƒ.ComponentRigidbody);
+
+    if (selectedBones.includes(rb))
+      deselectBone(rb);
+    else
+      selectBone(rb);
+  }
+
+  function hndDeselectAll(_event: KeyboardEvent): void {
+    if(_event.key === "Escape") {
+      deselectAllBones();
+    }
   }
 }
