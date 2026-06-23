@@ -8,12 +8,17 @@ namespace Script {
 
   let scene: ƒ.Node | null = null;
   let joints: ƒ.Node | null = null;
-  //let rbFirstMetacarpal: ƒ.ComponentRigidbody | null = null;
   let rotAxis: ƒ.Vector3 | undefined = undefined;
   let selectedBones: ƒ.ComponentRigidbody[] = [];
   let timer: number = 0;
   let direction: number = 1;
   let deltaTime: number = 0;
+
+  let flexStrength: number = 10;
+  let flexDirection: number = 1;
+  let abductStrength: number = 10;
+  let abductDirection: number = 1;
+  let movementEnabled: boolean = false;
 
 
   let anchoringJoint: Map<ƒ.ComponentRigidbody, Joint> = new Map();
@@ -52,12 +57,57 @@ namespace Script {
         cmpMaterial.material = material;
       }
 
-    /* for (let node of scene.getChildren()) {
+    for (let node of scene.getChildren()) {
       selectBone(node.getComponent(ƒ.ComponentRigidbody));
-    } */
+    }
 
     viewport.canvas.addEventListener("mousedown", hndSelection);
     viewport.canvas.addEventListener("keydown", hndDeselectAll)
+
+    const flexStrengthInput =
+      document.getElementById("flexStrength") as HTMLInputElement;
+
+    const flexDirectionInput =
+      document.getElementById("flexDirection") as HTMLSelectElement;
+
+    const abductStrengthInput =
+      document.getElementById("abductStrength") as HTMLInputElement;
+
+    const abductDirectionInput =
+      document.getElementById("abductDirection") as HTMLSelectElement;
+
+    const toggleButton =
+      document.getElementById("toggleMovement") as HTMLButtonElement;
+
+
+    flexStrengthInput.addEventListener("input", () => {
+      flexStrength = Number(flexStrengthInput.value);
+    });
+
+    flexDirectionInput.addEventListener("change", () => {
+      flexDirection = Number(flexDirectionInput.value);
+    });
+
+    abductStrengthInput.addEventListener("input", () => {
+      abductStrength = Number(abductStrengthInput.value);
+    });
+
+    abductDirectionInput.addEventListener("change", () => {
+      abductDirection = Number(abductDirectionInput.value);
+    });
+
+    toggleButton.addEventListener("click", () => {
+      movementEnabled = !movementEnabled;
+
+      toggleButton.textContent =
+        movementEnabled ? "Stop Movement" : "Start Movement";
+    });
+
+    document.getElementById("controls")!.style.display = "block";
+    document.getElementById("controls")!.style.display = "flex";
+    document.getElementById("selectedBonesPanel")!.style.display = "block";
+
+
 
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
@@ -73,8 +123,15 @@ namespace Script {
       timer = 0;
       direction *= -1;
     }
-    rotateBones(1, direction, 1, 1);
-    //rotateBones(0, 0, 1, direction);
+
+    if (movementEnabled) {
+      rotateBones(
+        flexStrength,
+        flexDirection,
+        abductStrength,
+        abductDirection
+      );
+    }
 
     viewport.draw();
     ƒ.AudioManager.default.update();
@@ -165,16 +222,29 @@ namespace Script {
     if (!selectedBones.includes(_rb)) {
       selectedBones.push(_rb);
       console.log("Select: ", _rb.node?.name);
+
+      updatedSelectedBonesList();
     }
   }
   function deselectBone(_rb: ƒ.ComponentRigidbody): void {
     let index = selectedBones.indexOf(_rb, 0);
     selectedBones.splice(index, 1);
     console.log("Deselect: ", _rb.node?.name);
+    updatedSelectedBonesList();
   }
   function deselectAllBones(): void {
     selectedBones.length = 0;
     console.log("Deselect all!");
+    updatedSelectedBonesList();
+  }
+  function updatedSelectedBonesList(): void {
+    const list: HTMLUListElement = document.getElementById("selectedBonesList") as HTMLUListElement;
+    list.innerHTML = "";
+    for (let rb of selectedBones) {
+      const item: HTMLLIElement = document.createElement("li");
+      item.textContent = rb.node?.name ?? "Unknown";
+      list.appendChild(item);
+    }
   }
 
   function rotateBones(_strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
@@ -222,7 +292,6 @@ namespace Script {
   }
 
   function hndSelection(_event: MouseEvent): void {
-
     if (_event.button != 0)
       return;
 
@@ -250,7 +319,7 @@ namespace Script {
   }
 
   function hndDeselectAll(_event: KeyboardEvent): void {
-    if(_event.key === "Escape") {
+    if (_event.key === "Escape") {
       deselectAllBones();
     }
   }

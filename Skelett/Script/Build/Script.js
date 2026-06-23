@@ -146,12 +146,16 @@ var Script;
     document.addEventListener("interactiveViewportStarted", start);
     let scene = null;
     let joints = null;
-    //let rbFirstMetacarpal: ƒ.ComponentRigidbody | null = null;
     let rotAxis = undefined;
     let selectedBones = [];
     let timer = 0;
     let direction = 1;
     let deltaTime = 0;
+    let flexStrength = 10;
+    let flexDirection = 1;
+    let abductStrength = 10;
+    let abductDirection = 1;
+    let movementEnabled = false;
     let anchoringJoint = new Map();
     let AXIS;
     (function (AXIS) {
@@ -184,11 +188,36 @@ var Script;
                 let cmpMaterial = node.getComponent(ƒ.ComponentMaterial);
                 cmpMaterial.material = material;
             }
-        /* for (let node of scene.getChildren()) {
-          selectBone(node.getComponent(ƒ.ComponentRigidbody));
-        } */
+        for (let node of scene.getChildren()) {
+            selectBone(node.getComponent(ƒ.ComponentRigidbody));
+        }
         viewport.canvas.addEventListener("mousedown", hndSelection);
         viewport.canvas.addEventListener("keydown", hndDeselectAll);
+        const flexStrengthInput = document.getElementById("flexStrength");
+        const flexDirectionInput = document.getElementById("flexDirection");
+        const abductStrengthInput = document.getElementById("abductStrength");
+        const abductDirectionInput = document.getElementById("abductDirection");
+        const toggleButton = document.getElementById("toggleMovement");
+        flexStrengthInput.addEventListener("input", () => {
+            flexStrength = Number(flexStrengthInput.value);
+        });
+        flexDirectionInput.addEventListener("change", () => {
+            flexDirection = Number(flexDirectionInput.value);
+        });
+        abductStrengthInput.addEventListener("input", () => {
+            abductStrength = Number(abductStrengthInput.value);
+        });
+        abductDirectionInput.addEventListener("change", () => {
+            abductDirection = Number(abductDirectionInput.value);
+        });
+        toggleButton.addEventListener("click", () => {
+            movementEnabled = !movementEnabled;
+            toggleButton.textContent =
+                movementEnabled ? "Stop Movement" : "Start Movement";
+        });
+        document.getElementById("controls").style.display = "block";
+        document.getElementById("controls").style.display = "flex";
+        document.getElementById("selectedBonesPanel").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
@@ -200,8 +229,9 @@ var Script;
             timer = 0;
             direction *= -1;
         }
-        rotateBones(1, direction, 1, 1);
-        //rotateBones(0, 0, 1, direction);
+        if (movementEnabled) {
+            rotateBones(flexStrength, flexDirection, abductStrength, abductDirection);
+        }
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -281,16 +311,28 @@ var Script;
         if (!selectedBones.includes(_rb)) {
             selectedBones.push(_rb);
             console.log("Select: ", _rb.node?.name);
+            updatedSelectedBonesList();
         }
     }
     function deselectBone(_rb) {
         let index = selectedBones.indexOf(_rb, 0);
         selectedBones.splice(index, 1);
         console.log("Deselect: ", _rb.node?.name);
+        updatedSelectedBonesList();
     }
     function deselectAllBones() {
         selectedBones.length = 0;
         console.log("Deselect all!");
+        updatedSelectedBonesList();
+    }
+    function updatedSelectedBonesList() {
+        const list = document.getElementById("selectedBonesList");
+        list.innerHTML = "";
+        for (let rb of selectedBones) {
+            const item = document.createElement("li");
+            item.textContent = rb.node?.name ?? "Unknown";
+            list.appendChild(item);
+        }
     }
     function rotateBones(_strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
         for (let rb of selectedBones) {
