@@ -174,7 +174,7 @@ var Script;
                 node.activate(false);
             }
             if (node.name.includes("Joint ")) {
-                node.activate(false);
+                //node.activate(false);
             }
         }
         ƒ.Render.prepare(branch);
@@ -371,7 +371,7 @@ var Script;
         rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
     }
     function hndSelection(_event) {
-        if (_event.button != 0)
+        if (!(_event.button == 0 && _event.ctrlKey))
             return;
         let picks = ƒ.Picker.pickViewport(viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
         if (picks.length == 0)

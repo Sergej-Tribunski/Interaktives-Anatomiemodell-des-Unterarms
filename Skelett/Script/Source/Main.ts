@@ -38,7 +38,7 @@ namespace Script {
         node.activate(false);
       }
       if (node.name.includes("Joint ")) {
-        node.activate(false);
+        //node.activate(false);
       }
     }
 
@@ -292,7 +292,7 @@ namespace Script {
   }
 
   function hndSelection(_event: MouseEvent): void {
-    if (_event.button != 0)
+    if (!(_event.button == 0 && _event.ctrlKey))
       return;
 
     let picks: ƒ.Pick[] = ƒ.Picker.pickViewport(viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
