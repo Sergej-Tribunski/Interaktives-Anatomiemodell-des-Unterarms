@@ -134,6 +134,14 @@ var Script;
                 this.addEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
                 this.addEventListener("nodeDeserialized" /* ƒ.EVENT.NODE_DESERIALIZED */, this.hndEvent);
             }
+            reduceMutator(_mutator) {
+                if (_mutator.bodyAnchor instanceof ƒ.Node)
+                    _mutator.bodyAnchor = _mutator.bodyAnchor.name;
+                if (_mutator.bodyTied instanceof ƒ.Node)
+                    _mutator.bodyTied = _mutator.bodyTied.name;
+                // delete properties that should not be mutated
+                // undefined properties and private fields (#) will not be included by default
+            }
         };
     })();
     Script.Joint = Joint;
@@ -253,7 +261,7 @@ var Script;
                     cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
                 }
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                cmpRigidbody.effectGravity = 0;
+                //cmpRigidbody.effectGravity = 0;
                 node.addComponent(cmpRigidbody);
             }
         }
@@ -283,6 +291,7 @@ var Script;
             joint.minMotor = -_jointNode.getComponent(Script.Joint).flexInLimit;
             joint.maxMotor = _jointNode.getComponent(Script.Joint).flexOutLimit;
             _jointNode.addComponent(joint);
+            //console.log("Joint Revolute would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
             let joint = new ƒ.JointUniversal(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getY().normalize());
@@ -292,6 +301,7 @@ var Script;
             joint.minRotorSecond = -_jointNode.getComponent(Script.Joint).abductLeftLimit;
             joint.maxRotorSecond = _jointNode.getComponent(Script.Joint).abductRightLimit;
             _jointNode.addComponent(joint);
+            //console.log("Joint Universal would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.RAGDOLL) {
             let joint = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getZ().normalize());
@@ -301,10 +311,13 @@ var Script;
             joint.minMotorTwist = -_jointNode.getComponent(Script.Joint).twistCounterClockwiseLimit;
             joint.minMotorTwist = _jointNode.getComponent(Script.Joint).twistClockwiseLimit;
             _jointNode.addComponent(joint);
+            //console.log("Joint Ragdoll would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.WELDING) {
             let joint = new ƒ.JointWelding(_anchor, _tied);
             joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node.mtxLocal.translation);
+            _jointNode.addComponent(joint);
+            //console.log("Joint Welding would be added.");
         }
     }
     function selectBone(_rb) {

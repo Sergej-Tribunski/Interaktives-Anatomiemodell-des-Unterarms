@@ -20,6 +20,7 @@ declare namespace Script {
         twistCounterClockwiseLimit: number;
         constructor();
         hndEvent: (_event: Event) => void;
+        protected reduceMutator(_mutator: ƒ.Mutator): void;
     }
 }
 declare namespace Script {

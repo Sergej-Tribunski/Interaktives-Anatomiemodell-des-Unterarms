@@ -264,7 +264,7 @@
               }
             }
           ],
-          "width": 14.929920780012187,
+          "width": 38.815331010452965,
           "minWidth": 0,
           "height": 50,
           "minHeight": 0,
@@ -386,7 +386,7 @@
                                 "maximised": false,
                                 "isClosable": true,
                                 "reorderEnabled": true,
-                                "title": "Components",
+                                "title": "Components | Joint hamate fifth metacarpal",
                                 "componentType": "ViewComponents",
                                 "componentState": {}
                               }
@@ -450,11 +450,11 @@
                   "resolved": true
                 },
                 "graph": "Graph|2026-05-04T14:48:34.420Z|71030",
-                "node": null
+                "node": "children/1/children/15"
               }
             }
           ],
-          "width": 85.07007921998782,
+          "width": 61.18466898954704,
           "minWidth": 0,
           "height": 50,
           "minHeight": 0,

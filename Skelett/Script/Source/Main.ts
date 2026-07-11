@@ -157,7 +157,7 @@ namespace Script {
         }
 
         cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-        cmpRigidbody.effectGravity = 0;
+        //cmpRigidbody.effectGravity = 0;
         node.addComponent(cmpRigidbody);
       }
     }
@@ -191,6 +191,7 @@ namespace Script {
       joint.minMotor = -_jointNode.getComponent(Joint).flexInLimit;
       joint.maxMotor = _jointNode.getComponent(Joint).flexOutLimit;
       _jointNode.addComponent(joint);
+      //console.log("Joint Revolute would be added.");
     }
 
     if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
@@ -201,6 +202,7 @@ namespace Script {
       joint.minRotorSecond = -_jointNode.getComponent(Joint).abductLeftLimit;
       joint.maxRotorSecond = _jointNode.getComponent(Joint).abductRightLimit;
       _jointNode.addComponent(joint);
+      //console.log("Joint Universal would be added.");
     }
 
     if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.RAGDOLL) {
@@ -211,10 +213,13 @@ namespace Script {
       joint.minMotorTwist = -_jointNode.getComponent(Joint).twistCounterClockwiseLimit;
       joint.minMotorTwist = _jointNode.getComponent(Joint).twistClockwiseLimit;
       _jointNode.addComponent(joint);
+      //console.log("Joint Ragdoll would be added.");
     }
     if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.WELDING) {
       let joint: ƒ.JointWelding = new ƒ.JointWelding(_anchor, _tied);
       joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
+      _jointNode.addComponent(joint);
+      //console.log("Joint Welding would be added.");
     }
   }
 

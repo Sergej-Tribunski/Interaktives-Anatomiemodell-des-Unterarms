@@ -72,6 +72,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -119,6 +120,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -166,6 +168,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 1,
@@ -213,6 +216,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -260,6 +264,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -307,6 +312,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -354,6 +360,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -401,6 +408,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -448,6 +456,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -495,6 +504,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -542,6 +552,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -589,6 +600,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -636,6 +648,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -683,6 +696,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -730,6 +744,7 @@
                     "Joint": [
                       {
                         "Script.Joint": {
+                          "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
                           "jointType": 0,
@@ -737,6 +752,54 @@
                           "bodyTied": "Proximal phalanx of fifth finger of hand.r",
                           "flexInLimit": 90,
                           "flexOutLimit": 45,
+                          "abductLeftLimit": 0,
+                          "abductRightLimit": 0,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint hamate fifth metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.24893862009048462, 0.8362642526626587, 0.023470472544431686]",
+                            "rotation": "[79.13478763207334, -7.24472603819404, 15.088660129576953]",
+                            "scaling": "[0.8786816542620569, 1.2898267355699948, 2.074215901956816]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Hamate bone.r",
+                          "bodyTied": "Fifth metacarpal bone.r",
+                          "flexInLimit": 0,
+                          "flexOutLimit": 0,
                           "abductLeftLimit": 0,
                           "abductRightLimit": 0,
                           "twistClockwiseLimit": 0,

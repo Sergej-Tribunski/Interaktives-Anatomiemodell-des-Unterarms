@@ -64,9 +64,13 @@ namespace Script {
       }
     }
 
-    // protected reduceMutator(_mutator: ƒ.Mutator): void {
-    //   // delete properties that should not be mutated
-    //   // undefined properties and private fields (#) will not be included by default
-    // }
+    protected reduceMutator(_mutator: ƒ.Mutator): void {
+      if (_mutator.bodyAnchor instanceof ƒ.Node)
+        _mutator.bodyAnchor = _mutator.bodyAnchor.name;
+      if (_mutator.bodyTied instanceof ƒ.Node)
+        _mutator.bodyTied = _mutator.bodyTied.name;
+      // delete properties that should not be mutated
+      // undefined properties and private fields (#) will not be included by default
+    }
   }
 }
