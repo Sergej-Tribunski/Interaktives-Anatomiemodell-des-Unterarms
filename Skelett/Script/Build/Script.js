@@ -44,6 +44,13 @@ var Script;
         JOINT_TYPE[JOINT_TYPE["RAGDOLL"] = 2] = "RAGDOLL";
         JOINT_TYPE[JOINT_TYPE["WELDING"] = 3] = "WELDING";
     })(JOINT_TYPE = Script.JOINT_TYPE || (Script.JOINT_TYPE = {}));
+    let twistAxis;
+    (function (twistAxis) {
+        twistAxis[twistAxis["FLEXION"] = 0] = "FLEXION";
+        twistAxis[twistAxis["ABDUCTION"] = 1] = "ABDUCTION";
+        twistAxis[twistAxis["TWIST"] = 2] = "TWIST";
+    })(twistAxis || (twistAxis = {}));
+    ;
     let Joint = (() => {
         let _classSuper = ƒ.ComponentScript;
         let _jointType_decorators;
@@ -129,6 +136,9 @@ var Script;
                 // Don't start when running in editor
                 if (ƒ.Project.mode == ƒ.MODE.EDITOR)
                     return;
+                this.addEventListener("mutate" /* ƒ.EVENT.MUTATE */, (event) => {
+                    console.log("Joint mutated!", event);
+                });
                 // Listen to this component being added to or removed from a node
                 this.addEventListener("componentAdd" /* ƒ.EVENT.COMPONENT_ADD */, this.hndEvent);
                 this.addEventListener("componentRemove" /* ƒ.EVENT.COMPONENT_REMOVE */, this.hndEvent);
@@ -139,12 +149,39 @@ var Script;
                     _mutator.bodyAnchor = _mutator.bodyAnchor.name;
                 if (_mutator.bodyTied instanceof ƒ.Node)
                     _mutator.bodyTied = _mutator.bodyTied.name;
+                if (_mutator.jointType === JOINT_TYPE.WELDING) {
+                    removeRotationFields(_mutator, twistAxis.FLEXION);
+                    removeRotationFields(_mutator, twistAxis.ABDUCTION);
+                    removeRotationFields(_mutator, twistAxis.TWIST);
+                }
+                if (_mutator.jointType === JOINT_TYPE.REVOLUTE) {
+                    removeRotationFields(_mutator, twistAxis.ABDUCTION);
+                    removeRotationFields(_mutator, twistAxis.TWIST);
+                }
+                if (_mutator.jointType === JOINT_TYPE.UNIVERSAL)
+                    removeRotationFields(_mutator, twistAxis.TWIST);
+                if (_mutator.jointType === JOINT_TYPE.RAGDOLL)
+                    removeRotationFields(_mutator, twistAxis.ABDUCTION);
                 // delete properties that should not be mutated
                 // undefined properties and private fields (#) will not be included by default
             }
         };
     })();
     Script.Joint = Joint;
+    function removeRotationFields(_mutator, _twistAxis) {
+        if (_twistAxis === twistAxis.FLEXION) {
+            delete _mutator.flexInLimit;
+            delete _mutator.flexOutLimit;
+        }
+        if (_twistAxis === twistAxis.ABDUCTION) {
+            delete _mutator.abductRightLimit;
+            delete _mutator.abductLeftLimit;
+        }
+        if (_twistAxis === twistAxis.TWIST) {
+            delete _mutator.twistClockwiseLimit;
+            delete _mutator.twistCounterClockwiseLimit;
+        }
+    }
 })(Script || (Script = {}));
 var Script;
 (function (Script) {

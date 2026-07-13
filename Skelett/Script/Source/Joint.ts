@@ -9,6 +9,8 @@ namespace Script {
     WELDING
   }
 
+  enum twistAxis { FLEXION, ABDUCTION, TWIST };
+
   export class Joint extends ƒ.ComponentScript {
     // Register the script as component for use in the editor via drag&drop
     public static readonly iSubclass: number = ƒ.Component.registerSubclass(Joint);
@@ -42,6 +44,9 @@ namespace Script {
       if (ƒ.Project.mode == ƒ.MODE.EDITOR)
         return;
 
+      this.addEventListener(ƒ.EVENT.MUTATE, (event: any) => {
+        console.log("Joint mutated!", event);
+      })
       // Listen to this component being added to or removed from a node
       this.addEventListener(ƒ.EVENT.COMPONENT_ADD, this.hndEvent);
       this.addEventListener(ƒ.EVENT.COMPONENT_REMOVE, this.hndEvent);
@@ -69,8 +74,35 @@ namespace Script {
         _mutator.bodyAnchor = _mutator.bodyAnchor.name;
       if (_mutator.bodyTied instanceof ƒ.Node)
         _mutator.bodyTied = _mutator.bodyTied.name;
+      if (_mutator.jointType === JOINT_TYPE.WELDING) {
+        removeRotationFields(_mutator, twistAxis.FLEXION);
+        removeRotationFields(_mutator, twistAxis.ABDUCTION);
+        removeRotationFields(_mutator, twistAxis.TWIST);
+      }
+      if (_mutator.jointType === JOINT_TYPE.REVOLUTE) {
+        removeRotationFields(_mutator, twistAxis.ABDUCTION);
+        removeRotationFields(_mutator, twistAxis.TWIST);
+      }
+      if (_mutator.jointType === JOINT_TYPE.UNIVERSAL)
+        removeRotationFields(_mutator, twistAxis.TWIST);
+      if (_mutator.jointType === JOINT_TYPE.RAGDOLL)
+        removeRotationFields(_mutator, twistAxis.ABDUCTION);
       // delete properties that should not be mutated
       // undefined properties and private fields (#) will not be included by default
+    }
+  }
+  function removeRotationFields(_mutator: ƒ.Mutator, _twistAxis: twistAxis) {
+    if (_twistAxis === twistAxis.FLEXION) {
+      delete _mutator.flexInLimit;
+      delete _mutator.flexOutLimit;
+    }
+    if (_twistAxis === twistAxis.ABDUCTION) {
+      delete _mutator.abductRightLimit;
+      delete _mutator.abductLeftLimit;
+    }
+    if (_twistAxis === twistAxis.TWIST) {
+      delete _mutator.twistClockwiseLimit;
+      delete _mutator.twistCounterClockwiseLimit;
     }
   }
 }

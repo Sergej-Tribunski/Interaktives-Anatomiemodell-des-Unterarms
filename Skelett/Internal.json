@@ -797,13 +797,385 @@
                           "message": "CustomComponentScript added to ",
                           "jointType": 3,
                           "bodyAnchor": "Hamate bone.r",
-                          "bodyTied": "Fifth metacarpal bone.r",
-                          "flexInLimit": 0,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "bodyTied": "Fifth metacarpal bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint hamate fourth metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2560359239578247, 0.8361948728561401, 0.021975664421916008]",
+                            "rotation": "[87.98713297036294, -9.96297169463016, -0.9611206318179938]",
+                            "scaling": "[0.8786817201502922, 1.2898267990101764, 1.1636956902818019]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Hamate bone.r",
+                          "bodyTied": "Fourth metacarpal bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint capitate third metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.26672038435935974, 0.8348281979560852, 0.020398659631609917]",
+                            "rotation": "[82.65806414373108, -2.590313520297833, -6.552571189218406]",
+                            "scaling": "[0.8786816263764534, 1.2898268558890629, 1.1636958283146]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Capitate bone.r",
+                          "bodyTied": "Third metacarpal bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint trapezoid second metacarpal",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2773522138595581, 0.8364675641059875, 0.019840477034449577]",
+                            "rotation": "[82.94608671324741, 0.8357826325127578, -12.475896110440361]",
+                            "scaling": "[0.8786815744861973, 1.2898268065570742, 1.163695905017467]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Trapezoid bone.r",
+                          "bodyTied": "Second metacarpal bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint hamate pisiform",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.24758929014205933, 0.8413563370704651, 0.022921284660696983]",
+                            "rotation": "[78.21974245651948, -5.619574369739877, 23.242336344548168]",
+                            "scaling": "[0.8786816889326214, 1.2898267403146382, 1.0233861519949452]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Hamate bone.r",
+                          "bodyTied": "Pisiform bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint capitate trapezoid",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.27108034491539, 0.8396967053413391, 0.019203471019864082]",
+                            "rotation": "[83.24254083966039, 2.193576091666041, -1.2969643995389233]",
+                            "scaling": "[0.8786816328546251, 1.6695591424151348, 1.1636958230033363]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Capitate bone.r",
+                          "bodyTied": "Trapezoid bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint capitate hamate",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.25993239879608154, 0.8393027782440186, 0.01879301480948925]",
+                            "rotation": "[83.42831281389826, 2.7014184544856565, 3.0511479203474563]",
+                            "scaling": "[0.8786816612885519, 1.6695591424151348, 1.163695850426953]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Capitate bone.r",
+                          "bodyTied": "Hamate bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint lunate capitate",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.25810956954956055, 0.8511336445808411, 0.017326073721051216]",
+                            "rotation": "[83.85000967473002, -3.5607673221795704, -49.15775088380767]",
+                            "scaling": "[0.8786817273903191, 1.6695591439299668, 1.1636957676032844]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Lunate bone.r",
+                          "bodyTied": "Capitate bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint scaphoid capitate",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2650986313819885, 0.8549869060516357, 0.017159024253487587]",
+                            "rotation": "[83.2361122180079, 2.173589460366614, -1.4656910904816662]",
+                            "scaling": "[0.8786817447688251, 1.669559143324034, 1.1636958013291525]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Scaphoid bone.r",
+                          "bodyTied": "Capitate bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint scaphoid trapezium",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2769799828529358, 0.8500707745552063, 0.022290168330073357]",
+                            "rotation": "[61.025428706251056, -5.0219351021386425, -64.04440972997418]",
+                            "scaling": "[0.8786817405517823, 1.6695592434420912, 1.1636958528095767]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Scaphoid bone.r",
+                          "bodyTied": "Trapezium bone.r"
                         }
                       }
                     ]
