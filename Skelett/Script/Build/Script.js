@@ -219,7 +219,7 @@ var Script;
                 node.activate(false);
             }
             if (node.name.includes("Joint ")) {
-                //node.activate(false);
+                node.activate(false);
             }
         }
         ƒ.Render.prepare(branch);
@@ -282,21 +282,8 @@ var Script;
     }
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
-            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) { //WIP change bodytype to dynamic (only the humerus stays static)
-                let cmpRigidbody = new ƒ.ComponentRigidbody(10, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-                //WIP remove if-statements when done placing all joints in the editor
-                if (node.name.includes("Distal ")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
-                if (node.name.includes("Middle ")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
-                if (node.name.includes("Proximal ")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
-                if (node.name.includes("First metacarpal")) {
-                    cmpRigidbody.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-                }
+            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
+                let cmpRigidbody = new ƒ.ComponentRigidbody(10, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
                 //cmpRigidbody.effectGravity = 0;
                 node.addComponent(cmpRigidbody);
@@ -341,12 +328,12 @@ var Script;
             //console.log("Joint Universal would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.RAGDOLL) {
-            let joint = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getZ().normalize());
+            let joint = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getY().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node.mtxLocal.translation);
             joint.maxAngleFirstAxis = -_jointNode.getComponent(Script.Joint).flexOutLimit;
             joint.maxAngleSecondAxis = _jointNode.getComponent(Script.Joint).flexInLimit;
             joint.minMotorTwist = -_jointNode.getComponent(Script.Joint).twistCounterClockwiseLimit;
-            joint.minMotorTwist = _jointNode.getComponent(Script.Joint).twistClockwiseLimit;
+            joint.maxMotorTwist = _jointNode.getComponent(Script.Joint).twistClockwiseLimit;
             _jointNode.addComponent(joint);
             //console.log("Joint Ragdoll would be added.");
         }

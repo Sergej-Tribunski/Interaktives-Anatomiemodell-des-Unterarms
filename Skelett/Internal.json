@@ -79,11 +79,7 @@
                           "bodyAnchor": "Proximal phalanx of first finger of hand.r",
                           "bodyTied": "Distal phalanx of first finger of hand.r",
                           "flexInLimit": 50,
-                          "flexOutLimit": 20,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 20
                         }
                       }
                     ]
@@ -127,11 +123,7 @@
                           "bodyAnchor": "First metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of first finger of hand.r",
                           "flexInLimit": 80,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 0
                         }
                       }
                     ]
@@ -177,9 +169,7 @@
                           "flexInLimit": 20,
                           "flexOutLimit": 20,
                           "abductLeftLimit": 15,
-                          "abductRightLimit": 15,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "abductRightLimit": 15
                         }
                       }
                     ]
@@ -223,11 +213,7 @@
                           "bodyAnchor": "Middle phalanx of second finger of hand.r",
                           "bodyTied": "Distal phalanx of second finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 10,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 10
                         }
                       }
                     ]
@@ -271,11 +257,7 @@
                           "bodyAnchor": "Proximal phalanx of second finger of hand.r",
                           "bodyTied": "Middle phalanx of second finger of hand.r",
                           "flexInLimit": 100,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 0
                         }
                       }
                     ]
@@ -319,11 +301,7 @@
                           "bodyAnchor": "Second metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of second finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 45,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 45
                         }
                       }
                     ]
@@ -367,11 +345,7 @@
                           "bodyAnchor": "Middle phalanx of third finger of hand.r",
                           "bodyTied": "Distal phalanx of third finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 10,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 10
                         }
                       }
                     ]
@@ -415,11 +389,7 @@
                           "bodyAnchor": "Proximal phalanx of third finger of hand.r",
                           "bodyTied": "Middle phalanx of third finger of hand.r",
                           "flexInLimit": 100,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 0
                         }
                       }
                     ]
@@ -463,11 +433,7 @@
                           "bodyAnchor": "Third metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of third finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 45,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 45
                         }
                       }
                     ]
@@ -511,11 +477,7 @@
                           "bodyAnchor": "Middle phalanx of fourth finger of hand.r",
                           "bodyTied": "Distal phalanx of fourth finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 10,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 10
                         }
                       }
                     ]
@@ -559,11 +521,7 @@
                           "bodyAnchor": "Proximal phalanx of fourth finger of hand.r",
                           "bodyTied": "Middle phalanx of fourth finger of hand.r",
                           "flexInLimit": 100,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 0
                         }
                       }
                     ]
@@ -607,11 +565,7 @@
                           "bodyAnchor": "Fourth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fourth finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 45,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 45
                         }
                       }
                     ]
@@ -655,11 +609,7 @@
                           "bodyAnchor": "Middle phalanx of fifth finger of hand.r",
                           "bodyTied": "Distal phalanx of fifth finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 10,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 10
                         }
                       }
                     ]
@@ -703,11 +653,7 @@
                           "bodyAnchor": "Proximal phalanx of fifth finger of hand.r",
                           "bodyTied": "Middle phalanx of fifth finger of hand.r",
                           "flexInLimit": 100,
-                          "flexOutLimit": 0,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 0
                         }
                       }
                     ]
@@ -751,11 +697,7 @@
                           "bodyAnchor": "Fifth metacarpal bone.r",
                           "bodyTied": "Proximal phalanx of fifth finger of hand.r",
                           "flexInLimit": 90,
-                          "flexOutLimit": 45,
-                          "abductLeftLimit": 0,
-                          "abductRightLimit": 0,
-                          "twistClockwiseLimit": 0,
-                          "twistCounterClockwiseLimit": 0
+                          "flexOutLimit": 45
                         }
                       }
                     ]
@@ -940,7 +882,7 @@
               },
               {
                 "ƒ.Node": {
-                  "name": "Joint hamate pisiform",
+                  "name": "Joint hamate triquetrum",
                   "active": true,
                   "components": {
                     "ComponentTransform": [
@@ -965,7 +907,91 @@
                           "message": "CustomComponentScript added to ",
                           "jointType": 3,
                           "bodyAnchor": "Hamate bone.r",
+                          "bodyTied": "Triquetrum bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint triquetrum pisiform",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2438472956418991, 0.8453945517539978, 0.027907002717256546]",
+                            "rotation": "[78.2197423982561, -5.619574369739877, 23.242336344548168]",
+                            "scaling": "[0.8786816889326214, 1.289826733056972, 1.0233861410294778]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Triquetrum bone.r",
                           "bodyTied": "Pisiform bone.r"
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint scaphoid trapezium",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2769799828529358, 0.8500707745552063, 0.022290168330073357]",
+                            "rotation": "[61.025428706251056, -5.0219351021386425, -64.04440972997418]",
+                            "scaling": "[0.8786817405517823, 1.6695592434420912, 1.1636958528095767]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 3,
+                          "bodyAnchor": "Scaphoid bone.r",
+                          "bodyTied": "Trapezium bone.r"
                         }
                       }
                     ]
@@ -1075,7 +1101,7 @@
                           "local": {
                             "translation": "[-0.25810956954956055, 0.8511336445808411, 0.017326073721051216]",
                             "rotation": "[83.85000967473002, -3.5607673221795704, -49.15775088380767]",
-                            "scaling": "[0.8786817273903191, 1.6695591439299668, 1.1636957676032844]"
+                            "scaling": "[0.8786817273903191, 1.6695591439299668, 0.4413147739264182]"
                           },
                           "Component": {
                             "active": true
@@ -1117,7 +1143,7 @@
                           "local": {
                             "translation": "[-0.2650986313819885, 0.8549869060516357, 0.017159024253487587]",
                             "rotation": "[83.2361122180079, 2.173589460366614, -1.4656910904816662]",
-                            "scaling": "[0.8786817447688251, 1.669559143324034, 1.1636958013291525]"
+                            "scaling": "[0.8786817447688251, 1.669559143324034, 0.3972801013243399]"
                           },
                           "Component": {
                             "active": true
@@ -1150,16 +1176,16 @@
               },
               {
                 "ƒ.Node": {
-                  "name": "Joint scaphoid trapezium",
+                  "name": "Joint radius scaphoid",
                   "active": true,
                   "components": {
                     "ComponentTransform": [
                       {
                         "ƒ.ComponentTransform": {
                           "local": {
-                            "translation": "[-0.2769799828529358, 0.8500707745552063, 0.022290168330073357]",
-                            "rotation": "[61.025428706251056, -5.0219351021386425, -64.04440972997418]",
-                            "scaling": "[0.8786817405517823, 1.6695592434420912, 1.1636958528095767]"
+                            "translation": "[-0.2689778506755829, 0.8584824800491333, 0.01586831547319889]",
+                            "rotation": "[70.9507363576682, 0.28166118133368123, -2.5291823607688713]",
+                            "scaling": "[0.8786817989732693, 1.6695590826482052, 1.714295092415214]"
                           },
                           "Component": {
                             "active": true
@@ -1173,9 +1199,145 @@
                           "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
-                          "jointType": 3,
-                          "bodyAnchor": "Scaphoid bone.r",
-                          "bodyTied": "Trapezium bone.r"
+                          "jointType": 0,
+                          "bodyAnchor": "Radius.r",
+                          "bodyTied": "Scaphoid bone.r",
+                          "flexInLimit": 80,
+                          "flexOutLimit": 50
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint ulna lunate",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.2511148750782013, 0.8568300604820251, 0.016078053042292595]",
+                            "rotation": "[71.23832316209439, -3.370353557180038, -13.16395190227231]",
+                            "scaling": "[0.878681844042229, 1.6695590822934687, 1.853274150503356]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 0,
+                          "bodyAnchor": "Ulna.r",
+                          "bodyTied": "Lunate bone.r",
+                          "flexInLimit": 80,
+                          "flexOutLimit": 50
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint humerus ulna",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.21601013839244843, 1.1015088558197021, -0.03316505625844002]",
+                            "rotation": "[81.01688243169788, -2.444860535231394, -7.205291512947906]",
+                            "scaling": "[1.4082695906994176, 3.0016014017345753, 42.68277182157983]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 0,
+                          "bodyAnchor": "Humerus.r",
+                          "bodyTied": "Ulna.r",
+                          "flexInLimit": 5,
+                          "flexOutLimit": 140
+                        }
+                      }
+                    ]
+                  },
+                  "children": [
+                    {
+                      "ƒ.GraphInstance": {
+                        "deserializeFromSource": true,
+                        "idSource": "Graph|2026-05-24T13:47:02.222Z|98433"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "ƒ.Node": {
+                  "name": "Joint humerus radius",
+                  "active": true,
+                  "components": {
+                    "ComponentTransform": [
+                      {
+                        "ƒ.ComponentTransform": {
+                          "local": {
+                            "translation": "[-0.23547501862049103, 1.104550838470459, -0.0340970940887928]",
+                            "rotation": "[81.01688243169788, -2.444860535231394, -7.205291512947906]",
+                            "scaling": "[1.4082695906994176, 3.0016014017345753, 42.68277182157983]"
+                          },
+                          "Component": {
+                            "active": true
+                          }
+                        }
+                      }
+                    ],
+                    "Joint": [
+                      {
+                        "Script.Joint": {
+                          "singleton": false,
+                          "active": true,
+                          "message": "CustomComponentScript added to ",
+                          "jointType": 2,
+                          "bodyAnchor": "Humerus.r",
+                          "bodyTied": "Radius.r",
+                          "flexInLimit": 5,
+                          "flexOutLimit": 140,
+                          "twistClockwiseLimit": 70,
+                          "twistCounterClockwiseLimit": 70
                         }
                       }
                     ]
