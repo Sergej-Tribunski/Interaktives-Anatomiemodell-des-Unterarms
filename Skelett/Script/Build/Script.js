@@ -193,6 +193,7 @@ var Script;
     let joints = null;
     let rotAxis = undefined;
     let selectedBones = [];
+    let simulatedBones = [];
     let timer = 0;
     let direction = 1;
     let deltaTime = 0;
@@ -237,7 +238,7 @@ var Script;
             selectBone(node.getComponent(ƒ.ComponentRigidbody));
         }
         viewport.canvas.addEventListener("mousedown", hndSelection);
-        viewport.canvas.addEventListener("keydown", hndDeselectAll);
+        viewport.canvas.addEventListener("keydown", hndApplyToAllBones);
         const flexStrengthInput = document.getElementById("flexStrength");
         const flexDirectionInput = document.getElementById("flexDirection");
         const abductStrengthInput = document.getElementById("abductStrength");
@@ -260,9 +261,8 @@ var Script;
             toggleButton.textContent =
                 movementEnabled ? "Stop Movement" : "Start Movement";
         });
-        document.getElementById("controls").style.display = "block";
-        document.getElementById("controls").style.display = "flex";
-        document.getElementById("selectedBonesPanel").style.display = "block";
+        document.getElementById("controlsPanelsContainer").style.display = "block";
+        document.getElementById("listPanelsContainer").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
@@ -283,11 +283,57 @@ var Script;
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
             if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-                let cmpRigidbody = new ƒ.ComponentRigidbody(10, node.name.includes("Humerus") ? ƒ.BODY_TYPE.STATIC : ƒ.BODY_TYPE.DYNAMIC, ƒ.COLLIDER_TYPE.SPHERE);
+                let cmpRigidbody = new ƒ.ComponentRigidbody(10, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                //cmpRigidbody.effectGravity = 0;
+                cmpRigidbody.effectGravity = 0;
                 node.addComponent(cmpRigidbody);
+                changeBodyType(cmpRigidbody, node.name);
             }
+        }
+    }
+    function changeBodyType(_rb, _nodeName) {
+        if (_nodeName.includes("Humerus"))
+            return;
+        if (_rb.typeBody === ƒ.BODY_TYPE.DYNAMIC) {
+            _rb.typeBody = ƒ.BODY_TYPE.STATIC;
+            updateSimulatedBonesList(_nodeName, false);
+        }
+        else if (_rb.typeBody === ƒ.BODY_TYPE.STATIC) {
+            _rb.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+            updateSimulatedBonesList(_nodeName, true);
+        }
+    }
+    function changeAllBodiesToStatic() {
+        for (let node of scene?.getChildren()) {
+            let rb = node.getComponent(ƒ.ComponentRigidbody);
+            if (!rb)
+                continue;
+            if (rb.typeBody === ƒ.BODY_TYPE.DYNAMIC)
+                changeBodyType(rb, rb.node?.name);
+        }
+        console.log("All bodies are Static!");
+    }
+    function changeAllBodiesToDynamic() {
+        for (let node of scene?.getChildren()) {
+            let rb = node.getComponent(ƒ.ComponentRigidbody);
+            if (!rb || node.name.includes("Humerus"))
+                continue;
+            if (rb.typeBody === ƒ.BODY_TYPE.STATIC)
+                changeBodyType(rb, rb.node?.name);
+        }
+        console.log("All bodies are Dynamic!");
+    }
+    function updateSimulatedBonesList(_boneName, _pushOrPop) {
+        if (_pushOrPop)
+            simulatedBones.push(_boneName);
+        else
+            simulatedBones = simulatedBones.filter(name => name !== _boneName);
+        const list = document.getElementById("simulatedBonesList");
+        list.innerHTML = "";
+        for (let boneName of simulatedBones) {
+            const item = document.createElement("li");
+            item.textContent = boneName;
+            list.appendChild(item);
         }
     }
     function resolveJoint(_body) {
@@ -348,21 +394,27 @@ var Script;
         if (!selectedBones.includes(_rb)) {
             selectedBones.push(_rb);
             console.log("Select: ", _rb.node?.name);
-            updatedSelectedBonesList();
+            updateSelectedBonesList();
         }
     }
     function deselectBone(_rb) {
         let index = selectedBones.indexOf(_rb, 0);
         selectedBones.splice(index, 1);
         console.log("Deselect: ", _rb.node?.name);
-        updatedSelectedBonesList();
+        updateSelectedBonesList();
     }
     function deselectAllBones() {
         selectedBones.length = 0;
         console.log("Deselect all!");
-        updatedSelectedBonesList();
+        updateSelectedBonesList();
     }
-    function updatedSelectedBonesList() {
+    function selectAllBones() {
+        for (let node of scene?.getChildren()) {
+            selectBone(node.getComponent(ƒ.ComponentRigidbody));
+            console.log("Select all!");
+        }
+    }
+    function updateSelectedBonesList() {
         const list = document.getElementById("selectedBonesList");
         list.innerHTML = "";
         for (let rb of selectedBones) {
@@ -408,7 +460,7 @@ var Script;
         rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
     }
     function hndSelection(_event) {
-        if (!(_event.button == 0 && _event.ctrlKey))
+        if (_event.button != 0)
             return;
         let picks = ƒ.Picker.pickViewport(viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
         if (picks.length == 0)
@@ -420,15 +472,37 @@ var Script;
         if (!node)
             return;
         let rb = node.getComponent(ƒ.ComponentRigidbody);
-        if (selectedBones.includes(rb))
-            deselectBone(rb);
-        else
-            selectBone(rb);
-    }
-    function hndDeselectAll(_event) {
-        if (_event.key === "Escape") {
-            deselectAllBones();
+        if (_event.shiftKey) {
+            changeBodyType(rb, rb.node?.name);
+        }
+        if (_event.ctrlKey) {
+            if (selectedBones.includes(rb))
+                deselectBone(rb);
+            else
+                selectBone(rb);
         }
     }
+    function hndApplyToAllBones(_event) {
+        if (_event.key === "Q")
+            deselectAllBones();
+        if (_event.key === "E")
+            selectAllBones();
+        if (_event.key === "A")
+            changeAllBodiesToStatic();
+        if (_event.key === "D")
+            changeAllBodiesToDynamic();
+    }
+    function togglePanel(_header) {
+        console.log("togglePanel called!");
+        const panelContent = _header.nextElementSibling;
+        const isCollapsed = panelContent.classList.contains("collapsed");
+        if (isCollapsed) {
+            panelContent.classList.remove("collapsed");
+        }
+        else {
+            panelContent.classList.add("collapsed");
+        }
+    }
+    window.togglePanel = togglePanel;
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map

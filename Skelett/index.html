@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>Skelett</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
 
     <!--Editor settings of this project-->
-    <meta type="settings" autoview="Graph|2026-05-04T14:48:34.420Z|71030" project="{'name':'Skelett','graphAutoView':'Graph|2026-05-04T14:48:34.420Z|71030'}" />
+    <meta type="settings" autoview="Graph|2026-05-04T14:48:34.420Z|71030"
+        project="{'name':'Skelett','graphAutoView':'Graph|2026-05-04T14:48:34.420Z|71030'}" />
 
     <!--Activate the following line to include the FUDGE-version of Oimo-Physics. You may want to download a local copy to work offline and be independent from future changes!-->
     <script type="text/javascript" src="https://Sergej-Tribunski.github.io/FUDGE/Distribution/OimoPhysics.js"></script>
@@ -37,47 +39,119 @@
     <canvas class="fullscreen">
     </canvas>
 
-    <div id="controls" style="display: none;">
-        <h3>Movement Controls</h3>
-        Click on bones to select. <br />
-        Click again to deselect. <br />
-        Press 'Escape' to deselect all. <br />
+    <div id="controlsPanelsContainer">
+        <div id="controlsPanel">
+            <h3 class="panel-header" onclick="togglePanel(this)">Controls</h3>
+            <div class="panel-content">
+                "Selected Bones" will be affected <br> by "Movement"-Panel. <br>
+                <br>
+                "Simulated Bones" will be affected <br> by physics. <br>
+                <br>
+                Bones not affected by physics <br>
+                will be completely stationary.
+                <table>
+                    <tr>
+                        <td>Click</td>
+                        <td>snap camera to bone</td>
+                    </tr>
+                    <tr>
+                        <td>Hold M2</td>
+                        <td>look around</td>
+                    </tr>
+                    <tr>
+                        <td>Scroll</td>
+                        <td>Zoom</td>
+                    </tr>
+                    <tr>
+                        <td>Hold M2 + WASDQE</td>
+                        <td>move camera</td>
+                    </tr>
+                    <tr>
+                        <td>Hold M3 on bone</td>
+                        <td>move camera around bone</td>
+                    </tr>
+                    <tr>
+                        <td>M1 on header</td>
+                        <td>collapse/expand</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl+M1</td>
+                        <td>select/deselect bone</td>
+                    </tr>
+                    <tr>
+                        <td>Shift+M1</td>
+                        <td>simulate/desimulate bone</td>
+                    </tr>
+                    <tr>
+                        <td>Shift+Q</td>
+                        <td>deselect all</td>
+                    </tr>
+                    <tr>
+                        <td>Shift+E</td>
+                        <td>select all</td>
+                    </tr>
+                    <tr>
+                        <td>Shift+A</td>
+                        <td>desimulate all</td>
+                    </tr>
+                    <tr>
+                        <td>Shift+D</td>
+                        <td>simulate all</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-        <label>
-            Flex Strength
-            <input id="flexStrength" type="number" value="10" />
-        </label>
-
-        <label>
-            Flex Direction
-            <select id="flexDirection">
-                <option value="1">1</option>
-                <option value="-1">-1</option>
-            </select>
-        </label>
-
-        <label>
-            Abduct/Twist Strength
-            <input id="abductStrength" type="number" value="10" />
-        </label>
-
-        <label>
-            Abduct/Twist Direction
-            <select id="abductDirection">
-                <option value="1">1</option>
-                <option value="-1">-1</option>
-            </select>
-        </label>
-
-        <button id="toggleMovement">
-            Start Movement
-        </button>
+        <div id="movementPanel">
+            <h3 class="panel-header" onclick="togglePanel(this)">Movement</h3>
+            <div class="panel-content">
+                <label>
+                    Flex Strength
+                    <input id="flexStrength" type="number" value="10" />
+                </label>
+                <label>
+                    Flex Direction
+                    <select id="flexDirection">
+                        <option value="1">1</option>
+                        <option value="-1">-1</option>
+                    </select>
+                </label>
+                <label>
+                    Abduct/Twist Strength
+                    <input id="abductStrength" type="number" value="10" />
+                </label>
+                <label>
+                    Abduct/Twist Direction
+                    <select id="abductDirection">
+                        <option value="1">1</option>
+                        <option value="-1">-1</option>
+                    </select>
+                </label>
+                <button id="toggleMovement">
+                    Start Movement
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div id="selectedBonesPanel">
-        <h3>Selected Bones</h3>
-        <ul id="selectedBonesList">
-</ul>
+    <div id="listPanelsContainer">
+        <div id="selectedBonesPanel">
+            <h3 class="panel-header" onclick="togglePanel(this)">Selected Bones</h3>
+            <div class="panel-content">
+                <ul id="selectedBonesList">
+                </ul>
+            </div>
+        </div>
+
+        <div id="simulatedBonesPanel">
+            <h3 class="panel-header" onclick="togglePanel(this)">Simulated Bones (Dynamic RB's)</h3>
+            <div class="panel-content">
+                <ul id="simulatedBonesList">
+                </ul>
+            </div>
+        </div>
     </div>
+
 </body>
+
 </html>

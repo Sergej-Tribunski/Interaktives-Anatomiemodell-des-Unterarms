@@ -5,6 +5,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 dialog {
@@ -16,48 +18,77 @@ canvas.fullscreen {
   height: 100vh;
 }
 
-#controls {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-
-  padding: 10px;
-  border-radius: 5px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  z-index: 100;
-}
-
-#controls input,
-#controls select {
+#movementPanel input,
+#movementPanel select {
   width: 80px;
 }
 
-#selectedBonesPanel {
-  display: none;
-
+#listPanelsContainer {
   position: absolute;
   top: 10px;
   right: 10px;
-
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-
-  padding: 10px;
-  border-radius: 5px;
-
-  min-width: 200px;
-
+  bottom: 10px;
+  background: transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   z-index: 100;
 }
 
-#selectedBonesList {
+#controlsPanelsContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  max-height: calc(100vh - 20px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+#selectedBonesPanel,
+#simulatedBonesPanel,
+#controlsPanel,
+#movementPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 200px;
+  width: auto;
+  z-index: 300px;
+}
+
+#selectedBonesList,
+#simulatedBonesList {
   margin: 0;
   padding-left: 20px;
+}
+
+.panel-header {
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.panel-header:hover {
+  opacity: 0.8;
+}
+
+.panel-content.collapsed {
+  display: none;
+}
+
+#movementPanel label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
