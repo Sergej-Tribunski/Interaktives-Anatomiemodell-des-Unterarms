@@ -1183,9 +1183,9 @@
                       {
                         "ƒ.ComponentTransform": {
                           "local": {
-                            "translation": "[-0.2689778506755829, 0.8584824800491333, 0.01586831547319889]",
-                            "rotation": "[70.9507363576682, 0.28166118133368123, -2.5291823607688713]",
-                            "scaling": "[0.8786817989732693, 1.6695590826482052, 1.714295092415214]"
+                            "translation": "[-0.2681328227519989, 0.8595030436515808, 0.01686594805121422]",
+                            "rotation": "[77.12909214899786, -0.867405167442374, -7.549584421973812]",
+                            "scaling": "[0.8786818272234158, 1.6695591510814427, 42.987765920935594]"
                           },
                           "Component": {
                             "active": true
@@ -1199,11 +1199,13 @@
                           "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
-                          "jointType": 0,
+                          "jointType": 2,
                           "bodyAnchor": "Radius.r",
                           "bodyTied": "Scaphoid bone.r",
                           "flexInLimit": 80,
-                          "flexOutLimit": 50
+                          "flexOutLimit": 50,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -1227,9 +1229,9 @@
                       {
                         "ƒ.ComponentTransform": {
                           "local": {
-                            "translation": "[-0.2511148750782013, 0.8568300604820251, 0.016078053042292595]",
-                            "rotation": "[71.23832316209439, -3.370353557180038, -13.16395190227231]",
-                            "scaling": "[0.878681844042229, 1.6695590822934687, 1.853274150503356]"
+                            "translation": "[-0.2505772879123688, 0.8571763167381287, 0.01713406650722027]",
+                            "rotation": "[77.12909214899786, -0.867405167442374, -7.549584421973812]",
+                            "scaling": "[0.8786818272234158, 1.6695591510814427, 42.987765920935594]"
                           },
                           "Component": {
                             "active": true
@@ -1243,11 +1245,13 @@
                           "singleton": false,
                           "active": true,
                           "message": "CustomComponentScript added to ",
-                          "jointType": 0,
+                          "jointType": 2,
                           "bodyAnchor": "Ulna.r",
                           "bodyTied": "Lunate bone.r",
                           "flexInLimit": 80,
-                          "flexOutLimit": 50
+                          "flexOutLimit": 50,
+                          "twistClockwiseLimit": 0,
+                          "twistCounterClockwiseLimit": 0
                         }
                       }
                     ]
@@ -1290,8 +1294,8 @@
                           "jointType": 0,
                           "bodyAnchor": "Humerus.r",
                           "bodyTied": "Ulna.r",
-                          "flexInLimit": 5,
-                          "flexOutLimit": 140
+                          "flexInLimit": 140,
+                          "flexOutLimit": 5
                         }
                       }
                     ]
@@ -1334,8 +1338,8 @@
                           "jointType": 2,
                           "bodyAnchor": "Humerus.r",
                           "bodyTied": "Radius.r",
-                          "flexInLimit": 5,
-                          "flexOutLimit": 140,
+                          "flexInLimit": 140,
+                          "flexOutLimit": 5,
                           "twistClockwiseLimit": 70,
                           "twistCounterClockwiseLimit": 70
                         }

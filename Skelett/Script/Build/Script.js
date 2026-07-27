@@ -244,6 +244,8 @@ var Script;
         const abductStrengthInput = document.getElementById("abductStrength");
         const abductDirectionInput = document.getElementById("abductDirection");
         const toggleButton = document.getElementById("toggleMovement");
+        const deactivateSelectedBones = document.getElementById("deactivateSelectedBones");
+        const resetPage = document.getElementById("resetPage");
         flexStrengthInput.addEventListener("input", () => {
             flexStrength = Number(flexStrengthInput.value);
         });
@@ -260,6 +262,12 @@ var Script;
             movementEnabled = !movementEnabled;
             toggleButton.textContent =
                 movementEnabled ? "Stop Movement" : "Start Movement";
+        });
+        deactivateSelectedBones.addEventListener("click", () => {
+            deactivateSelectedBonesHandler();
+        });
+        resetPage.addEventListener("click", () => {
+            resetPageHandler();
         });
         document.getElementById("controlsPanelsContainer").style.display = "block";
         document.getElementById("listPanelsContainer").style.display = "block";
@@ -283,9 +291,11 @@ var Script;
     function defineRigidBodies(_scene) {
         for (let node of _scene.getIterator(false)) {
             if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-                let cmpRigidbody = new ƒ.ComponentRigidbody(10, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+                let cmpRigidbody = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
                 cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                cmpRigidbody.effectGravity = 0;
+                cmpRigidbody.effectGravity = 1;
+                cmpRigidbody.dampRotation = 10;
+                cmpRigidbody.dampTranslation = 10;
                 node.addComponent(cmpRigidbody);
                 changeBodyType(cmpRigidbody, node.name);
             }
@@ -350,7 +360,6 @@ var Script;
         for (let node of _joints.getIterator(false)) {
             if (node.name.startsWith("Joint ")) {
                 defineJoint(node, resolveJoint(node.getComponent(Script.Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody), resolveJoint(node.getComponent(Script.Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody));
-                anchoringJoint.set(resolveJoint(node.getComponent(Script.Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody), node.getComponent(Script.Joint));
             }
         }
     }
@@ -361,6 +370,7 @@ var Script;
             joint.minMotor = -_jointNode.getComponent(Script.Joint).flexInLimit;
             joint.maxMotor = _jointNode.getComponent(Script.Joint).flexOutLimit;
             _jointNode.addComponent(joint);
+            anchoringJoint.set(_tied, joint);
             //console.log("Joint Revolute would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.UNIVERSAL) {
@@ -371,22 +381,25 @@ var Script;
             joint.minRotorSecond = -_jointNode.getComponent(Script.Joint).abductLeftLimit;
             joint.maxRotorSecond = _jointNode.getComponent(Script.Joint).abductRightLimit;
             _jointNode.addComponent(joint);
+            anchoringJoint.set(_tied, joint);
             //console.log("Joint Universal would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.RAGDOLL) {
-            let joint = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getY().normalize());
+            let joint = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getY().normalize(), _jointNode.mtxLocal.getY().normalize());
             joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node.mtxLocal.translation);
             joint.maxAngleFirstAxis = -_jointNode.getComponent(Script.Joint).flexOutLimit;
             joint.maxAngleSecondAxis = _jointNode.getComponent(Script.Joint).flexInLimit;
             joint.minMotorTwist = -_jointNode.getComponent(Script.Joint).twistCounterClockwiseLimit;
             joint.maxMotorTwist = _jointNode.getComponent(Script.Joint).twistClockwiseLimit;
             _jointNode.addComponent(joint);
+            anchoringJoint.set(_tied, joint);
             //console.log("Joint Ragdoll would be added.");
         }
         if (_jointNode.getComponent(Script.Joint).jointType == Script.JOINT_TYPE.WELDING) {
             let joint = new ƒ.JointWelding(_anchor, _tied);
             joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node.mtxLocal.translation);
             _jointNode.addComponent(joint);
+            anchoringJoint.set(_tied, joint);
             //console.log("Joint Welding would be added.");
         }
     }
@@ -423,15 +436,30 @@ var Script;
             list.appendChild(item);
         }
     }
+    function deactivateSelectedBonesHandler() {
+        for (let bone of selectedBones) {
+            bone.node?.activate(false);
+            //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
+            //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
+        }
+    }
+    function resetPageHandler() {
+        for (let bone of selectedBones) {
+            bone.node?.activate(true);
+            //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
+            //might need to store info of default bone locations
+        }
+        ;
+    }
     function rotateBones(_strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
         for (let rb of selectedBones) {
-            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.REVOLUTE) {
+            if (anchoringJoint.get(rb) instanceof ƒ.JointRevolute) {
                 rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
             }
-            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.UNIVERSAL) {
+            if (anchoringJoint.get(rb) instanceof ƒ.JointUniversal) {
                 rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
             }
-            if (anchoringJoint.get(rb)?.jointType == Script.JOINT_TYPE.RAGDOLL) {
+            if (anchoringJoint.get(rb) instanceof ƒ.JointRagdoll) {
                 rotateBoneRagdoll(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
             }
         }
