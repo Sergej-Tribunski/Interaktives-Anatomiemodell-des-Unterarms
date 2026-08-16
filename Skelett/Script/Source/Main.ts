@@ -1,13 +1,18 @@
 namespace Script {
   import ƒ = FudgeCore;
-  ƒ.Debug.info("Main Program Template running!");
+  ƒ.Debug.info("Main running!");
 
   let viewport: ƒ.Viewport;
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
+  let visuals: PrepareVisuals;
+  let physicsController: PhysicsController;
+  let rigidBodies: PrepareRigidbodies;
+  let joints: PrepareJoints;
+  let uiController: UIController;
+
 
   let scene: ƒ.Node | null = null;
-  let joints: ƒ.Node | null = null;
   let rotAxis: ƒ.Vector3 | undefined = undefined;
   let selectedBones: ƒ.ComponentRigidbody[] = [];
   let simulatedBones: string[] = [];
@@ -29,35 +34,20 @@ namespace Script {
 
   function start(_event: CustomEvent): void {
     viewport = _event.detail;
-
     viewport.getBranch();
     let branch: ƒ.Node = viewport.getBranch();
-
     viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
-
-    for (let node of branch.getIterator(true)) {
-      if (node.name.includes("Arrow")) {
-        node.activate(false);
-      }
-      if (node.name.includes("Joint ")) {
-        node.activate(false);
-      }
-    }
-
     ƒ.Render.prepare(branch);
     scene = branch.getChildByName("Scene");
-    joints = branch.getChildByName("Joints");
 
-    defineRigidBodies(scene);
-    defineJoints(joints);
-
-
-    let material: ƒ.Material = <ƒ.Material>ƒ.Project.getResourcesByName("MaterialShaderGouraud")[0];
-    for (let node of branch.getIterator(false))
-      if (node.name.endsWith("Primitive0") || node.name.endsWith("Primitive1")) {
-        let cmpMaterial: ƒ.ComponentMaterial = node.getComponent(ƒ.ComponentMaterial);
-        cmpMaterial.material = material;
-      }
+    visuals = new PrepareVisuals(branch);
+    physicsController = new PhysicsController();
+    rigidBodies = new PrepareRigidbodies(branch.getChildByName("Scene"), physicsController);
+    joints = new PrepareJoints(branch);
+    uiController = new UIController();
+    physicsController.onRbTypeChanged = (rb) => {
+      uiController.updateSimulatedBonesList(rb);
+    };
 
     for (let node of scene.getChildren()) {
       selectBone(node.getComponent(ƒ.ComponentRigidbody));
@@ -212,68 +202,6 @@ namespace Script {
     }
   }
 
-
-  function resolveJoint(_body: ƒ.Node | string | undefined): ƒ.Node | null {
-    if (!_body) {
-      return null;
-    }
-    if (typeof _body === "string") {
-      return scene?.getChildByName(_body)!;
-    }
-    return _body;
-  }
-
-  function defineJoints(_joints: ƒ.Node) {
-    ƒ.Render.prepare(viewport.getBranch());
-    for (let node of _joints.getIterator(false)) {
-      if (node.name.startsWith("Joint ")) {
-        defineJoint(node, resolveJoint(node.getComponent(Joint).bodyAnchor)?.getComponent(ƒ.ComponentRigidbody)!, resolveJoint(node.getComponent(Joint).bodyTied)?.getComponent(ƒ.ComponentRigidbody)!);
-      }
-    }
-  }
-
-  function defineJoint(_jointNode: ƒ.Node, _anchor: ƒ.ComponentRigidbody, _tied: ƒ.ComponentRigidbody) {
-    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.REVOLUTE) {
-      let joint: ƒ.JointRevolute = new ƒ.JointRevolute(_anchor, _tied, _jointNode.mtxLocal.getX().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minMotor = -_jointNode.getComponent(Joint).flexInLimit;
-      joint.maxMotor = _jointNode.getComponent(Joint).flexOutLimit;
-      _jointNode.addComponent(joint);
-      anchoringJoint.set(_tied, joint);
-      //console.log("Joint Revolute would be added.");
-    }
-
-    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.UNIVERSAL) {
-      let joint: ƒ.JointUniversal = new ƒ.JointUniversal(_anchor, _tied, _jointNode.mtxLocal.getX().normalize(), _jointNode.mtxLocal.getY().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxWorld.translation, _anchor.node!.mtxWorld.translation);
-      joint.minRotorFirst = -_jointNode.getComponent(Joint).flexInLimit;
-      joint.maxRotorFirst = _jointNode.getComponent(Joint).flexOutLimit;
-      joint.minRotorSecond = -_jointNode.getComponent(Joint).abductLeftLimit;
-      joint.maxRotorSecond = _jointNode.getComponent(Joint).abductRightLimit;
-      _jointNode.addComponent(joint);
-      anchoringJoint.set(_tied, joint);
-      //console.log("Joint Universal would be added.");
-    }
-
-    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.RAGDOLL) {
-      let joint: ƒ.JointRagdoll = new ƒ.JointRagdoll(_anchor, _tied, _jointNode.mtxLocal.getY().normalize(), _jointNode.mtxLocal.getY().normalize());
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
-      joint.maxAngleFirstAxis = -_jointNode.getComponent(Joint).flexOutLimit;
-      joint.maxAngleSecondAxis = _jointNode.getComponent(Joint).flexInLimit;
-      joint.minMotorTwist = -_jointNode.getComponent(Joint).twistCounterClockwiseLimit;
-      joint.maxMotorTwist = _jointNode.getComponent(Joint).twistClockwiseLimit;
-      _jointNode.addComponent(joint);
-      anchoringJoint.set(_tied, joint);
-      //console.log("Joint Ragdoll would be added.");
-    }
-    if (_jointNode.getComponent(Joint).jointType == JOINT_TYPE.WELDING) {
-      let joint: ƒ.JointWelding = new ƒ.JointWelding(_anchor, _tied);
-      joint.anchor = ƒ.Vector3.DIFFERENCE(_jointNode.mtxLocal.translation, _anchor.node!.mtxLocal.translation);
-      _jointNode.addComponent(joint);
-      anchoringJoint.set(_tied, joint);
-      //console.log("Joint Welding would be added.");
-    }
-  }
 
   function selectBone(_rb: ƒ.ComponentRigidbody): void {
     if (!selectedBones.includes(_rb)) {
