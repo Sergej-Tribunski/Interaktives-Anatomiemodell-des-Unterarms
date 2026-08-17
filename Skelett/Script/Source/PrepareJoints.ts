@@ -78,5 +78,9 @@ namespace Script {
             }
             return _body;
         }
+
+        public getAnchoringJoint(): Map<ƒ.ComponentRigidbody, ƒ.Joint> {
+            return this.anchoringJoint;
+        }
     }
 }

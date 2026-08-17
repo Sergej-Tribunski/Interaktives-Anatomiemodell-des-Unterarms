@@ -28,9 +28,14 @@ declare namespace Script {
 declare namespace Script {
     import ƒ = FudgeCore;
     class PhysicsController {
-        private branch;
-        constructor(_branch: ƒ.Node);
+        private scene;
+        private simulatedBones;
+        constructor(_scene: ƒ.Node);
+        private updateSimulatedBonesList;
+        onSimulatedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null;
         changeBodyType(_rb: ƒ.ComponentRigidbody): void;
+        changeAllBodiesToStatic(): void;
+        changeAllBodiesToDynamic(): void;
     }
 }
 declare namespace Script {
@@ -44,14 +49,16 @@ declare namespace Script {
         private defineJoints;
         private defineJoint;
         private resolveJoint;
+        getAnchoringJoint(): Map<ƒ.ComponentRigidbody, ƒ.Joint>;
     }
 }
 declare namespace Script {
     import ƒ = FudgeCore;
     class PrepareRigidbodies {
         private scene;
-        constructor(_scene: ƒ.Node, _physicsController: PhysicsController);
+        constructor(_scene: ƒ.Node);
         private defineRigidbodies;
+        onRbCreated: ((_rb: ƒ.ComponentRigidbody) => void) | null;
     }
 }
 declare namespace Script {
@@ -62,5 +69,34 @@ declare namespace Script {
         constructor(_branch: ƒ.Node);
         private prepareShaders;
         private prepareNodeVisibility;
+    }
+}
+declare namespace Script {
+    import ƒ = FudgeCore;
+    class SelectionController {
+        private scene;
+        private selectedBones;
+        constructor(_scene: ƒ.Node);
+        private updateSelectedBonesList;
+        onSelectedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null;
+        selectBone(_rb: ƒ.ComponentRigidbody): void;
+        deselectBone(_rb: ƒ.ComponentRigidbody): void;
+        selectAllBones(): void;
+        deselectAllBones(): void;
+    }
+}
+declare namespace Script {
+    class UIController {
+        private addBoneToList;
+        private removeBoneFromList;
+        updateSimulatedBonesList(_boneName: string, _isInList: boolean): void;
+        updateSelectedBonesList(_boneName: string, _isInList: boolean): void;
+    }
+}
+declare namespace Script {
+    import ƒ = FudgeCore;
+    class UserInputHandler {
+        private viewport;
+        constructor(_viewport: ƒ.Viewport);
     }
 }

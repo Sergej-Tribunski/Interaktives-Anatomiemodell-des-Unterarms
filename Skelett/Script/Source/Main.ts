@@ -5,17 +5,19 @@ namespace Script {
   let viewport: ƒ.Viewport;
   document.addEventListener("interactiveViewportStarted", <EventListener>start);
 
-  let visuals: PrepareVisuals;
+  let userInputHandler: UserInputHandler;
+  let prepareVisuals: PrepareVisuals;
   let physicsController: PhysicsController;
-  let rigidBodies: PrepareRigidbodies;
-  let joints: PrepareJoints;
+  let prepareRbs: PrepareRigidbodies;
+  let prepareJoints: PrepareJoints;
   let uiController: UIController;
+  let selectionController: SelectionController;
 
 
-  let scene: ƒ.Node | null = null;
+
+
+
   let rotAxis: ƒ.Vector3 | undefined = undefined;
-  let selectedBones: ƒ.ComponentRigidbody[] = [];
-  let simulatedBones: string[] = [];
 
   let timer: number = 0;
   let direction: number = 1;
@@ -27,8 +29,6 @@ namespace Script {
   let abductDirection: number = 1;
   let movementEnabled: boolean = false;
 
-  let anchoringJoint: Map<ƒ.ComponentRigidbody, ƒ.Joint> = new Map();
-
   enum AXIS { FLEXTION, ABDUCTION, TWIST };
 
 
@@ -38,19 +38,24 @@ namespace Script {
     let branch: ƒ.Node = viewport.getBranch();
     viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
     ƒ.Render.prepare(branch);
-    scene = branch.getChildByName("Scene");
+    let scene = branch.getChildByName("Scene");
 
-    visuals = new PrepareVisuals(branch);
-    physicsController = new PhysicsController();
-    rigidBodies = new PrepareRigidbodies(branch.getChildByName("Scene"), physicsController);
-    joints = new PrepareJoints(branch);
+    userInputHandler = new UserInputHandler(viewport);
+    prepareVisuals = new PrepareVisuals(branch);
+    physicsController = new PhysicsController(scene);
+    prepareRbs = new PrepareRigidbodies(scene);
+    prepareJoints = new PrepareJoints(branch);
     uiController = new UIController();
-    physicsController.onRbTypeChanged = (rb) => {
-      uiController.updateSimulatedBonesList(rb);
-    };
+    selectionController = new SelectionController(scene);
 
-    for (let node of scene.getChildren()) {
-      selectBone(node.getComponent(ƒ.ComponentRigidbody));
+    prepareRbs.onRbCreated = (_rb) => {
+      physicsController.changeBodyType(_rb);
+    }
+    physicsController.onSimulatedBonesChanged = (boneName, isInList) => {
+      uiController.updateSimulatedBonesList(boneName, isInList);
+    }
+    selectionController.onSelectedBonesChanged = (boneName, isInList) => {
+      uiController.updateSelectedBonesList(boneName, isInList);
     }
 
     viewport.canvas.addEventListener("mousedown", hndSelection);
@@ -100,13 +105,13 @@ namespace Script {
         movementEnabled ? "Stop Movement" : "Start Movement";
     });
 
-    deactivateSelectedBones.addEventListener("click", () => {
-      deactivateSelectedBonesHandler();
-    });
-
-    resetPage.addEventListener("click", () => {
-      resetPageHandler();
-    })
+    /*     deactivateSelectedBones.addEventListener("click", () => {
+          deactivateSelectedBonesHandler();
+        });
+    
+        resetPage.addEventListener("click", () => {
+          resetPageHandler();
+        }) */
 
     document.getElementById("controlsPanelsContainer")!.style.display = "block";
     document.getElementById("listPanelsContainer")!.style.display = "block";
@@ -139,129 +144,31 @@ namespace Script {
     ƒ.AudioManager.default.update();
   }
 
-
-  function defineRigidBodies(_scene: ƒ.Node) {
-    for (let node of _scene.getIterator(false)) {
-      if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-        let cmpRigidbody: ƒ.ComponentRigidbody = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-        cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-        cmpRigidbody.effectGravity = 1;
-        cmpRigidbody.dampRotation = 10;
-        cmpRigidbody.dampTranslation = 10;
-        node.addComponent(cmpRigidbody);
-        changeBodyType(cmpRigidbody, node.name);
+  /*   function deactivateSelectedBonesHandler(): void {
+      for (let bone of selectedBones) {
+        bone.node?.activate(false);
+        //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
+        //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
       }
     }
-  }
-
-  function changeBodyType(_rb: ƒ.ComponentRigidbody, _nodeName: string): void {
-    if (_nodeName.includes("Humerus")) return;
-
-    if (_rb.typeBody === ƒ.BODY_TYPE.DYNAMIC) {
-      _rb.typeBody = ƒ.BODY_TYPE.STATIC;
-      updateSimulatedBonesList(_nodeName, false);
-    } else
-      if (_rb.typeBody === ƒ.BODY_TYPE.STATIC) {
-        _rb.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-        updateSimulatedBonesList(_nodeName, true);
-      }
-  }
-
-  function changeAllBodiesToStatic(): void {
-    for (let node of scene?.getChildren()!) {
-      let rb = node.getComponent(ƒ.ComponentRigidbody);
-      if (!rb) continue;
-      if (rb.typeBody === ƒ.BODY_TYPE.DYNAMIC)
-        changeBodyType(rb, rb.node?.name!);
-    }
-    console.log("All bodies are Static!");
-  }
-
-  function changeAllBodiesToDynamic(): void {
-    for (let node of scene?.getChildren()!) {
-      let rb = node.getComponent(ƒ.ComponentRigidbody);
-      if (!rb || node.name.includes("Humerus")) continue;
-      if (rb.typeBody === ƒ.BODY_TYPE.STATIC)
-        changeBodyType(rb, rb.node?.name!);
-    }
-    console.log("All bodies are Dynamic!");
-  }
-
-  function updateSimulatedBonesList(_boneName: string, _pushOrPop: boolean): void {
-    if (_pushOrPop)
-      simulatedBones.push(_boneName);
-    else
-      simulatedBones = simulatedBones.filter(name => name !== _boneName);
-
-    const list: HTMLUListElement = document.getElementById("simulatedBonesList") as HTMLUListElement;
-    list.innerHTML = "";
-    for (let boneName of simulatedBones) {
-      const item: HTMLElement = document.createElement("li");
-      item.textContent = boneName;
-      list.appendChild(item);
-    }
-  }
-
-
-  function selectBone(_rb: ƒ.ComponentRigidbody): void {
-    if (!selectedBones.includes(_rb)) {
-      selectedBones.push(_rb);
-      console.log("Select: ", _rb.node?.name);
-      updateSelectedBonesList();
-    }
-  }
-  function deselectBone(_rb: ƒ.ComponentRigidbody): void {
-    let index = selectedBones.indexOf(_rb, 0);
-    selectedBones.splice(index, 1);
-    console.log("Deselect: ", _rb.node?.name);
-    updateSelectedBonesList();
-  }
-  function deselectAllBones(): void {
-    selectedBones.length = 0;
-    console.log("Deselect all!");
-    updateSelectedBonesList();
-  }
-  function selectAllBones(): void {
-    for (let node of scene?.getChildren()!) {
-      selectBone(node.getComponent(ƒ.ComponentRigidbody));
-      console.log("Select all!");
-    }
-  }
-  function updateSelectedBonesList(): void {
-    const list: HTMLUListElement = document.getElementById("selectedBonesList") as HTMLUListElement;
-    list.innerHTML = "";
-    for (let rb of selectedBones) {
-      const item: HTMLLIElement = document.createElement("li");
-      item.textContent = rb.node?.name ?? "Unknown";
-      list.appendChild(item);
-    }
-  }
-
-  function deactivateSelectedBonesHandler(): void {
-    for (let bone of selectedBones) {
-      bone.node?.activate(false);
-      //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
-      //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
-    }
-  }
-
-  function resetPageHandler(): void {
-    for (let bone of selectedBones) {
-      bone.node?.activate(true);
-      //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
-      //might need to store info of default bone locations
-    };
-  }
+  
+    function resetPageHandler(): void {
+      for (let bone of selectedBones) {
+        bone.node?.activate(true);
+        //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
+        //might need to store info of default bone locations
+      };
+    } */
 
   function rotateBones(_strengthFirst: number, _directionFirst: number, _strengthSecond: number, _directionSecond: number): void {
     for (let rb of selectedBones) {
-      if (anchoringJoint.get(rb) instanceof ƒ.JointRevolute) {
+      if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRevolute) {
         rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
       }
-      if (anchoringJoint.get(rb) instanceof ƒ.JointUniversal) {
+      if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointUniversal) {
         rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
       }
-      if (anchoringJoint.get(rb) instanceof ƒ.JointRagdoll) {
+      if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRagdoll) {
         rotateBoneRagdoll(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
       }
     }
@@ -271,11 +178,11 @@ namespace Script {
     _strength *= -1;
 
     if (_axis === AXIS.FLEXTION)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getX(), _rb.node!.mtxWorld, false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb)!.node!.mtxLocal.getX(), _rb.node!.mtxWorld, false).normalize();
     if (_axis === AXIS.ABDUCTION)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getY(), _rb.node!.mtxWorld, false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb)!.node!.mtxLocal.getY(), _rb.node!.mtxWorld, false).normalize();
     if (_axis === AXIS.TWIST)
-      rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb)!.node!.mtxLocal.getZ(), _rb.node!.mtxWorld, false).normalize();
+      rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb)!.node!.mtxLocal.getZ(), _rb.node!.mtxWorld, false).normalize();
 
     rotAxis?.normalize();
     rotAxis?.scale(_direction * _strength);

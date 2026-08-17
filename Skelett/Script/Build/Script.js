@@ -189,14 +189,14 @@ var Script;
     ƒ.Debug.info("Main running!");
     let viewport;
     document.addEventListener("interactiveViewportStarted", start);
-    let visuals;
+    let userInputHandler;
+    let prepareVisuals;
     let physicsController;
-    let rigidBodies;
-    let joints;
-    let scene = null;
+    let prepareRbs;
+    let prepareJoints;
+    let uiController;
+    let selectionController;
     let rotAxis = undefined;
-    let selectedBones = [];
-    let simulatedBones = [];
     let timer = 0;
     let direction = 1;
     let deltaTime = 0;
@@ -205,7 +205,6 @@ var Script;
     let abductStrength = 10;
     let abductDirection = 1;
     let movementEnabled = false;
-    let anchoringJoint = new Map();
     let AXIS;
     (function (AXIS) {
         AXIS[AXIS["FLEXTION"] = 0] = "FLEXTION";
@@ -219,14 +218,23 @@ var Script;
         let branch = viewport.getBranch();
         viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
         ƒ.Render.prepare(branch);
-        scene = branch.getChildByName("Scene");
-        visuals = new Script.PrepareVisuals(branch);
-        physicsController = new physicsController(branch);
-        rigidBodies = new Script.PrepareRigidbodies(branch.getChildByName("Scene"), physicsController);
-        joints = new Script.PrepareJoints(branch);
-        for (let node of scene.getChildren()) {
-            selectBone(node.getComponent(ƒ.ComponentRigidbody));
-        }
+        let scene = branch.getChildByName("Scene");
+        userInputHandler = new Script.UserInputHandler(viewport);
+        prepareVisuals = new Script.PrepareVisuals(branch);
+        physicsController = new Script.PhysicsController(scene);
+        prepareRbs = new Script.PrepareRigidbodies(scene);
+        prepareJoints = new Script.PrepareJoints(branch);
+        uiController = new Script.UIController();
+        selectionController = new Script.SelectionController(scene);
+        prepareRbs.onRbCreated = (_rb) => {
+            physicsController.changeBodyType(_rb);
+        };
+        physicsController.onSimulatedBonesChanged = (boneName, isInList) => {
+            uiController.updateSimulatedBonesList(boneName, isInList);
+        };
+        selectionController.onSelectedBonesChanged = (boneName, isInList) => {
+            uiController.updateSelectedBonesList(boneName, isInList);
+        };
         viewport.canvas.addEventListener("mousedown", hndSelection);
         viewport.canvas.addEventListener("keydown", hndApplyToAllBones);
         const flexStrengthInput = document.getElementById("flexStrength");
@@ -253,12 +261,13 @@ var Script;
             toggleButton.textContent =
                 movementEnabled ? "Stop Movement" : "Start Movement";
         });
-        deactivateSelectedBones.addEventListener("click", () => {
-            deactivateSelectedBonesHandler();
-        });
-        resetPage.addEventListener("click", () => {
-            resetPageHandler();
-        });
+        /*     deactivateSelectedBones.addEventListener("click", () => {
+              deactivateSelectedBonesHandler();
+            });
+        
+            resetPage.addEventListener("click", () => {
+              resetPageHandler();
+            }) */
         document.getElementById("controlsPanelsContainer").style.display = "block";
         document.getElementById("listPanelsContainer").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
@@ -278,121 +287,30 @@ var Script;
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
-    function defineRigidBodies(_scene) {
-        for (let node of _scene.getIterator(false)) {
-            if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-                let cmpRigidbody = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-                cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                cmpRigidbody.effectGravity = 1;
-                cmpRigidbody.dampRotation = 10;
-                cmpRigidbody.dampTranslation = 10;
-                node.addComponent(cmpRigidbody);
-                changeBodyType(cmpRigidbody, node.name);
-            }
-        }
-    }
-    function changeBodyType(_rb, _nodeName) {
-        if (_nodeName.includes("Humerus"))
-            return;
-        if (_rb.typeBody === ƒ.BODY_TYPE.DYNAMIC) {
-            _rb.typeBody = ƒ.BODY_TYPE.STATIC;
-            updateSimulatedBonesList(_nodeName, false);
-        }
-        else if (_rb.typeBody === ƒ.BODY_TYPE.STATIC) {
-            _rb.typeBody = ƒ.BODY_TYPE.DYNAMIC;
-            updateSimulatedBonesList(_nodeName, true);
-        }
-    }
-    function changeAllBodiesToStatic() {
-        for (let node of scene?.getChildren()) {
-            let rb = node.getComponent(ƒ.ComponentRigidbody);
-            if (!rb)
-                continue;
-            if (rb.typeBody === ƒ.BODY_TYPE.DYNAMIC)
-                changeBodyType(rb, rb.node?.name);
-        }
-        console.log("All bodies are Static!");
-    }
-    function changeAllBodiesToDynamic() {
-        for (let node of scene?.getChildren()) {
-            let rb = node.getComponent(ƒ.ComponentRigidbody);
-            if (!rb || node.name.includes("Humerus"))
-                continue;
-            if (rb.typeBody === ƒ.BODY_TYPE.STATIC)
-                changeBodyType(rb, rb.node?.name);
-        }
-        console.log("All bodies are Dynamic!");
-    }
-    function updateSimulatedBonesList(_boneName, _pushOrPop) {
-        if (_pushOrPop)
-            simulatedBones.push(_boneName);
-        else
-            simulatedBones = simulatedBones.filter(name => name !== _boneName);
-        const list = document.getElementById("simulatedBonesList");
-        list.innerHTML = "";
-        for (let boneName of simulatedBones) {
-            const item = document.createElement("li");
-            item.textContent = boneName;
-            list.appendChild(item);
-        }
-    }
-    function selectBone(_rb) {
-        if (!selectedBones.includes(_rb)) {
-            selectedBones.push(_rb);
-            console.log("Select: ", _rb.node?.name);
-            updateSelectedBonesList();
-        }
-    }
-    function deselectBone(_rb) {
-        let index = selectedBones.indexOf(_rb, 0);
-        selectedBones.splice(index, 1);
-        console.log("Deselect: ", _rb.node?.name);
-        updateSelectedBonesList();
-    }
-    function deselectAllBones() {
-        selectedBones.length = 0;
-        console.log("Deselect all!");
-        updateSelectedBonesList();
-    }
-    function selectAllBones() {
-        for (let node of scene?.getChildren()) {
-            selectBone(node.getComponent(ƒ.ComponentRigidbody));
-            console.log("Select all!");
-        }
-    }
-    function updateSelectedBonesList() {
-        const list = document.getElementById("selectedBonesList");
-        list.innerHTML = "";
-        for (let rb of selectedBones) {
-            const item = document.createElement("li");
-            item.textContent = rb.node?.name ?? "Unknown";
-            list.appendChild(item);
-        }
-    }
-    function deactivateSelectedBonesHandler() {
+    /*   function deactivateSelectedBonesHandler(): void {
         for (let bone of selectedBones) {
-            bone.node?.activate(false);
-            //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
-            //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
+          bone.node?.activate(false);
+          //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
+          //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
         }
-    }
-    function resetPageHandler() {
+      }
+    
+      function resetPageHandler(): void {
         for (let bone of selectedBones) {
-            bone.node?.activate(true);
-            //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
-            //might need to store info of default bone locations
-        }
-        ;
-    }
+          bone.node?.activate(true);
+          //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
+          //might need to store info of default bone locations
+        };
+      } */
     function rotateBones(_strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
         for (let rb of selectedBones) {
-            if (anchoringJoint.get(rb) instanceof ƒ.JointRevolute) {
+            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRevolute) {
                 rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
             }
-            if (anchoringJoint.get(rb) instanceof ƒ.JointUniversal) {
+            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointUniversal) {
                 rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
             }
-            if (anchoringJoint.get(rb) instanceof ƒ.JointRagdoll) {
+            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRagdoll) {
                 rotateBoneRagdoll(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
             }
         }
@@ -400,11 +318,11 @@ var Script;
     function rotate(_rb, _strength, _direction, _axis) {
         _strength *= -1;
         if (_axis === AXIS.FLEXTION)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb).node.mtxLocal.getX(), _rb.node.mtxWorld, false).normalize();
+            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getX(), _rb.node.mtxWorld, false).normalize();
         if (_axis === AXIS.ABDUCTION)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb).node.mtxLocal.getY(), _rb.node.mtxWorld, false).normalize();
+            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getY(), _rb.node.mtxWorld, false).normalize();
         if (_axis === AXIS.TWIST)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(anchoringJoint.get(_rb).node.mtxLocal.getZ(), _rb.node.mtxWorld, false).normalize();
+            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getZ(), _rb.node.mtxWorld, false).normalize();
         rotAxis?.normalize();
         rotAxis?.scale(_direction * _strength);
         _rb.applyTorque(rotAxis);
@@ -471,10 +389,54 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("PhysicsController running!");
     class PhysicsController {
-        constructor(_branch) {
-            this.branch = _branch;
+        constructor(_scene) {
+            this.simulatedBones = [];
+            this.onSimulatedBonesChanged = null;
+            this.scene = _scene;
+        }
+        updateSimulatedBonesList(_rb, _isDynamic) {
+            if (_isDynamic) {
+                if (!this.simulatedBones.includes(_rb)) {
+                    this.simulatedBones.push(_rb);
+                }
+                else {
+                    const rbIndexInArray = this.simulatedBones.indexOf(_rb);
+                    if (rbIndexInArray !== -1) {
+                        this.simulatedBones.splice(rbIndexInArray, 1);
+                    }
+                }
+            }
+            this.onSimulatedBonesChanged?.(_rb.node?.name, _isDynamic);
         }
         changeBodyType(_rb) {
+            if (_rb.node?.name.includes("Humerus"))
+                return;
+            if (_rb.typeBody === ƒ.BODY_TYPE.DYNAMIC) {
+                _rb.typeBody = ƒ.BODY_TYPE.STATIC;
+                this.updateSimulatedBonesList?.(_rb, false);
+            }
+            else if (_rb.typeBody === ƒ.BODY_TYPE.STATIC) {
+                _rb.typeBody = ƒ.BODY_TYPE.DYNAMIC;
+                this.updateSimulatedBonesList?.(_rb, true);
+            }
+        }
+        changeAllBodiesToStatic() {
+            for (let node of this.scene?.getChildren()) {
+                let rb = node.getComponent(ƒ.ComponentRigidbody);
+                if (!rb)
+                    continue;
+                if (rb.typeBody === ƒ.BODY_TYPE.DYNAMIC)
+                    this.changeBodyType(rb);
+            }
+        }
+        changeAllBodiesToDynamic() {
+            for (let node of this.scene?.getChildren()) {
+                let rb = node.getComponent(ƒ.ComponentRigidbody);
+                if (!rb || node.name.includes("Humerus"))
+                    continue;
+                if (rb.typeBody === ƒ.BODY_TYPE.STATIC)
+                    this.changeBodyType(rb);
+            }
         }
     }
     Script.PhysicsController = PhysicsController;
@@ -548,6 +510,9 @@ var Script;
             }
             return _body;
         }
+        getAnchoringJoint() {
+            return this.anchoringJoint;
+        }
     }
     Script.PrepareJoints = PrepareJoints;
 })(Script || (Script = {}));
@@ -556,19 +521,21 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("PrepareRigidbodies running!");
     class PrepareRigidbodies {
-        constructor(_scene, _physicsController) {
+        constructor(_scene) {
+            this.onRbCreated = null;
             this.scene = _scene;
             this.defineRigidbodies();
         }
         defineRigidbodies() {
             for (let node of this.scene.getIterator(false)) {
                 if (!node.name.includes("Primitive") && !node.name.includes("Scene")) {
-                    let cmpRigidbody = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
-                    cmpRigidbody.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
-                    cmpRigidbody.effectGravity = 1;
-                    cmpRigidbody.dampRotation = 10;
-                    cmpRigidbody.dampTranslation = 10;
-                    node.addComponent(cmpRigidbody);
+                    let cmpRb = new ƒ.ComponentRigidbody(1, ƒ.BODY_TYPE.STATIC, ƒ.COLLIDER_TYPE.SPHERE);
+                    cmpRb.mtxPivot.scale(new ƒ.Vector3(0.005, 0.005, 0.005));
+                    cmpRb.effectGravity = 1;
+                    cmpRb.dampRotation = 10;
+                    cmpRb.dampTranslation = 10;
+                    node.addComponent(cmpRb);
+                    this.onRbCreated?.(cmpRb);
                 }
             }
         }
@@ -605,5 +572,99 @@ var Script;
         }
     }
     Script.PrepareVisuals = PrepareVisuals;
+})(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
+    ƒ.Debug.info("SelectionController running!");
+    class SelectionController {
+        constructor(_scene) {
+            this.selectedBones = [];
+            this.onSelectedBonesChanged = null;
+            this.scene = _scene;
+        }
+        updateSelectedBonesList(_rb, _isSelected) {
+            if (_isSelected) {
+                if (!this.selectedBones.includes(_rb)) {
+                    this.selectedBones.push(_rb);
+                }
+                else {
+                    const rbIndexInArray = this.selectedBones.indexOf(_rb);
+                    if (rbIndexInArray !== -1) {
+                        this.selectedBones.splice(rbIndexInArray, 1);
+                    }
+                }
+            }
+            this.onSelectedBonesChanged?.(_rb.node?.name, _isSelected);
+        }
+        selectBone(_rb) {
+            this.updateSelectedBonesList(_rb, true);
+        }
+        deselectBone(_rb) {
+            this.updateSelectedBonesList(_rb, false);
+        }
+        selectAllBones() {
+            for (let bone of this.scene) {
+                this.selectBone(bone.getComponent(ƒ.ComponentRigidbody));
+            }
+        }
+        deselectAllBones() {
+            for (let rb of this.selectedBones) {
+                this.deselectBone(rb);
+            }
+        }
+    }
+    Script.SelectionController = SelectionController;
+})(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
+    ƒ.Debug.info("UIController running!");
+    class UIController {
+        addBoneToList(_boneName, _list) {
+            const item = document.createElement("li");
+            item.textContent = _boneName;
+            item.dataset.boneName = _boneName;
+            _list.appendChild(item);
+        }
+        removeBoneFromList(_boneName, _list) {
+            const escapedBoneName = CSS.escape(_boneName);
+            const selector = `li[data-bone-name="${escapedBoneName}"]`;
+            const listItem = _list.querySelector(selector);
+            if (listItem) {
+                listItem.remove();
+            }
+        }
+        updateSimulatedBonesList(_boneName, _isInList) {
+            const list = document.getElementById("simulatedBonesList");
+            if (_isInList) {
+                this.addBoneToList(_boneName, list);
+            }
+            else {
+                this.removeBoneFromList(_boneName, list);
+            }
+        }
+        updateSelectedBonesList(_boneName, _isInList) {
+            const list = document.getElementById("selectedBonesList");
+            if (_isInList) {
+                this.addBoneToList(_boneName, list);
+            }
+            else {
+                this.removeBoneFromList(_boneName, list);
+            }
+        }
+    }
+    Script.UIController = UIController;
+})(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
+    ƒ.Debug.info("UserInputHandler running!");
+    class UserInputHandler {
+        constructor(_viewport) {
+            this.viewport = _viewport;
+        }
+    }
+    Script.UserInputHandler = UserInputHandler;
 })(Script || (Script = {}));
 //# sourceMappingURL=Script.js.map
