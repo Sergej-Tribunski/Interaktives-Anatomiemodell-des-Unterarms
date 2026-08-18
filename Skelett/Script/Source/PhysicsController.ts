@@ -5,9 +5,11 @@ namespace Script {
 
         private scene: ƒ.Node;
         private simulatedBones: ƒ.ComponentRigidbody[] = [];
+        private uiController: UIController;
 
-        constructor(_scene: ƒ.Node) {
+        constructor(_scene: ƒ.Node, _uiController: UIController) {
             this.scene = _scene;
+            this.uiController = _uiController;
         }
 
         private updateSimulatedBonesList(_rb: ƒ.ComponentRigidbody, _isDynamic: boolean): void {
@@ -24,7 +26,9 @@ namespace Script {
             this.onSimulatedBonesChanged?.(_rb.node?.name!, _isDynamic);
         }
 
-        public onSimulatedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null = null;
+        private onSimulatedBonesChanged(_boneName: string, _isInList: boolean): void {
+            this.uiController.updateSimulatedBonesList(_boneName, _isInList);
+        }
 
         public changeBodyType(_rb: ƒ.ComponentRigidbody): void {
             if (_rb.node?.name.includes("Humerus")) return;

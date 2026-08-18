@@ -4,9 +4,11 @@ namespace Script {
     export class PrepareRigidbodies {
 
         private scene: ƒ.Node;
+        private physicsController: PhysicsController;
 
-        constructor(_scene: ƒ.Node) {
+        constructor(_scene: ƒ.Node, _physicsController: PhysicsController) {
             this.scene = _scene;
+            this.physicsController = _physicsController;
 
             this.defineRigidbodies();
         }
@@ -25,6 +27,8 @@ namespace Script {
             }
         }
 
-        public onRbCreated: ((_rb: ƒ.ComponentRigidbody) => void) | null = null;
+        private onRbCreated(_rb: ƒ.ComponentRigidbody): void {
+            this.physicsController.changeBodyType(_rb);
+        }
     }
 }

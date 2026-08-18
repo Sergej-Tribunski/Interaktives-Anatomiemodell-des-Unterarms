@@ -36,5 +36,10 @@ namespace Script {
                 this.removeBoneFromList(_boneName, list);
             }
         }
+
+        public updateMovementButton(_movementEnabled: boolean): void {
+            const toggleButton = document.getElementById("toggleMovement") as HTMLButtonElement;
+            toggleButton.textContent = _movementEnabled ? "Stop Movement" : "Start Movement";
+        }
     }
 }

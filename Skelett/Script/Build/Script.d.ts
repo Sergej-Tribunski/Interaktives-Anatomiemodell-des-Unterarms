@@ -26,13 +26,39 @@ declare namespace Script {
 declare namespace Script {
 }
 declare namespace Script {
+    class MovementController {
+        private joints;
+        private selectionController;
+        private uiController;
+        private flexStrength;
+        private flexDirection;
+        private abductStrength;
+        private abductDirection;
+        private movementEnabled;
+        private rotAxis;
+        constructor(_joints: PrepareJoints, _selectionController: SelectionController, _uiController: UIController);
+        setFlexStrength(_flexStrength: number): void;
+        setFlexDirection(_flexDirection: number): void;
+        setAbductStrength(_abductStrength: number): void;
+        setAbductDirection(_abductDirection: number): void;
+        toggleMovement(): void;
+        private rotate;
+        private rotateBoneRevolute;
+        private rotateBoneUniversal;
+        private rotateBoneRagdoll;
+        private rotateBones;
+        moveModel(): void;
+    }
+}
+declare namespace Script {
     import ƒ = FudgeCore;
     class PhysicsController {
         private scene;
         private simulatedBones;
-        constructor(_scene: ƒ.Node);
+        private uiController;
+        constructor(_scene: ƒ.Node, _uiController: UIController);
         private updateSimulatedBonesList;
-        onSimulatedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null;
+        private onSimulatedBonesChanged;
         changeBodyType(_rb: ƒ.ComponentRigidbody): void;
         changeAllBodiesToStatic(): void;
         changeAllBodiesToDynamic(): void;
@@ -56,9 +82,10 @@ declare namespace Script {
     import ƒ = FudgeCore;
     class PrepareRigidbodies {
         private scene;
-        constructor(_scene: ƒ.Node);
+        private physicsController;
+        constructor(_scene: ƒ.Node, _physicsController: PhysicsController);
         private defineRigidbodies;
-        onRbCreated: ((_rb: ƒ.ComponentRigidbody) => void) | null;
+        private onRbCreated;
     }
 }
 declare namespace Script {
@@ -76,13 +103,16 @@ declare namespace Script {
     class SelectionController {
         private scene;
         private selectedBones;
-        constructor(_scene: ƒ.Node);
+        private uiController;
+        constructor(_scene: ƒ.Node, _uiController: UIController);
         private updateSelectedBonesList;
-        onSelectedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null;
-        selectBone(_rb: ƒ.ComponentRigidbody): void;
-        deselectBone(_rb: ƒ.ComponentRigidbody): void;
+        private onSelectedBonesChanged;
+        toggleBoneSelection(_rb: ƒ.ComponentRigidbody): void;
+        private selectBone;
+        private deselectBone;
         selectAllBones(): void;
         deselectAllBones(): void;
+        getSelectedBones(): ƒ.ComponentRigidbody[];
     }
 }
 declare namespace Script {
@@ -91,12 +121,19 @@ declare namespace Script {
         private removeBoneFromList;
         updateSimulatedBonesList(_boneName: string, _isInList: boolean): void;
         updateSelectedBonesList(_boneName: string, _isInList: boolean): void;
+        updateMovementButton(_movementEnabled: boolean): void;
     }
 }
 declare namespace Script {
     import ƒ = FudgeCore;
     class UserInputHandler {
         private viewport;
-        constructor(_viewport: ƒ.Viewport);
+        private selectionController;
+        private physicsController;
+        private movementController;
+        constructor(_viewport: ƒ.Viewport, _selectionController: SelectionController, _physicsController: PhysicsController, _movementController: MovementController);
+        private setupEventListeners;
+        private hndSelection;
+        private hndApplyToAllBones;
     }
 }

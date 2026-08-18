@@ -189,6 +189,9 @@ var Script;
     ƒ.Debug.info("Main running!");
     let viewport;
     document.addEventListener("interactiveViewportStarted", start);
+    let timer = 0;
+    let direction = 1;
+    let deltaTime = 0;
     let userInputHandler;
     let prepareVisuals;
     let physicsController;
@@ -196,22 +199,7 @@ var Script;
     let prepareJoints;
     let uiController;
     let selectionController;
-    let rotAxis = undefined;
-    let timer = 0;
-    let direction = 1;
-    let deltaTime = 0;
-    let flexStrength = 10;
-    let flexDirection = 1;
-    let abductStrength = 10;
-    let abductDirection = 1;
-    let movementEnabled = false;
-    let AXIS;
-    (function (AXIS) {
-        AXIS[AXIS["FLEXTION"] = 0] = "FLEXTION";
-        AXIS[AXIS["ABDUCTION"] = 1] = "ABDUCTION";
-        AXIS[AXIS["TWIST"] = 2] = "TWIST";
-    })(AXIS || (AXIS = {}));
-    ;
+    let movementController;
     function start(_event) {
         viewport = _event.detail;
         viewport.getBranch();
@@ -219,55 +207,14 @@ var Script;
         viewport.physicsDebugMode = ƒ.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
         ƒ.Render.prepare(branch);
         let scene = branch.getChildByName("Scene");
-        userInputHandler = new Script.UserInputHandler(viewport);
-        prepareVisuals = new Script.PrepareVisuals(branch);
-        physicsController = new Script.PhysicsController(scene);
-        prepareRbs = new Script.PrepareRigidbodies(scene);
-        prepareJoints = new Script.PrepareJoints(branch);
         uiController = new Script.UIController();
-        selectionController = new Script.SelectionController(scene);
-        prepareRbs.onRbCreated = (_rb) => {
-            physicsController.changeBodyType(_rb);
-        };
-        physicsController.onSimulatedBonesChanged = (boneName, isInList) => {
-            uiController.updateSimulatedBonesList(boneName, isInList);
-        };
-        selectionController.onSelectedBonesChanged = (boneName, isInList) => {
-            uiController.updateSelectedBonesList(boneName, isInList);
-        };
-        viewport.canvas.addEventListener("mousedown", hndSelection);
-        viewport.canvas.addEventListener("keydown", hndApplyToAllBones);
-        const flexStrengthInput = document.getElementById("flexStrength");
-        const flexDirectionInput = document.getElementById("flexDirection");
-        const abductStrengthInput = document.getElementById("abductStrength");
-        const abductDirectionInput = document.getElementById("abductDirection");
-        const toggleButton = document.getElementById("toggleMovement");
-        const deactivateSelectedBones = document.getElementById("deactivateSelectedBones");
-        const resetPage = document.getElementById("resetPage");
-        flexStrengthInput.addEventListener("input", () => {
-            flexStrength = Number(flexStrengthInput.value);
-        });
-        flexDirectionInput.addEventListener("change", () => {
-            flexDirection = Number(flexDirectionInput.value);
-        });
-        abductStrengthInput.addEventListener("input", () => {
-            abductStrength = Number(abductStrengthInput.value);
-        });
-        abductDirectionInput.addEventListener("change", () => {
-            abductDirection = Number(abductDirectionInput.value);
-        });
-        toggleButton.addEventListener("click", () => {
-            movementEnabled = !movementEnabled;
-            toggleButton.textContent =
-                movementEnabled ? "Stop Movement" : "Start Movement";
-        });
-        /*     deactivateSelectedBones.addEventListener("click", () => {
-              deactivateSelectedBonesHandler();
-            });
-        
-            resetPage.addEventListener("click", () => {
-              resetPageHandler();
-            }) */
+        prepareVisuals = new Script.PrepareVisuals(branch);
+        physicsController = new Script.PhysicsController(scene, uiController);
+        prepareRbs = new Script.PrepareRigidbodies(scene, physicsController);
+        prepareJoints = new Script.PrepareJoints(branch);
+        selectionController = new Script.SelectionController(scene, uiController);
+        movementController = new Script.MovementController(prepareJoints, selectionController, uiController);
+        userInputHandler = new Script.UserInputHandler(viewport, selectionController, physicsController, movementController);
         document.getElementById("controlsPanelsContainer").style.display = "block";
         document.getElementById("listPanelsContainer").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
@@ -281,9 +228,7 @@ var Script;
             timer = 0;
             direction *= -1;
         }
-        if (movementEnabled) {
-            rotateBones(flexStrength, flexDirection, abductStrength, abductDirection);
-        }
+        movementController.moveModel();
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
@@ -302,75 +247,6 @@ var Script;
           //might need to store info of default bone locations
         };
       } */
-    function rotateBones(_strengthFirst, _directionFirst, _strengthSecond, _directionSecond) {
-        for (let rb of selectedBones) {
-            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRevolute) {
-                rotateBoneRevolute(rb, _strengthFirst, _directionFirst);
-            }
-            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointUniversal) {
-                rotateBoneUniversal(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
-            }
-            if (prepareJoints.getAnchoringJoint().get(rb) instanceof ƒ.JointRagdoll) {
-                rotateBoneRagdoll(rb, _strengthFirst, _directionFirst, _strengthSecond, _directionSecond);
-            }
-        }
-    }
-    function rotate(_rb, _strength, _direction, _axis) {
-        _strength *= -1;
-        if (_axis === AXIS.FLEXTION)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getX(), _rb.node.mtxWorld, false).normalize();
-        if (_axis === AXIS.ABDUCTION)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getY(), _rb.node.mtxWorld, false).normalize();
-        if (_axis === AXIS.TWIST)
-            rotAxis = ƒ.Vector3.TRANSFORMATION(prepareJoints.getAnchoringJoint().get(_rb).node.mtxLocal.getZ(), _rb.node.mtxWorld, false).normalize();
-        rotAxis?.normalize();
-        rotAxis?.scale(_direction * _strength);
-        _rb.applyTorque(rotAxis);
-    }
-    function rotateBoneRevolute(_rb, _strengthFlexion, _directionFlexion) {
-        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
-    }
-    function rotateBoneUniversal(_rb, _strengthFlexion, _directionFlexion, _strengthAbduction, _directionAbduction) {
-        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
-        rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
-    }
-    function rotateBoneRagdoll(_rb, _strengthFlexion, _directionFlexion, _strengthTwist, _directionTwist) {
-        rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
-        rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
-    }
-    function hndSelection(_event) {
-        if (_event.button != 0)
-            return;
-        let picks = ƒ.Picker.pickViewport(viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
-        if (picks.length == 0)
-            return;
-        picks.sort((a, b) => a.zBuffer - b.zBuffer);
-        let node = picks[0].node;
-        while (node && !node.getComponent(ƒ.ComponentRigidbody))
-            node = node.getParent();
-        if (!node)
-            return;
-        let rb = node.getComponent(ƒ.ComponentRigidbody);
-        if (_event.shiftKey) {
-            changeBodyType(rb, rb.node?.name);
-        }
-        if (_event.ctrlKey) {
-            if (selectedBones.includes(rb))
-                deselectBone(rb);
-            else
-                selectBone(rb);
-        }
-    }
-    function hndApplyToAllBones(_event) {
-        if (_event.key === "Q")
-            deselectAllBones();
-        if (_event.key === "E")
-            selectAllBones();
-        if (_event.key === "A")
-            changeAllBodiesToStatic();
-        if (_event.key === "D")
-            changeAllBodiesToDynamic();
-    }
     function togglePanel(_header) {
         console.log("togglePanel called!");
         const panelContent = _header.nextElementSibling;
@@ -387,12 +263,95 @@ var Script;
 var Script;
 (function (Script) {
     var ƒ = FudgeCore;
+    ƒ.Debug.info("MovementController running!");
+    let AXIS;
+    (function (AXIS) {
+        AXIS[AXIS["FLEXTION"] = 0] = "FLEXTION";
+        AXIS[AXIS["ABDUCTION"] = 1] = "ABDUCTION";
+        AXIS[AXIS["TWIST"] = 2] = "TWIST";
+    })(AXIS || (AXIS = {}));
+    ;
+    class MovementController {
+        constructor(_joints, _selectionController, _uiController) {
+            this.flexStrength = 10;
+            this.flexDirection = 1;
+            this.abductStrength = 10;
+            this.abductDirection = 1;
+            this.movementEnabled = false;
+            this.rotAxis = undefined;
+            this.joints = _joints;
+            this.selectionController = _selectionController;
+            this.uiController = _uiController;
+        }
+        setFlexStrength(_flexStrength) {
+            this.flexStrength = _flexStrength;
+        }
+        setFlexDirection(_flexDirection) {
+            this.flexDirection = _flexDirection;
+        }
+        setAbductStrength(_abductStrength) {
+            this.abductStrength = _abductStrength;
+        }
+        setAbductDirection(_abductDirection) {
+            this.abductDirection = _abductDirection;
+        }
+        toggleMovement() {
+            this.movementEnabled = !this.movementEnabled;
+            this.uiController.updateMovementButton(this.movementEnabled);
+        }
+        rotate(_rb, _strength, _direction, _axis) {
+            _strength *= -1;
+            if (_axis === AXIS.FLEXTION)
+                this.rotAxis = ƒ.Vector3.TRANSFORMATION(this.joints.getAnchoringJoint().get(_rb).node.mtxLocal.getX(), _rb.node.mtxWorld, false).normalize();
+            if (_axis === AXIS.ABDUCTION)
+                this.rotAxis = ƒ.Vector3.TRANSFORMATION(this.joints.getAnchoringJoint().get(_rb).node.mtxLocal.getY(), _rb.node.mtxWorld, false).normalize();
+            if (_axis === AXIS.TWIST)
+                this.rotAxis = ƒ.Vector3.TRANSFORMATION(this.joints.getAnchoringJoint().get(_rb).node.mtxLocal.getZ(), _rb.node.mtxWorld, false).normalize();
+            this.rotAxis?.normalize();
+            this.rotAxis?.scale(_direction * _strength);
+            _rb.applyTorque(this.rotAxis);
+        }
+        rotateBoneRevolute(_rb, _strengthFlexion, _directionFlexion) {
+            this.rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+        }
+        rotateBoneUniversal(_rb, _strengthFlexion, _directionFlexion, _strengthAbduction, _directionAbduction) {
+            this.rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+            this.rotate(_rb, _strengthAbduction, _directionAbduction, AXIS.ABDUCTION);
+        }
+        rotateBoneRagdoll(_rb, _strengthFlexion, _directionFlexion, _strengthTwist, _directionTwist) {
+            this.rotate(_rb, _strengthFlexion, _directionFlexion, AXIS.FLEXTION);
+            this.rotate(_rb, _strengthTwist, _directionTwist, AXIS.TWIST);
+        }
+        rotateBones(_flexStrength, _flexDirection, _abductStrength, _abductDirection) {
+            for (let rb of this.selectionController.getSelectedBones()) {
+                if (this.joints.getAnchoringJoint().get(rb) instanceof ƒ.JointRevolute) {
+                    this.rotateBoneRevolute(rb, _flexStrength, _flexDirection);
+                }
+                if (this.joints.getAnchoringJoint().get(rb) instanceof ƒ.JointUniversal) {
+                    this.rotateBoneUniversal(rb, _flexStrength, _flexDirection, _abductStrength, _abductDirection);
+                }
+                if (this.joints.getAnchoringJoint().get(rb) instanceof ƒ.JointRagdoll) {
+                    this.rotateBoneRagdoll(rb, _flexStrength, _flexDirection, _abductStrength, _abductDirection);
+                }
+            }
+        }
+        moveModel() {
+            if (this.movementEnabled) {
+                this.rotateBones(this.flexStrength, this.flexDirection, this.abductStrength, this.abductDirection);
+            }
+        }
+    }
+    Script.MovementController = MovementController;
+})(Script || (Script = {}));
+var Script;
+(function (Script) {
+    var ƒ = FudgeCore;
     ƒ.Debug.info("PhysicsController running!");
     class PhysicsController {
-        constructor(_scene) {
+        constructor(_scene, _uiController) {
             this.simulatedBones = [];
-            this.onSimulatedBonesChanged = null;
             this.scene = _scene;
+            this.uiController = _uiController;
         }
         updateSimulatedBonesList(_rb, _isDynamic) {
             if (_isDynamic) {
@@ -407,6 +366,9 @@ var Script;
                 }
             }
             this.onSimulatedBonesChanged?.(_rb.node?.name, _isDynamic);
+        }
+        onSimulatedBonesChanged(_boneName, _isInList) {
+            this.uiController.updateSimulatedBonesList(_boneName, _isInList);
         }
         changeBodyType(_rb) {
             if (_rb.node?.name.includes("Humerus"))
@@ -521,9 +483,9 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("PrepareRigidbodies running!");
     class PrepareRigidbodies {
-        constructor(_scene) {
-            this.onRbCreated = null;
+        constructor(_scene, _physicsController) {
             this.scene = _scene;
+            this.physicsController = _physicsController;
             this.defineRigidbodies();
         }
         defineRigidbodies() {
@@ -538,6 +500,9 @@ var Script;
                     this.onRbCreated?.(cmpRb);
                 }
             }
+        }
+        onRbCreated(_rb) {
+            this.physicsController.changeBodyType(_rb);
         }
     }
     Script.PrepareRigidbodies = PrepareRigidbodies;
@@ -578,10 +543,10 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("SelectionController running!");
     class SelectionController {
-        constructor(_scene) {
+        constructor(_scene, _uiController) {
             this.selectedBones = [];
-            this.onSelectedBonesChanged = null;
             this.scene = _scene;
+            this.uiController = _uiController;
         }
         updateSelectedBonesList(_rb, _isSelected) {
             if (_isSelected) {
@@ -597,6 +562,17 @@ var Script;
             }
             this.onSelectedBonesChanged?.(_rb.node?.name, _isSelected);
         }
+        onSelectedBonesChanged(_boneName, _isInList) {
+            this.uiController.updateSelectedBonesList(_boneName, _isInList);
+        }
+        toggleBoneSelection(_rb) {
+            if (this.selectedBones.includes(_rb)) {
+                this.deselectBone(_rb);
+            }
+            else {
+                this.selectBone(_rb);
+            }
+        }
         selectBone(_rb) {
             this.updateSelectedBonesList(_rb, true);
         }
@@ -604,7 +580,7 @@ var Script;
             this.updateSelectedBonesList(_rb, false);
         }
         selectAllBones() {
-            for (let bone of this.scene) {
+            for (let bone of this.scene.getChildren()) {
                 this.selectBone(bone.getComponent(ƒ.ComponentRigidbody));
             }
         }
@@ -612,6 +588,9 @@ var Script;
             for (let rb of this.selectedBones) {
                 this.deselectBone(rb);
             }
+        }
+        getSelectedBones() {
+            return this.selectedBones;
         }
     }
     Script.SelectionController = SelectionController;
@@ -653,6 +632,10 @@ var Script;
                 this.removeBoneFromList(_boneName, list);
             }
         }
+        updateMovementButton(_movementEnabled) {
+            const toggleButton = document.getElementById("toggleMovement");
+            toggleButton.textContent = _movementEnabled ? "Stop Movement" : "Start Movement";
+        }
     }
     Script.UIController = UIController;
 })(Script || (Script = {}));
@@ -661,8 +644,81 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("UserInputHandler running!");
     class UserInputHandler {
-        constructor(_viewport) {
+        constructor(_viewport, _selectionController, _physicsController, _movementController) {
             this.viewport = _viewport;
+            this.selectionController = _selectionController;
+            this.physicsController = _physicsController;
+            this.movementController = _movementController;
+            this.setupEventListeners();
+        }
+        setupEventListeners() {
+            this.viewport.canvas.addEventListener("mousedown", this.hndSelection.bind(this));
+            this.viewport.canvas.addEventListener("keydown", this.hndApplyToAllBones.bind(this));
+            const flexStrengthInput = document.getElementById("flexStrength");
+            flexStrengthInput.addEventListener("input", () => {
+                const flexStrength = Number(flexStrengthInput.value);
+                this.movementController.setFlexStrength(flexStrength);
+            });
+            const flexDirectionInput = document.getElementById("flexDirection");
+            flexDirectionInput.addEventListener("change", () => {
+                const flexDirection = Number(flexDirectionInput.value);
+                this.movementController.setFlexDirection(flexDirection);
+            });
+            const abductStrengthInput = document.getElementById("abductStrength");
+            abductStrengthInput.addEventListener("input", () => {
+                const abductStrength = Number(abductStrengthInput.value);
+                this.movementController.setAbductStrength(abductStrength);
+            });
+            const abductDirectionInput = document.getElementById("abductDirection");
+            abductDirectionInput.addEventListener("change", () => {
+                const abductDirection = Number(abductDirectionInput.value);
+                this.movementController.setAbductDirection(abductDirection);
+            });
+            const toggleButton = document.getElementById("toggleMovement");
+            toggleButton.addEventListener("click", () => {
+                this.movementController.toggleMovement();
+            });
+            /* const deactivateSelectedBones =
+                document.getElementById("deactivateSelectedBones") as HTMLButtonElement;
+            deactivateSelectedBones.addEventListener("click", () => {
+                deactivateSelectedBonesHandler();
+            });
+
+            const resetPage =
+                document.getElementById("resetPage") as HTMLButtonElement;
+            resetPage.addEventListener("click", () => {
+                resetPageHandler();
+            }) */
+        }
+        hndSelection(_event) {
+            if (_event.button != 0)
+                return;
+            let picks = ƒ.Picker.pickViewport(this.viewport, new ƒ.Vector2(_event.clientX, _event.clientY));
+            if (picks.length == 0)
+                return;
+            picks.sort((a, b) => a.zBuffer - b.zBuffer);
+            let node = picks[0].node;
+            while (node && !node.getComponent(ƒ.ComponentRigidbody))
+                node = node.getParent();
+            if (!node)
+                return;
+            let rb = node.getComponent(ƒ.ComponentRigidbody);
+            if (_event.shiftKey) {
+                this.physicsController.changeBodyType(rb);
+            }
+            if (_event.ctrlKey) {
+                this.selectionController.toggleBoneSelection(rb);
+            }
+        }
+        hndApplyToAllBones(_event) {
+            if (_event.key === "Q")
+                this.selectionController.deselectAllBones();
+            if (_event.key === "E")
+                this.selectionController.selectAllBones();
+            if (_event.key === "A")
+                this.physicsController.changeAllBodiesToStatic();
+            if (_event.key === "D")
+                this.physicsController.changeAllBodiesToDynamic();
         }
     }
     Script.UserInputHandler = UserInputHandler;

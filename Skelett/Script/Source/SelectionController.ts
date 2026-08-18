@@ -5,9 +5,11 @@ namespace Script {
 
         private scene: ƒ.Node;
         private selectedBones: ƒ.ComponentRigidbody[] = [];
+        private uiController: UIController;
 
-        constructor(_scene: ƒ.Node) {
+        constructor(_scene: ƒ.Node, _uiController: UIController) {
             this.scene = _scene;
+            this.uiController = _uiController;
         }
 
         private updateSelectedBonesList(_rb: ƒ.ComponentRigidbody, _isSelected: boolean): void {
@@ -24,18 +26,28 @@ namespace Script {
             this.onSelectedBonesChanged?.(_rb.node?.name!, _isSelected);
         }
 
-        public onSelectedBonesChanged: ((boneName: string, _isInList: boolean) => void) | null = null;
+        private onSelectedBonesChanged(_boneName: string, _isInList: boolean): void {
+            this.uiController.updateSelectedBonesList(_boneName, _isInList);
+        }
 
-        public selectBone(_rb: ƒ.ComponentRigidbody): void {
+        public toggleBoneSelection(_rb: ƒ.ComponentRigidbody): void {
+            if (this.selectedBones.includes(_rb)) {
+                this.deselectBone(_rb);
+            } else {
+                this.selectBone(_rb);
+            }
+        }
+
+        private selectBone(_rb: ƒ.ComponentRigidbody): void {
             this.updateSelectedBonesList(_rb, true);
         }
 
-        public deselectBone(_rb: ƒ.ComponentRigidbody): void {
+        private deselectBone(_rb: ƒ.ComponentRigidbody): void {
             this.updateSelectedBonesList(_rb, false);
         }
 
         public selectAllBones(): void {
-            for (let bone of this.scene) {
+            for (let bone of this.scene.getChildren()) {
                 this.selectBone(bone.getComponent(ƒ.ComponentRigidbody))
             }
         }
@@ -44,6 +56,10 @@ namespace Script {
             for (let rb of this.selectedBones) {
                 this.deselectBone(rb);
             }
+        }
+
+        public getSelectedBones(): ƒ.ComponentRigidbody[] {
+            return this.selectedBones;
         }
     }
 }
