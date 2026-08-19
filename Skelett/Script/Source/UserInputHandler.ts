@@ -6,16 +6,19 @@ namespace Script {
         private selectionController: SelectionController;
         private physicsController: PhysicsController;
         private movementController: MovementController;
+        private uiController: UIController;
 
         constructor(_viewport: ƒ.Viewport,
             _selectionController: SelectionController,
             _physicsController: PhysicsController,
-            _movementController: MovementController) {
+            _movementController: MovementController,
+            _uiController: UIController) {
 
             this.viewport = _viewport;
             this.selectionController = _selectionController;
             this.physicsController = _physicsController;
             this.movementController = _movementController;
+            this.uiController = _uiController;
 
             this.setupEventListeners();
         }
@@ -23,6 +26,13 @@ namespace Script {
         private setupEventListeners(): void {
             this.viewport.canvas.addEventListener("mousedown", this.hndSelection.bind(this));
             this.viewport.canvas.addEventListener("keydown", this.hndApplyToAllBones.bind(this));
+
+            const panelHeaders = document.querySelectorAll(".panel-header");
+            panelHeaders.forEach(header => {
+                header.addEventListener("click", () => {
+                    this.uiController.togglePanel(header as HTMLElement);
+                })
+            })
 
             const flexStrengthInput =
                 document.getElementById("flexStrength") as HTMLInputElement;
@@ -63,7 +73,7 @@ namespace Script {
             deactivateSelectedBones.addEventListener("click", () => {
                 deactivateSelectedBonesHandler();
             });
-
+ 
             const resetPage =
                 document.getElementById("resetPage") as HTMLButtonElement;
             resetPage.addEventListener("click", () => {

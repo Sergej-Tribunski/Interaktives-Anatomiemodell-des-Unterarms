@@ -189,9 +189,6 @@ var Script;
     ƒ.Debug.info("Main running!");
     let viewport;
     document.addEventListener("interactiveViewportStarted", start);
-    let timer = 0;
-    let direction = 1;
-    let deltaTime = 0;
     let userInputHandler;
     let prepareVisuals;
     let physicsController;
@@ -214,7 +211,7 @@ var Script;
         prepareJoints = new Script.PrepareJoints(branch);
         selectionController = new Script.SelectionController(scene, uiController);
         movementController = new Script.MovementController(prepareJoints, selectionController, uiController);
-        userInputHandler = new Script.UserInputHandler(viewport, selectionController, physicsController, movementController);
+        userInputHandler = new Script.UserInputHandler(viewport, selectionController, physicsController, movementController, uiController);
         document.getElementById("controlsPanelsContainer").style.display = "block";
         document.getElementById("listPanelsContainer").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
@@ -222,43 +219,10 @@ var Script;
     }
     function update(_event) {
         ƒ.Physics.simulate(); // if physics is included and used
-        deltaTime = ƒ.Loop.timeFrameGame / 1000;
-        timer += deltaTime;
-        if (timer >= 5) {
-            timer = 0;
-            direction *= -1;
-        }
         movementController.moveModel();
         viewport.draw();
         ƒ.AudioManager.default.update();
     }
-    /*   function deactivateSelectedBonesHandler(): void {
-        for (let bone of selectedBones) {
-          bone.node?.activate(false);
-          //not gonna work like this - the bones are invisible, but the rigidbodies are still connected and rotate with the other bones -> needs more force
-          //gonna have to use ƒ.Joint.disconnect(), which will need the old anchoringJoints map to keep information to reconnect it
-        }
-      }
-    
-      function resetPageHandler(): void {
-        for (let bone of selectedBones) {
-          bone.node?.activate(true);
-          //gotta change back to old anchoringJoint map using Joint.ts (instead of ƒ.Joint...) for easy access to information to reconnect
-          //might need to store info of default bone locations
-        };
-      } */
-    function togglePanel(_header) {
-        console.log("togglePanel called!");
-        const panelContent = _header.nextElementSibling;
-        const isCollapsed = panelContent.classList.contains("collapsed");
-        if (isCollapsed) {
-            panelContent.classList.remove("collapsed");
-        }
-        else {
-            panelContent.classList.add("collapsed");
-        }
-    }
-    window.togglePanel = togglePanel;
 })(Script || (Script = {}));
 var Script;
 (function (Script) {
@@ -636,6 +600,16 @@ var Script;
             const toggleButton = document.getElementById("toggleMovement");
             toggleButton.textContent = _movementEnabled ? "Stop Movement" : "Start Movement";
         }
+        togglePanel(_header) {
+            const panelContent = _header.nextElementSibling;
+            const isCollapsed = panelContent.classList.contains("collapsed");
+            if (isCollapsed) {
+                panelContent.classList.remove("collapsed");
+            }
+            else {
+                panelContent.classList.add("collapsed");
+            }
+        }
     }
     Script.UIController = UIController;
 })(Script || (Script = {}));
@@ -644,16 +618,23 @@ var Script;
     var ƒ = FudgeCore;
     ƒ.Debug.info("UserInputHandler running!");
     class UserInputHandler {
-        constructor(_viewport, _selectionController, _physicsController, _movementController) {
+        constructor(_viewport, _selectionController, _physicsController, _movementController, _uiController) {
             this.viewport = _viewport;
             this.selectionController = _selectionController;
             this.physicsController = _physicsController;
             this.movementController = _movementController;
+            this.uiController = _uiController;
             this.setupEventListeners();
         }
         setupEventListeners() {
             this.viewport.canvas.addEventListener("mousedown", this.hndSelection.bind(this));
             this.viewport.canvas.addEventListener("keydown", this.hndApplyToAllBones.bind(this));
+            const panelHeaders = document.querySelectorAll(".panel-header");
+            panelHeaders.forEach(header => {
+                header.addEventListener("click", () => {
+                    this.uiController.togglePanel(header);
+                });
+            });
             const flexStrengthInput = document.getElementById("flexStrength");
             flexStrengthInput.addEventListener("input", () => {
                 const flexStrength = Number(flexStrengthInput.value);
@@ -683,7 +664,7 @@ var Script;
             deactivateSelectedBones.addEventListener("click", () => {
                 deactivateSelectedBonesHandler();
             });
-
+ 
             const resetPage =
                 document.getElementById("resetPage") as HTMLButtonElement;
             resetPage.addEventListener("click", () => {

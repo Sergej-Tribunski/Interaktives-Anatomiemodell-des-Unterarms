@@ -122,6 +122,7 @@ declare namespace Script {
         updateSimulatedBonesList(_boneName: string, _isInList: boolean): void;
         updateSelectedBonesList(_boneName: string, _isInList: boolean): void;
         updateMovementButton(_movementEnabled: boolean): void;
+        togglePanel(_header: HTMLElement): void;
     }
 }
 declare namespace Script {
@@ -131,7 +132,8 @@ declare namespace Script {
         private selectionController;
         private physicsController;
         private movementController;
-        constructor(_viewport: ƒ.Viewport, _selectionController: SelectionController, _physicsController: PhysicsController, _movementController: MovementController);
+        private uiController;
+        constructor(_viewport: ƒ.Viewport, _selectionController: SelectionController, _physicsController: PhysicsController, _movementController: MovementController, _uiController: UIController);
         private setupEventListeners;
         private hndSelection;
         private hndApplyToAllBones;

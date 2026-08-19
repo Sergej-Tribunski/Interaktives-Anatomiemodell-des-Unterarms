@@ -41,5 +41,16 @@ namespace Script {
             const toggleButton = document.getElementById("toggleMovement") as HTMLButtonElement;
             toggleButton.textContent = _movementEnabled ? "Stop Movement" : "Start Movement";
         }
+
+        public togglePanel(_header: HTMLElement): void {
+            const panelContent = _header.nextElementSibling as HTMLElement;
+            const isCollapsed = panelContent.classList.contains("collapsed");
+
+            if (isCollapsed) {
+                panelContent.classList.remove("collapsed");
+            } else {
+                panelContent.classList.add("collapsed");
+            }
+        }
     }
 }
