@@ -119,6 +119,7 @@ declare namespace Script {
     class UIController {
         private addBoneToList;
         private removeBoneFromList;
+        constructor();
         updateSimulatedBonesList(_boneName: string, _isInList: boolean): void;
         updateSelectedBonesList(_boneName: string, _isInList: boolean): void;
         updateMovementButton(_movementEnabled: boolean): void;

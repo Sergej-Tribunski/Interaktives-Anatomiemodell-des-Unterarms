@@ -31,9 +31,6 @@ namespace Script {
     movementController = new MovementController(prepareJoints, selectionController, uiController);
     userInputHandler = new UserInputHandler(viewport, selectionController, physicsController, movementController, uiController);
 
-    document.getElementById("controlsPanelsContainer")!.style.display = "block";
-    document.getElementById("listPanelsContainer")!.style.display = "block";
-
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
     ƒ.Loop.start();  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
   }

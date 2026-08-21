@@ -212,8 +212,6 @@ var Script;
         selectionController = new Script.SelectionController(scene, uiController);
         movementController = new Script.MovementController(prepareJoints, selectionController, uiController);
         userInputHandler = new Script.UserInputHandler(viewport, selectionController, physicsController, movementController, uiController);
-        document.getElementById("controlsPanelsContainer").style.display = "block";
-        document.getElementById("listPanelsContainer").style.display = "block";
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
     }
@@ -577,6 +575,10 @@ var Script;
             if (listItem) {
                 listItem.remove();
             }
+        }
+        constructor() {
+            document.getElementById("controlsPanelsContainer").style.display = "block";
+            document.getElementById("listPanelsContainer").style.display = "block";
         }
         updateSimulatedBonesList(_boneName, _isInList) {
             const list = document.getElementById("simulatedBonesList");

@@ -19,6 +19,11 @@ namespace Script {
             }
         }
 
+        constructor() {
+            document.getElementById("controlsPanelsContainer")!.style.display = "block";
+            document.getElementById("listPanelsContainer")!.style.display = "block";
+        }
+
         public updateSimulatedBonesList(_boneName: string, _isInList: boolean): void {
             const list = document.getElementById("simulatedBonesList") as HTMLUListElement;
             if (_isInList) {
