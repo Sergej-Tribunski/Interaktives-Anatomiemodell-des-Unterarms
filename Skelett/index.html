@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>Skelett</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
 
     <!--Editor settings of this project-->
-    <meta type="settings" autoview="Graph|2026-05-04T14:48:34.420Z|71030" project="{'name':'Skelett','graphAutoView':'Graph|2026-05-04T14:48:34.420Z|71030'}" />
+    <meta type="settings" autoview="Graph|2026-05-04T14:48:34.420Z|71030"
+        project="{'name':'Skelett','graphAutoView':'Graph|2026-05-04T14:48:34.420Z|71030'}" />
 
     <!--Activate the following line to include the FUDGE-version of Oimo-Physics. You may want to download a local copy to work offline and be independent from future changes!-->
     <script type="text/javascript" src="https://Sergej-Tribunski.github.io/FUDGE/Distribution/OimoPhysics.js"></script>
@@ -38,7 +40,7 @@
     </canvas>
 
     <div id="controlsPanelsContainer">
-        <div id="controlsPanel">
+        <div id="controlsPanel" class="panel">
             <h3 class="panel-header">Controls</h3>
             <div class="panel-content">
                 "Selected Bones" will be affected <br /> by "Movement"-Panel. <br />
@@ -49,60 +51,60 @@
                 will be completely stationary.
                 <table>
                     <tbody>
-<tr>
-                        <td>Click</td>
-                        <td>snap camera to bone</td>
-                    </tr>
-                    <tr>
-                        <td>Hold M2</td>
-                        <td>look around</td>
-                    </tr>
-                    <tr>
-                        <td>Scroll</td>
-                        <td>Zoom</td>
-                    </tr>
-                    <tr>
-                        <td>Hold M2 + WASDQE</td>
-                        <td>move camera</td>
-                    </tr>
-                    <tr>
-                        <td>Hold M3 on bone</td>
-                        <td>move camera around bone</td>
-                    </tr>
-                    <tr>
-                        <td>M1 on header</td>
-                        <td>collapse/expand</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl+M1</td>
-                        <td>select/deselect bone</td>
-                    </tr>
-                    <tr>
-                        <td>Shift+M1</td>
-                        <td>simulate/desimulate bone</td>
-                    </tr>
-                    <tr>
-                        <td>Shift+Q</td>
-                        <td>deselect all</td>
-                    </tr>
-                    <tr>
-                        <td>Shift+E</td>
-                        <td>select all</td>
-                    </tr>
-                    <tr>
-                        <td>Shift+A</td>
-                        <td>desimulate all</td>
-                    </tr>
-                    <tr>
-                        <td>Shift+D</td>
-                        <td>simulate all</td>
-                    </tr>
-                </tbody>
-</table>
+                        <tr>
+                            <td>Click</td>
+                            <td>snap camera to bone</td>
+                        </tr>
+                        <tr>
+                            <td>Hold M2</td>
+                            <td>look around</td>
+                        </tr>
+                        <tr>
+                            <td>Scroll</td>
+                            <td>Zoom</td>
+                        </tr>
+                        <tr>
+                            <td>Hold M2 + WASDQE</td>
+                            <td>move camera</td>
+                        </tr>
+                        <tr>
+                            <td>Hold M3 on bone</td>
+                            <td>move camera around bone</td>
+                        </tr>
+                        <tr>
+                            <td>M1 on header</td>
+                            <td>collapse/expand</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl+M1</td>
+                            <td>select/deselect bone</td>
+                        </tr>
+                        <tr>
+                            <td>Shift+M1</td>
+                            <td>simulate/desimulate bone</td>
+                        </tr>
+                        <tr>
+                            <td>Shift+Q</td>
+                            <td>deselect all</td>
+                        </tr>
+                        <tr>
+                            <td>Shift+E</td>
+                            <td>select all</td>
+                        </tr>
+                        <tr>
+                            <td>Shift+A</td>
+                            <td>desimulate all</td>
+                        </tr>
+                        <tr>
+                            <td>Shift+D</td>
+                            <td>simulate all</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div id="movementPanel">
+        <div id="movementPanel" class="panel">
             <h3 class="panel-header">Movement</h3>
             <div class="panel-content">
                 <button id="deactivateSelectedBones">
@@ -142,7 +144,7 @@
     </div>
 
     <div id="listPanelsContainer">
-        <div id="selectedBonesPanel">
+        <div id="selectedBonesPanel" class="panel">
             <h3 class="panel-header">Selected Bones</h3>
             <div class="panel-content">
                 <ul id="selectedBonesList">
@@ -150,7 +152,7 @@
             </div>
         </div>
 
-        <div id="simulatedBonesPanel">
+        <div id="simulatedBonesPanel" class="panel">
             <h3 class="panel-header">Simulated Bones (Dynamic RB's)</h3>
             <div class="panel-content">
                 <ul id="simulatedBonesList">
@@ -159,4 +161,5 @@
         </div>
     </div>
 </body>
+
 </html>

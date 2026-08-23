@@ -50,10 +50,7 @@ canvas.fullscreen {
   z-index: 100;
 }
 
-#selectedBonesPanel,
-#simulatedBonesPanel,
-#controlsPanel,
-#movementPanel {
+.panel {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -83,6 +80,10 @@ canvas.fullscreen {
   opacity: 0.8;
 }
 
+.panel-content.opened {
+  display: block;
+}
+
 .panel-content.collapsed {
   display: none;
 }
@@ -91,4 +92,8 @@ canvas.fullscreen {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+.panel:has(.panel-content.collapsed) {
+  width: 100px;
 }
